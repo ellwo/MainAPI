@@ -1,0 +1,227 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+scalar JSON @scalar(class: "App\\GraphQL\\Scalars\\JSON")
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    users: [User!]! @all
+    user(id: ID @eq): User @find
+    city:[City] @all
+    departments:Department! @all
+    products:Product! @paginate(type: PAGINATOR)
+    productsSearch(name: String @where(operator: "like" )):[Product!]! @paginate
+    productquery(city:Int typeG:Int perPage:Int page:Int! parts:[Int]):MainContact!
+    me: User @auth
+    bussinse:[Bussinse]@all
+    mainquery:MainQueryResult
+
+}
+
+
+
+
+
+type MainQueryResult{
+    products:[Product]
+    departments:[Department]
+    bussinses:[Bussinse]
+    services:[Product]
+    parts:[Part]
+}
+
+type MainContact{
+    products:[Product] @paginate(type: PAGINATOR)
+    products_bycity:ProductPaginate
+
+    products_byparts:ProductPaginate
+    products_bygender:[Product]
+    bussinses:[Bussinse]
+    services:[Product]
+
+}
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    username:String
+    phone:String
+    gender:Int!
+    country: Country @belongsTo
+    bussinses:[Bussinse] @hasMany
+    chatrooms:[ChatRoom]
+    blockers:[Bussinse] @method(name: "blockers_user")
+    products:[Product] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    rated:[Product] @method(name:"rated")
+}
+
+type ChatRoom  {
+    id:ID!
+    to_id:Int!
+    from_id:Int!
+    to_type:String!
+    from_type:String!
+    messages:[Message] @hasMany
+}
+type Message  {
+    id:ID!
+    sender:Int!
+    content:String
+    type_message:String
+    chatroom:ChatRoom @belongsTo
+    chat_room_id:Int!
+    is_readed:Int
+}
+
+
+
+
+type Mutation {
+    "Log in to a new session and get the user."
+    login(
+        username:String
+        email: String
+        password: String!
+        tokenname:String
+        logoutfromall:Boolean): RegisterInfo
+
+    registeruser(name:String!
+        email:String!
+        password:String!
+        confirm_password:String!
+         gender:Int
+           city_id:Int
+        username:String
+        phone:String
+        avatar:String
+        tokenname:String
+    ):RegisterInfo
+    tryusername(username:String!):RegisterInfo
+    "Log out from the current session, showing the user one last time."
+
+     startChatRoomGQL(
+         model_type:String!
+     model_id:Int! ):ChatRoom @guard
+
+    logout: User @guard
+
+    followBussinse(bussinse_id:Int type:String):NewMyResult @guard
+    sendMessageGQL(message:String!
+    type_message:String chat_room_id:ID!
+
+     ):ResponInfo @guard
+
+
+
+    sendEamilVN:User
+}
+
+type NewMyResult{
+    message:String
+    state:Boolean
+    state_code:Int
+    errors:[String]
+}
+
+type RegisterInfo{
+    user:User
+    errors:String
+    message:String
+    code:String
+    state:Boolean
+    token:String
+}
+type ResponInfo{
+    errors:String
+    message:String
+    code:Int
+    state:Boolean
+}
+
+
+type Part{
+    id:ID!
+    name:String
+
+
+}
+
+type Bussinse  {
+    id:ID!
+    name:String!
+    username:String
+    products:[Product] @hasMany
+    cities:[City] @belongsToMany
+    parts:[Part] @belongsToMany
+    department:Department
+    user:User
+    address:String @method(name: "address_json")
+    phone_numbers:String @method(name: "phone_numbers_json")
+    avatar:String
+    note:String
+    chatrooms:[ChatRoom]
+    chatrooms_gql:[ChatRoom] @method(name:"chatrooms_gql")
+
+    ratings_value_avg:Float
+    followers:[User]  @belongsToMany
+    followers_count:Int @count(relation:"followers")
+    blocked_followers:[User] @belongsToMany
+    contact_links:String @method(name: "contact_links_json")
+}
+
+type Model {
+    id:ID
+    name:String
+
+}
+
+type Product {
+    id:ID!
+    name:String!
+    price:Float!
+    user:User! @belongsTo
+    bussinse:Bussinse! @belongsTo
+    department:Department! @belongsTo
+    ratingsAvg:Float @method
+    ratings_value_avg:Float
+    colors:String ! @method(name: "colorsasJson")
+    note:String ! @method(name: "notes")
+    img:String!
+    imgs:[String]
+    cities:[City] @belongsToMany
+    parts:[Part] @belongsToMany
+    vzt_count:Int @method(name: "vzt_count")
+}
+
+type ProductPaginate{
+    products:[Product]
+    paginatorInfo:PaginatorInfo
+}
+
+type Department{
+    id:ID!
+    name:String!
+    typegender:Int
+    type:Int
+    products:[Product]@hasMany
+    parts:[Part]
+
+}
+
+type Country {
+    id:ID !
+    name:String!
+    cities:[City]@hasMany
+}
+
+
+
+
+type City {
+    id:ID!
+    name:String!
+    bussinses:[Bussinse] @belongsToMany
+    products:[Product] @belongsToMany
+}
