@@ -27,9 +27,25 @@
 
 
 
-                    </div>
 
-                </div>
+                    </div>
+                                @include('components.mulit-select',
+                                ['id'=>'city',
+                                'inputname'=>'cities',
+                                'items'=>$cities,
+                                'lablename'=>'المدن'
+
+                                ])
+
+                                @include('components.mulit-select',
+                                ['id'=>'part',
+                                'inputname'=>'parts',
+                                'items'=>$parts,
+                                'lablename'=>'الفئات',
+
+                                ])
+
+            </div>
 
            <div id="stpe1"  x-show="step==1">
             <div class="space-y-2 " dir="auto">
@@ -87,7 +103,7 @@
 
 
             <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-                <div class="w-full space-y-2" x-data='{contact_count:3}'>
+                <div class="w-full space-y-2" x-data='{contact_count:1}'>
                     <x-label for="email" :value="__('ارقام التواصل ')" />
 
                     <template x-for="i in contact_count">
@@ -102,7 +118,7 @@
                         </x-slot>
                         <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
                         type="text" name="phone_numbers[]"
-                             placeholder="{{ __('+967') }}" required autofocus />
+                             placeholder="{{ __('+967') }}"  autofocus />
                             {{-- @if (auth()->user()->hasVerifiedEmail())
                             <x-slot name="righticon">
                                 <span class="rounded bg-success text-light">
@@ -143,7 +159,7 @@
                         </x-slot>
                         <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
                        value="{{old('username')}}" type="text" name="contact_links[]"
-                        placeholder="{{ __('facebook user or link') }}" required autofocus />
+                        placeholder="{{ __('facebook user or link') }}"  autofocus />
                     </x-input-with-icon-wrapper>
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
@@ -155,7 +171,7 @@
                         </x-slot>
                         <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
                        value="{{old('username')}}" type="text" name="contact_links[]"
-                        placeholder="{{ __('twitter username') }}" required autofocus />
+                        placeholder="{{ __('twitter username') }}"  autofocus />
                     </x-input-with-icon-wrapper>
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
@@ -166,7 +182,7 @@
                         </x-slot>
                         <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
                        value="{{old('username')}}" type="text" name="contact_links[]"
-                        placeholder="{{ __('whatsApp number') }}" required autofocus />
+                        placeholder="{{ __('whatsApp number') }}"  autofocus />
                     </x-input-with-icon-wrapper>
 
 
@@ -188,9 +204,14 @@
             </div>
 
 
-            <x-button >
+
+        </div>
+
+        <div class="mx-auto " x-show="step==2">
+            <x-button class="w-full " >
                 حفظ
             </x-button>
+
 
         </div>
 
@@ -225,12 +246,14 @@
 
 
 
+
     <slot name="script">
         <script src="{{asset('js/jquery.min.js')}}"></script>
 
         <script src="{{asset('js/uploadeimage.js')}}">
 
         </script>
+
 <script>
             newimage=new ImagetoServer(
                 {

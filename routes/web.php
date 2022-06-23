@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\BussinseController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\Manage\ProductsManagerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadeController;
 use App\Models\Bussinse;
 use App\Models\City;
+use App\Models\Location;
+use App\Models\Markt;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,21 +63,28 @@ Route::get("/getcity",function(Request $request){
 });
 
 Route::get('/country',[CountryController::class,'index']);
-Route::get('/', function () {
-
-    //return
-    return view('welcome');
-});
+Route::get('/',[MainController::class,'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post("/b",[BussinseController::class,'follow_bussinse'])->name("b.follow");
+Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
+Route::post("/b-follow",[BussinseController::class,'follow_bussinse'])->name("b-follow");
+Route::get('/b.manage/{username?}',[BussinseController::class,'manage'])->name('b.manage');
+
+
 Route::get("/b/@{username}",[BussinseController::class,'show'])->name("b.show");
+
+
 Route::resource('/b',BussinseController::class)->only(['index','update','store','edit','create'])->name('index','b');
 Route::post("/uploade",[UploadeController::class,'store'])->name("uploade");
 Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete.uploade");
+
+
+
+Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name('mange.products');
+
 
 
 

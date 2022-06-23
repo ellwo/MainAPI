@@ -30,7 +30,7 @@ class ServiceFactory extends Factory
             "department_id"=>Department::inRandomOrder()->where("type","2")->pluck("id")->first(),
             "min_pyment"=>$this->faker->numberBetween(2000,60000),
             "how_long"=>$this->faker->numberBetween(24,168),
-            "image"=>$this->faker->imageUrl(250,250,"service"),
+            "img"=>$this->faker->imageUrl(250,250,"service"),
             "imgs"=>$this->images(),
             "note"=>$this->notes()
 

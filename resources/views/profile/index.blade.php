@@ -10,10 +10,25 @@
 
                 <div class="flex items-end">
 
-                    <x-button href="{{url('chat')}}" variant="goset"  class="mx-1 border-0">
-                      <x-heroicon-o-chat class="w-10 h-10 text-dark dark:text-light"/>
-                      <span class="text-xs"> دردشة </span>
+                    @auth
+                    @if($user->id!=auth()->user()->id)
+                    <form method="POST" action="{{route('create_chatroom')}}">
+                        @csrf
+                        <input type="hidden" name="chatable_id" value="{{$buss->username}}" />
+                        <input type="hidden" name="type" value="user" />
+                    <x-button>
+                        <x-heroicon-o-chat class="w-4 h-4"/>
+                        <span class="text-xs"> دردشة </span>
                     </x-button>
+                    </form>
+                    @else
+                    <x-button href="{{route('profile.create')}}">
+                        <span class="text-xs"> تعديل بيانات الحساب</span>
+                    </x-button>
+
+                    @endif
+                    @endauth
+
 
   <div x-data="{ dropdownOpen: false }" class="relative">
 
@@ -315,7 +330,7 @@ x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300
 
 
 
-const FORM_URL="{{route('b.follow')}}";
+const FORM_URL="{{route('b-follow')}}";
 
 function ContactForm(buss_id ,typef,message) {
       return {

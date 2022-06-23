@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Bussinse;
 use App\Models\Location;
+use App\Models\Markt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LocationFactory extends Factory
@@ -23,6 +25,26 @@ class LocationFactory extends Factory
     {
         return [
             //
+            'address'=>"[".$this->faker->address."]".$this->faker->streetAddress,
+            'phone'=>$this->phones(),
+            'bussinse_id'=>Bussinse::inRandomOrder()->pluck('id')->first(),
+            'markt_id'=>Markt::inRandomOrder()->pluck('id')->first()
+
         ];
+
+
+
+    }
+
+    function phones(){
+
+        $p=[];
+
+
+        for($i=1; $i<rand(1,3); $i++){
+            $p[]=$this->faker->phoneNumber;
+        }
+
+        return $p;
     }
 }

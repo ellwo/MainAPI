@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Alexmg86\LaravelSubQuery\Traits\LaravelSubQueryTrait;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class Product extends Model
         Rateable,
         Likeable,
         LaravelSubQueryTrait;
+        protected $dateFormat = 'Y-m-d';
 
     protected $fillable=[
         "name",
@@ -32,9 +34,9 @@ class Product extends Model
     protected $casts =[
         'colors'=>'array',
         'note'=>'array',
-        'imgs'=>'array'
+        'imgs'=>'array',
+        'created_at'=>'datetime:Y-m-d'
     ];
-
 
 
     public function vzt()

@@ -64,5 +64,5 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
 
-                Route::post("/profile.update_password",[ProfileController::class,'update_password'])->name("profile.update_password");
-                 Route::resource("/profile",ProfileController::class)->name("index","profile");
+                Route::post("/profile.update_password",[ProfileController::class,'update_password'])->name("profile.update_password")->middleware('auth');
+                 Route::resource("/profile",ProfileController::class)->name("index","profile")->middleware('auth');

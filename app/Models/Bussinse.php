@@ -35,7 +35,8 @@ class Bussinse extends Model implements Blocking,Followable
         "contact_links",
         "department_id",
         "user_id",
-        "address"
+        "address",
+        'email'
     ];
 
     protected $casts=[
@@ -48,12 +49,65 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+        # code...
+    }
+
+
+
+
+    public function vzt()
+    {
+        return visits($this);
+    }
+
+
+
+
+
+    public function items_count()
+    {
+        if($this->department()->type==1){
+            return $this->products()->count();
+        }
+        else{
+            return $this->services()->count();
+        }
+        # code...
+    }
+
+
+
+
+
+
+
+
+    public function vzt_count(){
+        $this->vzt()->increment();
+        return $this->vzt()->count();
+    }
+
+
+
+
 
 
    public function followers_b(){
 
     return $this->followers(User::class);
    }
+
+
+
+
+
+
+
+
+
 
 
     public function ratingsAvg_()

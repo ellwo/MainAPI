@@ -91,7 +91,7 @@
                                 @auth
 
                                 @if ($buss->user->id ==auth()->user()->id)
-                                    <x-button>
+                                    <x-button href="{{route('b.manage',['username'=>$buss->username])}}">
                                         Mange
                                     </x-button>
                                 @else
@@ -147,7 +147,7 @@
 
 
 
-const FORM_URL="{{route('b.follow')}}";
+const FORM_URL="{{route('b-follow')}}";
 
 function ContactForm(buss_id ,typef,message) {
       return {
