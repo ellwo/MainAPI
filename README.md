@@ -1,6 +1,6 @@
 
 <code>
-git clone https://github.com/ellwo/mainap.git
+git clone https://github.com/ellwo/MainAPI.git
 </code>
 <br>
 
