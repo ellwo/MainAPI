@@ -21,7 +21,6 @@ type Query {
 
 
 
-
 type MainQueryResult{
     products:[Product]
     departments:[Department]

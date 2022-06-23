@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use App\Models\Markt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +23,8 @@ class MarktFactory extends Factory
     public function definition()
     {
         return [
+            'name'=>$this->faker->firstName,
+            'city_id'=>City::inRandomOrder()->pluck('id')->first()
             //
         ];
     }

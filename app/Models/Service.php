@@ -20,7 +20,7 @@ class Service extends Model
 
     protected $fillable=[
         "department_id",
-        "name","price","note","image","imgs",
+        "name","price","note","img","imgs",
         "min_pyment","how_long",""
     ];
     protected $casts=[

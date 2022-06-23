@@ -42,6 +42,10 @@ class BussinseController extends Controller
     public function store(Request $request)
     {
 
+
+       // return dd(Bussinse::with('cities','parts')->where('username','dobaa')->first());
+
+
         $this->validate($request,[
             'name'=>'required|unique:bussinses,name|string',
             'department_id'=>'required|exists:departments,id',
@@ -64,10 +68,19 @@ class BussinseController extends Controller
             'address'=>$request["address"],
         ]);
 
+        $cities=explode(',',$request->cities);
         // $cities=$request["cities"];
-        // $buss->attach($cities);
+         $buss->cities()->attach($cities);
+
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $buss->parts()->attach($parts);
         // $parts=$request["parts"];
         // $buss->attach($parts);
+
+        return redirect()->route('b.manage',['username'=>$buss->username])->with('status','تم الحفظ بنجاح ');
+
+
 
 
 
@@ -79,6 +92,42 @@ class BussinseController extends Controller
 
         return dd($request->all());
         //
+    }
+
+
+    public function manage(Request $request)
+    {
+
+
+        $bussinse=Bussinse::with('cities:id,name','parts:id,name','department:id,name')
+        ->withCount('followers_b as f_count')->
+        where('username','=',$request['username'])->first();
+
+        //return dd($bussinse);
+        return view('bussinsess.manage',compact('bussinse'));
+        # code...
+    }
+
+    public function savechangeimgs(Request $request)
+    {
+
+        $bussinse=Bussinse::where("username","=",$request["bussinse_username"])->first();
+
+        if($bussinse!=null){
+
+            $bussinse->avatar=$request["avatar"];
+            $bussinse->imgs=$request["imgs"];
+            $bussinse->save();
+            return $data = ['statt' => 'ok'];
+        }
+        else{
+            return $data = ['statt' => 'error', 'message' => 'Some Data are missed'];
+
+        }
+
+
+
+        # code...
     }
 
     /**
@@ -164,32 +213,6 @@ class BussinseController extends Controller
     public function show($username)
     {
 
-       // $b=Bussinse::where("username","=",$username)->first();
-
-     //   $b->products()->saveMany(Product::whereDoesntHave('owner')->inRandomOrder()->take(rand(1,4))->get());
-
-       echo Product::where("owner_type","=",null)->where("owner_id","=",null)->get();
-    return;
-  //      return dd($b->products()->count());
-        //
-      //  $bussinse=Bussinse::find(request('id'));
-
-
-
-    //   dd($b->withAvg("products:ratings:value")->get());
-    //   return;
-    //   $sum=0;
-    //   $count=0;
-    //   foreach($b->products()->withAvg("ratings:value")->get() as $prod){
-    //     $sum+=$prod->ratings_value_avg;
-    //     $count++;
-    //   }
-
-
-    //   if($count!=0)
-    //     return (int)$sum/$count;
-    //     else
-    //     return 0;
     }
 
     /**
@@ -210,8 +233,51 @@ class BussinseController extends Controller
      * @param  \App\Models\Bussinse  $bussinse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bussinse $bussinse)
+    public function update(Request $request, Bussinse $b)
     {
+
+        $bussinse=$b;
+
+        if(($bussinse->username!=$request['username'] ||
+        $bussinse->name!=$request['name'] ||
+         $bussinse->email!=$request['email'])&&
+         ($bussinse->username!=null &&
+          $bussinse->name!=null && $bussinse->email!=null) )
+        $this->validate($request,[
+            'name'=>'required|unique:bussinses,name|string',
+            'department_id'=>'required|exists:departments,id',
+            'username' => ['min:4','regex:/^[a-z\d_.]{2,20}$/i','required','string', 'max:191', 'unique:users','unique:bussinses'],
+            'email'=> ['email','required','unique:bussinses,email'],
+
+        ]);
+
+        $bussinse->update([
+            'name'=>$request["name"],
+            'username'=>$request["username"],
+            'email'=>$request["email"],
+            'department_id'=>$request['department_id'],
+            'user_id'=>25,
+            'phone_numbers'=>$request["phone_numbers"],
+            'contact_links'=>$request["contact_links"],
+
+            'note'=>$request["note"],
+            'address'=>$request["address"],
+        ]);
+
+        $bussinse->cities()->detach();
+        $bussinse->parts()->detach();
+        $cities=explode(',',$request->cities);
+        // $cities=$request["cities"];
+         $bussinse->cities()->attach($cities);
+
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $bussinse->parts()->attach($parts);
+        // $parts=$request["parts"];
+        // $buss->attach($parts);
+
+        return redirect()->route('b.manage',['username'=>$bussinse->username])->with('status','تم التعديل ينجاح ');
+
         //
     }
 

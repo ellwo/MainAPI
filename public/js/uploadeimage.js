@@ -430,15 +430,15 @@ class ImagetoServer {
         var idbtn = "'img" + this.id + "'";
 
         var ss = ' <div id="div' + this.id + '" class="block rounded-full"> ' +
-            ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white"> ' +
+            ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white dark:bg-dark"> ' +
             ' <button type="button" onclick="document.getElementById(' + idbtn + ').click()"     class="btn btn-ghost bg-white w-full text-blue-700 rounded-lg  mt-2">اختر                صورة</button>' +
             ' <input ' +
             'class="imguploade hidden px-3  rounded-lg border-2 border-blue-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" ' +
             ' name="input' + this.id + '" id="img' + this.id + '" type="file"  />  <input value="" id="' + this.id + '" name="' + this.id + '" type="hidden" />' +
             ' <div class="flex flex-wrap" id="imgrow' + this.id + '"> ' +
-            ' <div class="flex-1 rounded-lg m-2 "> ' +
+            ' <div class=" rounded-lg m-2 "> ' +
             ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
-            ' <img id="imgsrc' + this.id + '"   class=" h-32 w-32 mx-auto rounded-full image-full"/> ' +
+            ' <img id="imgsrc' + this.id + '"   class=" h-64 mx-auto rounded-full image-full"/> ' +
             '</div>   </div> </div> </div> </div> ';
 
         //  alert("ksa");
@@ -449,13 +449,13 @@ class ImagetoServer {
         $("#" + this.id).html(ss);
         $("#" + this.id).attr("id", "maindiv" + this.id);
 
-        if (this.src !== "no") {
+        if (this.src !== "no" && !this.multi) {
             $("#imgsrc" + this.id).attr("src", this.src);
             $("#" + this.id).attr("value", this.src);
             //  document.getElementById(this.id).value=this.id;
 
             if (this.shep == "rect")
-                $("#imgsrc" + this.id).removeClass("rounded-full h-32 w-32 mx-auto rounded-full image-full");
+                $("#imgsrc" + this.id).removeClass("rounded-full  mx-auto rounded-full image-full");
         } else {
             $("#imgsrc" + this.id).remove();
         }
@@ -465,6 +465,32 @@ class ImagetoServer {
         this.inputimg = $("#img" + this.id);
         if (this.multi) {
             this.inputimg.attr("multiple", "multiple");
+
+            if (this.src !== "no") {
+                var imgs = JSON.parse(this.src);
+                for (var m in imgs) {
+                    console.log(imgs[m]);
+                    var imgsvie = ' <div  class=" relative border border-blue-700  rounded-lg m-2 "> ' +
+                        '<span onclick="$(this).parent().hide(200).remove()" class="absolute top-0 right-0 bg-white rounded-full p-2 text-danger cursor-pointer font-bold">X</span>' +
+                        ' <div class="object-center mx-auto text-center mt-8 "> ' +
+                        ' <img id="imgsrc' + this.id + '"  src="' + imgs[m] + '"  class=" h-32 w-32 mx-auto rounded-full image-full"/> ' +
+                        '</div> <input type="hidden" id="' + imgs[m] + '" name="' + this.id + '[]"  value="' + imgs[m] + '" />  </div> ';
+                    var inputh =
+                        $('#imgrow' + this.id).append(imgsvie);
+
+
+
+                }
+
+
+
+            }
+
+
+
+
+
+
         }
         var id_d = "imgrow" + this.id;
         var input_id = this.id;
@@ -845,7 +871,7 @@ function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize) {
                 var inputnamee = '"' + inputname + '"';
 
                 // <div class="">
-                var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+                var imageshow = "<div id='imgview" + count + "' class=' rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
                 //                var im = "";
 
 
