@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Manage\Product;
 
+use App\Http\Controllers\UploadeController;
 use App\Models\Bussinse;
 use App\Models\Product;
 use App\Models\User;
@@ -66,6 +67,7 @@ class ProductsManageTable extends Component
             {
                 $products=$buss->products()->where('name','LIKE','%'.$this->search.'%')->orderBy('created_at','desc')->paginate(5);
             }
+
         }
 
         return view('manage.product.products-manage-table',['products'=>$products,'bussinses'=>$bussinses_ids]);
@@ -98,4 +100,29 @@ class ProductsManageTable extends Component
         $this->type="useronly";
         # code...
     }
+
+
+    public function delete_pro($id)
+    {
+        $pro=Product::find($id);
+
+        if($pro!=null){
+
+
+            $uplode=new UploadeController();
+
+            $uplode->delete_file($pro->img);
+
+            foreach($pro->imgs as $img){
+                $uplode->delete_file($img);
+
+            }
+
+            $pro->delete();
+
+            session()->flash('status','تم الحذف بنجاح');
+            session()->flash('tital','عملية التعديل ');
+
+    }
+}
 }

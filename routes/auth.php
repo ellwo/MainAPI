@@ -8,7 +8,13 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Manage\ProductsManagerController;
+use App\Http\Controllers\Manage\ServicesManagerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Livewire\Manage\Product\ProductForm;
+use App\Http\Livewire\Manage\Service\ServiceForm;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -64,5 +70,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
 
-                Route::post("/profile.update_password",[ProfileController::class,'update_password'])->name("profile.update_password")->middleware('auth');
-                 Route::resource("/profile",ProfileController::class)->name("index","profile")->middleware('auth');
+
+                Route::middleware(['auth'])->group(function () {
+                    #codeon(){
+
+                    Route::post("/profile.update_password",[ProfileController::class,'update_password'])->name("profile.update_password");
+                    Route::resource("/profile",ProfileController::class)->only('store','create','index','update')->name("index","profile");
+
+                });
+
+                Route::get('/profile/{username}',[ProfileController::class,'show'])->name('profile.show');

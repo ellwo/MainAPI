@@ -22,6 +22,8 @@
                     <img class="w-20 h-20 mx-auto rounded-full bg-primary " :src="chatable.avatar" alt="U" />
                 </div>
                 <b>{{chatable.name}} </b>
+                <hr/>
+                <span>{{ chatable.username }}</span>
 
 
                   <div x-data="{ dropdownOpen: false }" class="relative flex items-end">
@@ -285,7 +287,10 @@ export default defineComponent({
         console.log("chat room from befroe")
         console.log(this.chatroom)
 
+
+
         this.getChatroomByid(to.params.chat_room_id)
+
 
         next();
     },
@@ -302,10 +307,35 @@ export default defineComponent({
            let chtroom=ref([])
            let louding=ref(true)
            let prePage=ref(1)
+           let chatroomid_ref=ref(props.chat_room_id)
+  const form = reactive({
+            'content': '',
+            'chat_room_id':chatroomid_ref.value,
+            'sender':props.chattings,
+            'type_message':'text',
+            'is_readed':0
+        })
 
-           window.Echo.private("chatroom."+chatroom.value.id).listen("MessageSent",(e)=>{
+           console.log("her is Set Up "+chatroom.value.id);
 
-               console.log(e);
+               console.log("chattings "+props.chattings);
+
+               console.log("userid "+props.userid);
+           Echo.private("chatroom."+props.chat_room_id).listen("MessageSent",(e)=>{
+
+            //if(e.sender!=props.chattings)
+               console.log(e.message);
+               if(e.message.sender!=props.chattings)
+               {
+              var  lastindex=Object.keys(messages.value).at(Object.keys(messages.value).length-1) ;
+
+              chtroom.value[lastindex].push(e.message);
+
+               }
+
+               console.log("chattings "+props.chattings);
+
+               console.log("userid "+props.userid);
 
            });
 
@@ -415,6 +445,7 @@ export default defineComponent({
                   chtroom.value=messages.value
                   louding.value=false
               })
+              chatroomid_ref.value=id;
            //console.log("messages")
           // console.log(messages)
 
@@ -425,13 +456,7 @@ export default defineComponent({
            })
 
 
-             const form = reactive({
-            'content': '',
-            'chat_room_id':props.chat_room_id,
-            'sender':props.chattings,
-            'type_message':'text',
-            'is_readed':0
-        })
+
 
 
 
@@ -439,24 +464,51 @@ export default defineComponent({
 
 
 
-             var  lastindex=Object.keys(messages.value).at(Object.keys(messages.value).length-1) ;
 
 
+              console.log(chatroomid_ref.value);
 
+              var formdata=reactive({
+                "chat_room_id":chatroomid_ref.value,
+                "sender":props.chattings,
+                "content":form.content,
+                "type_message":"text",
+                "is_readed":0
 
+              });
 
-             await sendMessage({...form})
+             await sendMessage({...formdata})
              if(Object.keys(messages.value).length==0){
-                     getChatroom(data)
-                     form.content='';
+                //  await   getChatroom(data)
+
+                  console.log("lentgh is equle 0");
+                  chtroom.value.push({اليوم:[]})
+                  var ob=chtroom.value[0]
+                  chtroom.value=ob;
+                  //chtroom.value.push('today');
+// Object.keys(messages.value).push('اليوم')
+                   console.log(chtroom.value);
+
+               //   chtroom.value=messages.value
+                 //    form.content='';
                  }
+        var  lastindex=Object.keys(chtroom.value).at(Object.keys(chtroom.value).length-1) ;
+
+        if(lastindex=="اليوم")
+        console.log("yes it is اليوم")
+        else
+        console.log("no it is اليوم")
+
+
+        console.log("last index "+lastindex);
 
 
 
 
 
 
-                messages.value[lastindex].push({
+
+                chtroom.value[lastindex].push({
                  "content":form.content,
                  "sender":form.sender,
                  "type_message":form.type_message,
@@ -467,7 +519,7 @@ export default defineComponent({
 var element = document.getElementById("lastone");
 element.lastElementChild.scrollIntoView({ behavior: 'smooth' });
 
-               console.log(form)
+               console.log(formdata)
                form.content=''
 
            }
@@ -523,6 +575,7 @@ console.log("loded");
             openchat,
             chtroom,
             form,
+            chatroomid_ref,
             sendMessageForm,
             getChatroom,
             getChatroomByid,

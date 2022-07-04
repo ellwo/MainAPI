@@ -18,12 +18,17 @@
         <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
             <div>
                 <h6
+
                     class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    Value
+                   @if ($bussinse->department->type==1)
+                       عدد المنتجات
+                   @else
+                       عدد الخدمات
+                   @endif
                 </h6>
                 <span class="text-xl font-semibold">{{$bussinse->items_count()}}</span>
 
-                <a href="{{route('products')}}">
+                <a href="">
                 <span
                     class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                     ادارة العروض
@@ -174,6 +179,10 @@
             </div>
             <div class="flex flex-col space-y-1">
                 <h6 class="mx-1 font-bold text-primary">ارقام التواصل  : </h6>
+
+                @if ($bussinse->phone_numbers !=null)
+
+
                 @foreach ($bussinse->phone_numbers as $p )
                     <span class="flex w-full p-2 space-x-2 border rounded-lg border-info ">
                         {{$p}}
@@ -182,6 +191,7 @@
 
                     </span>
                 @endforeach
+                  @endif
             </div>
             <div class="flex flex-col space-y-1">
                 <h6 class="mx-1 font-bold text-primary">روابط مواقع التواصل  : </h6>

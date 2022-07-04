@@ -196,7 +196,20 @@
                 <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
 
                 <div id="avatar" class="rounded-md "></div>
+
+
+
+                <div id="jj"></div>
+
             </div>
+
+
+
+
+
+
+
+
             <div class="flex flex-col p-8 mx-auto ">
                 <x-label for="imgs" :value="__('صور عرض اضافية   ')" />
 
@@ -255,12 +268,14 @@
         </script>
 
 <script>
+
+
             newimage=new ImagetoServer(
                 {
                     url:"{{route('uploade')}}",
                     id:"avatar",
                     shep:"rect",
-                    w:650,h:650,
+                    w:850,h:850,
                      src:"no"
         });
          imgs=new ImagetoServer(

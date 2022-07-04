@@ -69,12 +69,18 @@ class Bussinse extends Model implements Blocking,Followable
 
     public function items_count()
     {
-        if($this->department()->type==1){
-            return $this->products()->count();
+
+        $count=-1;
+
+        if($this->department->type==1){
+
+            $count=$this->products->count();
         }
         else{
-            return $this->services()->count();
+
+            $count=$this->services->count();
         }
+        return $count;
         # code...
     }
 

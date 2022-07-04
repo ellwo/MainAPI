@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bussinse;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -22,10 +23,15 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $type=$request["type"];
+
+        return redirect()->route('service.add.livewire',['step'=>1,'username'=>$request['username']]);
+
         //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,6 +42,61 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $this->validate($request,[
+            'name'=>'required|string|max:100',
+            'price'=>'numeric|required',
+            'discrip'=>'string',
+            'parts'=>'string',
+            'owner_id'=>'required',
+            'owner_type'=>'required',
+            'department_id'=>'required|exists:departments,id',
+        ]);
+
+
+
+        if($request['owner_type']==Bussinse::class){
+
+            $bussinse=Bussinse::find($request["owner_id"]);
+            if($bussinse->user_id!=auth()->user()->id)
+            abort(403,'لاتمتلك الصلاحيات اللازمة لاتمام العملية');
+
+
+        }
+
+
+
+         $note=[];
+         $n_key=$request["n_key"];
+         $n_value=$request["n_value"];
+         for($i=0; $i<count($n_key); $i++){
+            $note[$n_key[$i]]=$n_value[$i];
+         }
+
+
+         $product=Service::create([
+            'name'=>$request['name'],
+            'price'=>$request['price'],
+            'discrip'=>$request['discrip'],
+            'owner_id'=>$request['owner_id'],
+            'owner_type'=>$request['owner_type'],
+            'department_id'=>$request['department_id'],
+            'img'=>$request['img'],
+            'imgs'=>$request['imgs'],
+            'status'=>$request["status"],
+            'how_long'=>$request["how_long"]."-يوم",
+            'note'=>$note,
+            'min_pyment'=>$request["min_pyment"]
+        ]);
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $product->parts()->attach($parts);
+
+
+         return redirect()->route('mange.services')->with('status','تمت اضافة المنتج بنجاح');
+
+
     }
 
     /**
@@ -58,6 +119,8 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         //
+        return view('manage.service.service-edit',['product'=>$service]);
+
     }
 
     /**
@@ -70,6 +133,56 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         //
+
+        $this->validate($request,[
+            'name'=>'required|string|max:100',
+            'price'=>'numeric|required',
+            'discrip'=>'string',
+            'parts'=>'string',
+            'owner_id'=>'required',
+            'owner_type'=>'required',
+            'department_id'=>'required|exists:departments,id',
+        ]);
+
+  if($request['owner_type']==Bussinse::class){
+
+            $bussinse=Bussinse::find($request["owner_id"]);
+            if($bussinse->user_id!=auth()->user()->id)
+            abort(403,'لاتمتلك الصلاحيات اللازمة لاتمام العملية');
+
+
+        }
+
+
+
+         $note=[];
+         $n_key=$request["n_key"];
+         $n_value=$request["n_value"];
+         for($i=0; $i<count($n_key); $i++){
+            $note[$n_key[$i]]=$n_value[$i];
+         }
+
+
+         $service->update([
+            'name'=>$request['name'],
+            'price'=>$request['price'],
+            'discrip'=>$request['discrip'],
+            'owner_id'=>$request['owner_id'],
+            'owner_type'=>$request['owner_type'],
+            'department_id'=>$request['department_id'],
+            'img'=>$request['img'],
+            'imgs'=>$request['imgs'],
+            'min_pyment'=>$request["min_pyment"],
+            'how_long'=>$request["how_long"],
+            'note'=>$note
+        ]);
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $service->parts()->attach($parts);
+
+
+         return redirect()->route('mange.services')->with('status','تم تعديل الخدمة بنجاح');
+
     }
 
     /**

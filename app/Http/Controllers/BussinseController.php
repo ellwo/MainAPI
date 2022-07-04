@@ -30,6 +30,14 @@ class BussinseController extends Controller
     public function create()
     {
         //
+
+
+
+     //   $bu=Bussinse::select('nama','usernam')->take(5)->get();
+
+
+
+
         return view('bussinsess.create');
     }
 
@@ -98,10 +106,15 @@ class BussinseController extends Controller
     public function manage(Request $request)
     {
 
-
-        $bussinse=Bussinse::with('cities:id,name','parts:id,name','department:id,name')
+        $bussinse=Bussinse::with('cities:id,name','parts:id,name','department:id,name,type')
         ->withCount('followers_b as f_count')->
         where('username','=',$request['username'])->first();
+
+        if($bussinse->user_id!=auth()->user()->id)
+        {
+
+            return redirect()->route('b.show',$bussinse->username);
+        }
 
         //return dd($bussinse);
         return view('bussinsess.manage',compact('bussinse'));

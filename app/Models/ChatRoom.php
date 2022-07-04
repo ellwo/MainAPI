@@ -107,6 +107,7 @@ class ChatRoom extends Model
             return [
                 'name'=>$model->name,
                 'avatar'=>$model->avatar,
+                'username'=>$model->username,
                 'id'=>$model->id
             ];
         }
@@ -125,7 +126,8 @@ class ChatRoom extends Model
             return [
                 'name'=>$model->name,
                 'avatar'=>$model->avatar,
-                'id'=>$model->id
+                'id'=>$model->id,
+                'username'=>$model->username
             ];
         }
 

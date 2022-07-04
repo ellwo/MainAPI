@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -23,6 +24,20 @@ Broadcast::channel("userchatrooms.{id}",function($id){
 });
 
 Broadcast::channel("chatroom.{id}",function(){
+
     return true;
+    //    if(Auth::check())
+//     return true;
+//     else
+//     return false;
+
+});
+Broadcast::channel("UserNotify.{id}",function(){
+
+    return true;
+    //    if(Auth::check())
+//     return true;
+//     else
+//     return false;
 
 });

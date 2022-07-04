@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bussinse;
+use App\Models\Department;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,35 +29,7 @@ class ProductsManagerController extends Controller
 
 
 
-        return view('manage.product.manage-products',['type'=>$request["type"],'bussinse_username'=>$request['bussinse_username']]);
-
-    //     $user=User::find(auth()->user()->id);
-    //     $bussinses_ids=$user->bussinses()->whereHas("department",function($query){
-    //     $query->where('type',"=",1);
-    // })->pluck("id");
-
-
-    // if($request["type"]=="all")
-    // $peroducts=Product::where(function($query)use($user){
-    //         $query->where('owner_id','=',$user->id)->where('owner_type','=',User::class);
-    //     })
-    //     ->Orwhere(function($query)use($bussinses_ids){
-    //         $query->whereIn("owner_id",$bussinses_ids)->where('owner_type','=',Bussinse::class);
-    //     })->orderBy('created_at','desc')->get();
-
-    //     else if($request["type"]=="useronly")
-    //     $peroducts=$user->products;
-
-
-    //     else if($request["type"]=="bussinse" ){
-
-    //     }
-
-
-
-
-
-
+        return view('manage.product.manage-products',['type'=>$request["type"]!=null?$request["type"]:'all','bussinse_username'=>$request['bussinse_username']]);
 
 
 

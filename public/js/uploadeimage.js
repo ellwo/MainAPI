@@ -403,9 +403,10 @@ class ImagetoServer {
     shep;
     inputimg;
     color;
+    with_w_h;
 
 
-    constructor({ url, id, src = "no", shep = "no", multi = false, w = 0, h = 0, color = "#fff" }) {
+    constructor({ url, id, src = "no", shep = "no", multi = false, w = 0, h = 0, color = "#fff", with_w_h = false }) {
         this.id = id;
         this.url = url;
         this.src = src;
@@ -413,7 +414,8 @@ class ImagetoServer {
         this.multi = multi;
         this.w = w;
         this.h = h;
-        this.color = color
+        this.color = color;
+        this.with_w_h = with_w_h;
         this.create();
 
 
@@ -429,16 +431,21 @@ class ImagetoServer {
 
         var idbtn = "'img" + this.id + "'";
 
+        var class_row = "grid lg:grid-cols-3";
+
+        if (!this.multi)
+            class_row = "flex";
+
         var ss = ' <div id="div' + this.id + '" class="block rounded-full"> ' +
-            ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white dark:bg-dark"> ' +
+            ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white border rounded-md dark:bg-dark"> ' +
             ' <button type="button" onclick="document.getElementById(' + idbtn + ').click()"     class="btn btn-ghost bg-white w-full text-blue-700 rounded-lg  mt-2">اختر                صورة</button>' +
             ' <input ' +
-            'class="imguploade hidden px-3  rounded-lg border-2 border-blue-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" ' +
-            ' name="input' + this.id + '" id="img' + this.id + '" type="file"  />  <input value="" id="' + this.id + '" name="' + this.id + '" type="hidden" />' +
-            ' <div class="flex flex-wrap" id="imgrow' + this.id + '"> ' +
+            'class="imguploade hidden " ' +
+            ' name="input' + this.id + '" id="img' + this.id + '" type="file"  />  <input value="" id="' + this.id + '"  name="' + this.id + '" type="hidden" />' +
+            ' <div class="' + class_row + '" id="imgrow' + this.id + '"> ' +
             ' <div class=" rounded-lg m-2 "> ' +
             ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
-            ' <img id="imgsrc' + this.id + '"   class=" h-64 mx-auto rounded-full image-full"/> ' +
+            ' <img id="imgsrc' + this.id + '"   class="  mx-auto rounded-full border image-full"/> ' +
             '</div>   </div> </div> </div> </div> ';
 
         //  alert("ksa");
@@ -468,12 +475,13 @@ class ImagetoServer {
 
             if (this.src !== "no") {
                 var imgs = JSON.parse(this.src);
+                $('#imgrow' + this.id + " div").remove();
                 for (var m in imgs) {
                     console.log(imgs[m]);
-                    var imgsvie = ' <div  class=" relative border border-blue-700  rounded-lg m-2 "> ' +
+                    var imgsvie = ' <div  class=" relative border border-info  rounded-lg m-2 "> ' +
                         '<span onclick="$(this).parent().hide(200).remove()" class="absolute top-0 right-0 bg-white rounded-full p-2 text-danger cursor-pointer font-bold">X</span>' +
                         ' <div class="object-center mx-auto text-center mt-8 "> ' +
-                        ' <img id="imgsrc' + this.id + '"  src="' + imgs[m] + '"  class=" h-32 w-32 mx-auto rounded-full image-full"/> ' +
+                        ' <img id="imgsrc' + this.id + '"  src="' + imgs[m] + '"  class=" h-32 w-32 mx-auto border border-info rounded-md image-full"/> ' +
                         '</div> <input type="hidden" id="' + imgs[m] + '" name="' + this.id + '[]"  value="' + imgs[m] + '" />  </div> ';
                     var inputh =
                         $('#imgrow' + this.id).append(imgsvie);
@@ -497,6 +505,7 @@ class ImagetoServer {
         var url = this.url;
         var h = this.h;
         var w = this.w;
+        var with_w_h = this.with_w_h
         var lcolor = this.color;
         this.inputimg.change(function(e) {
 
@@ -506,8 +515,8 @@ class ImagetoServer {
 
             for (var i = 0; i < e.target.files.length; i++) {
 
-                if (w === 0 && h === w)
-                    convert_tobase_with_orginal_wh(e.target.files[i], lcolor, this, id_d, url, input_id);
+                if ((w === 0 && h === w) || with_w_h == true)
+                    convert_tobase_with_orginal_wh(e.target.files[i], lcolor, this, id_d, url, input_id, w, h);
                 else
                     convert_tobase(e.target.files[i], lcolor, this, id_d, url, input_id, w);
 
@@ -579,8 +588,14 @@ function upLoad(data, url, id_input, th, inputname) {
 
                 if (ismultiple)
                     $("#" + id_input).parent().append("<input type='hidden'  value='" + data.url + "' name='" + inputname + "[]' /> ");
-                else
+                else {
                     $("#" + inputname).val(data.url);
+
+                    if ($("#" + inputname + "wire") != undefined) {
+                        $("#" + inputname + "wire").val(data.url);
+                        console.log("is not undefinded");
+                    }
+                }
 
                 $("#lodbtn" + th.id).slideUp(300).remove();
                 th.remove();
@@ -627,7 +642,7 @@ let count = 0;
 
 
 
-function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname) {
+function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname, w, h) {
 
 
     var file = e;
@@ -640,8 +655,8 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname)
             var image = new Image();
             image.onload = function(imageEvent) {
 
-                var w = image.width;
-                var h = image.height;
+                // var w = image.width;
+                // var h = image.height;
                 console.log(w);
                 console.log(h);
                 console.log(h * w);

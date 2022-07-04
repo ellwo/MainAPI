@@ -21,16 +21,25 @@ trait CanConvristion{
         // }
 
         $model_id=$model->id;
-        $count=$this->chatrooms()
-        ->where(function ($query) use ($model_id) {
-            $query->where("to_id","=",$model_id)
-            ->where("from_id","=",$this->id);
-        })->Orwhere(
-            function ($query) use ($model_id) {
-                $query->where("to_id","=",$this->id)
-                ->where("from_id","=",$model_id);
-            }
-        )->where("isblocked",0)->first();
+
+
+        $count=$this->chatrooms_only()->where(function($query)use ($model){
+         $query->where('to_id',"=",$model->id)->where('to_type','=',get_class($model));
+        })->Orwhere(function($query)use ($model){
+            $query->where('from_id',"=",$model->id)->where('from_type','=',get_class($model));
+           })->first();
+
+
+        // $count=$this->chatrooms()
+        // ->where(function ($query) use ($model_id) {
+        //     $query->where("to_id","=",$model_id)
+        //     ->where("from_id","=",$this->id);
+        // })->Orwhere(
+        //     function ($query) use ($model_id) {
+        //         $query->where("to_id","=",$this->id)
+        //         ->where("from_id","=",$model_id);
+        //     }
+        // )->where("isblocked",0)->first();
 
         if($count==null)
 {
@@ -41,7 +50,7 @@ trait CanConvristion{
             'to_type'=>get_class($model),
             'isblocked'=>0
         ]);
-        return $convers->with("messages")->get();
+        return $convers;
     }       else
         return $count;
 
@@ -115,12 +124,12 @@ trait CanConvristion{
         ChatRoom::
         where(function ($query)use($blockers) {
             $query->where("to_id",$this->id)
-            ->where("to_type",get_class($this))->whereNotIn("from_id",$blockers);
+            ->where("to_type",get_class($this));
 
         })
         ->Orwhere(function($query)use($blockers){
             $query->where("from_type",get_class($this))
-            ->where("from_id",$this->id)->whereNotIn("to_id",$blockers);
+            ->where("from_id",$this->id);
         })
         ->orderByRelation("messages:id");
 

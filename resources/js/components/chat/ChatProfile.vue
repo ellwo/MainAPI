@@ -112,7 +112,7 @@ export default  defineComponent({
         var chats=ref([])
         const data={
             "type":props.type,
-            "chatting_id":props.userid
+            "chatting_id":props.chattings
 
         };
 

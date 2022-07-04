@@ -29,13 +29,17 @@ class Product extends Model
         "img",
         "imgs",
         "year_created",
-        "status"
+        "status",
+        'discrip',
+        'owner_id',
+        'owner_type'
     ];
     protected $casts =[
         'colors'=>'array',
         'note'=>'array',
         'imgs'=>'array',
-        'created_at'=>'datetime:Y-m-d'
+        'created_at'=>'datetime:Y-m-d',
+        'year_created'=>'datetime:Y'
     ];
 
 
@@ -47,6 +51,7 @@ class Product extends Model
         $this->vzt()->increment();
         return $this->vzt()->count();
     }
+
 
     public function colorsasJson(){
 

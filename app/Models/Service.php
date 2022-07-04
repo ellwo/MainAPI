@@ -21,7 +21,7 @@ class Service extends Model
     protected $fillable=[
         "department_id",
         "name","price","note","img","imgs",
-        "min_pyment","how_long",""
+        "min_pyment","how_long","owner_id","owner_type"
     ];
     protected $casts=[
         'imgs'=>'array',

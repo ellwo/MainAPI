@@ -62,7 +62,7 @@ class ChatController extends Controller
 
 
 
-            
+
                 return ChatRoomResource::collection($user->chatrooms_only()->get());
 
             }
@@ -190,7 +190,12 @@ class ChatController extends Controller
         ]);
         if(!$validator->fails()){
         $message=Message::create($validator->validated());
+
+        try{
         broadcast(new MessageSent($message));
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
 
 
     } else{

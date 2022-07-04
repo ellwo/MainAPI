@@ -18,7 +18,28 @@ class ChatController extends Controller
 
 
 
+
+        $userid=auth()->user()->id;
+        $type=$request['type']!=null?$request['type']:'user';
+        $chattings=$request['chattings']!=null?$request['chattings']:$userid;
+        $chat_room_id=$request['chat_room_id']!=null?$request['chat_room_id']:'all';
+
+        return view('chat.chat',['userid'=>$userid,'type'=>$type,'chat_room_id'=>$chat_room_id,'chattings'=>$chattings]);
+
+
+
         return view("chat.chat",["id"=>$chattings,"type"=>$type,"chat_room_id"=>$chat_room_id]);
+
+
+
+
+
+
+
+
+
+
+
 
         $ty=$request["type"];
         if($ty=="user"){
@@ -90,6 +111,8 @@ class ChatController extends Controller
 
        if($model!==null) {
        $chatroom=$user->startconvristion($model);
+
+
        return  redirect("/inbox/user/".$user->id."/".$chatroom->id."");
 
        }

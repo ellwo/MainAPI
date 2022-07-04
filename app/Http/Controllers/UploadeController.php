@@ -79,4 +79,15 @@ class UploadeController extends Controller
 
     }
 
+    public function delete_file($data_url)
+    {
+
+        $urldelete=$data_url;
+        $urldelete= \Str::replaceFirst(config("app.url")."/storage", '', $urldelete);
+        return $dele=Storage::disk("public")->delete($urldelete);
+
+
+        # code...
+    }
+
 }

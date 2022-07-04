@@ -1,13 +1,10 @@
 
-
+<div >
 <div>
     <x-label for="department_id" :value="$lablename" />
 
-    <select id="{{$id}}">
-        {{ json_decode($items) }}
-
-{{--
-        @foreach (json_decode($items) as $item)
+    <select  class="hidden" id="{{$id}}">
+        @foreach ($items as $item)
 
         <option
 
@@ -15,7 +12,7 @@
    selected
     @endif
      value="{{$item->id}}">{{$item->name}}</option>
-        @endforeach --}}
+        @endforeach
     </select>
 
 
@@ -146,6 +143,7 @@
                                 selected: options[i].getAttribute('selected') != null ? options[i].getAttribute('selected') : false
                             });
                         }
+                        console.log(options);
 
                         for (let i = 0; i < options.length; i++) {
                             if(options[i].getAttribute('selected') != null)
@@ -164,3 +162,4 @@
                 }
             }
         </script>
+</div>

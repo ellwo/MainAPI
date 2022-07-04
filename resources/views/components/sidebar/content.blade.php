@@ -6,20 +6,6 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown  title="Buttons" :active="Str::startsWith(request()->route()->uri(), 'lllllldash')">
-        <x-slot name="icon">
-            <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-        </x-slot>
-
-        <x-sidebar.sublink title="Text button" href="{{ route('buttons.text') }}"
-             />
-        <x-sidebar.sublink title="Icon button" href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')" />
-        <x-sidebar.sublink title="Text with icon" href="{{ route('buttons.text-icon') }}"
-            :active="request()->routeIs('buttons.text-icon')" />
-    </x-sidebar.dropdown>
-
-    <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">Dummy Links</div>
 
     @php
         $links = array_fill(0, 20, '');
@@ -29,10 +15,11 @@
         <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 </x-sidebar.link>
-<x-sidebar.link title="Dashboard" href="{{ route('dashboard') }}" :isActive="request()->routeIs('dashboard')">
+<x-sidebar.link title="ادارة المنتجات" href="{{ route('mange.products',['type'=>'all']) }}" :isActive="request()->routeIs('mange.products')">
     <x-slot name="icon">
-        <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
+
 </x-sidebar.link>
 
 <x-sidebar.dropdown title="حسابي " :active="request()->routeIs('profile')">
@@ -51,13 +38,10 @@
     </x-sidebar.sublink>
 
 
-    <x-sidebar.sublink href="{{route('profile')}}" title="تعديل البيانات " :active="request()->routeIs('profile')">
+    <x-sidebar.sublink href="{{route('profile.create')}}" title="تعديل البيانات " :active="request()->routeIs('profile')">
 
     </x-sidebar.sublink>
 
-    <x-sidebar.sublink href="{{route('profile')}}" title="استعراض " :active="request()->routeIs('profile')">
-
-    </x-sidebar.sublink>
 
 </x-sidebar.dropdown>
 <x-sidebar.dropdown collapsible="true" title="حساباتي التسويقية " :active="request()->routeIs('bussinses')">
@@ -73,16 +57,7 @@
     </x-slot>
     @foreach (auth()->user()->bussinses as  $buss)
 
-    <x-sidebar.link href="{{route('profile')}}" title="{{$buss->name}} " :isActive="request()->routeIs('profile')">
-
-        <x-slot name="righticon">
-            <span class="rounded-full bg-red-600 text-sm p-1 border text-light ">52 </span>
-        </x-slot>
-    </x-sidebar.link>
-    <x-sidebar.link href="{{route('profile')}}" title="{{$buss->name}} " :isActive="request()->routeIs('profile')">
-
-    </x-sidebar.link>
-    <x-sidebar.link href="{{route('profile')}}" title="{{$buss->name}} " :isActive="request()->routeIs('profile')">
+    <x-sidebar.link href="{{route('b.manage',['username'=>$buss->username])}}" title="{{$buss->name}} " :isActive="request()->routeIs('b.manage')">
 
     </x-sidebar.link>
     @endforeach

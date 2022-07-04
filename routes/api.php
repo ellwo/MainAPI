@@ -81,6 +81,8 @@ Route::get('/token', function (Request $request) {
 
     return response(request());
 });
+
+
 Route::post("/chatroom_message",[ChatController::class,'chatroom_messages'])->name("chatroom_message");
 Route::post("/user_chat",[ChatController::class,'user_chat'])->name("user_chat");
 Route::apiResource('chat',ChatController::class);

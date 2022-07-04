@@ -48,6 +48,16 @@ module.exports = {
                     darker: 'var(--color-primary-darker)',
                     onprimary: 'var(--color-primary-onprimary)'
                 },
+                m_primary: {
+                    DEFAULT: '#FF7D00',
+                    50: '#c1c3c9',
+                    100: '#424474',
+                    light: '#FF7D00',
+                    lighter: '#fa973a',
+                    dark: '#101b3f',
+                    darker: '#070C21',
+                    onprimary: '#0b0842'
+                },
                 secondary: {
                     DEFAULT: colors.fuchsia[600],
                     50: colors.fuchsia[50],

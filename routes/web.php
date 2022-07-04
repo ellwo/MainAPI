@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\BussinseController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Manage\ProductsManagerController;
+use App\Http\Controllers\Manage\ServicesManagerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UploadeController;
+use App\Http\Livewire\Manage\Product\ProductForm;
+use App\Http\Livewire\Manage\Service\ServiceForm;
 use App\Models\Bussinse;
 use App\Models\City;
 use App\Models\Location;
@@ -69,10 +75,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
-Route::post("/b-follow",[BussinseController::class,'follow_bussinse'])->name("b-follow");
-Route::get('/b.manage/{username?}',[BussinseController::class,'manage'])->name('b.manage');
-
 
 Route::get("/b/@{username}",[BussinseController::class,'show'])->name("b.show");
 
@@ -83,13 +85,66 @@ Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete
 
 
 
+
+
+// //Product Manager
+// Route::put('/product/update{product}',[ProductController::class,'update'])->name('product.update');
+// Route::get('/product/edit{product}',[ProductController::class,'edit'])->name('product.edit');
+// Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
+// Route::post('/product.store',[ProductController::class,'store'])->name('product.store')->middleware('auth');
+// Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name('mange.products');
+// Route::get('/product.add{step?}|{username?}',ProductForm::class)->name('product.add.livewire');
+// //Product Manager
+
+
+
+
+Route::resource('ad',AdController::class)->name('index','ad');
+
+
+
+Route::middleware(['auth'])->group(function () {
+    #codeon(){
+
+
+        //her the bussinse Manager
+        Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
+Route::post("/b-follow",[BussinseController::class,'follow_bussinse'])->name("b-follow");
+Route::get('/b.manage/{username?}',[BussinseController::class,'manage'])->name('b.manage');
+
+
+
+
+
+
+//Product Manager
+Route::put('/product/update{product}',[ProductController::class,'update'])->name('product.update');
+Route::get('/product/edit{product}',[ProductController::class,'edit'])->name('product.edit');
+Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
+Route::post('/product.store',[ProductController::class,'store'])->name('product.store')->middleware('auth');
 Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name('mange.products');
+Route::get('/product.add{step?}|{username?}',ProductForm::class)->name('product.add.livewire');
+//Product Manager
+Route::post('/product.rate',[ProductController::class,'rate'])->name('product.rate');
+
+//Service Manager
+Route::put('/service/update{service}',[ServiceController::class,'update'])->name('service.update');
 
 
+Route::get('/service/edit{service}',[ServiceController::class,'edit'])->name('service.edit');
+Route::get('/service/create',[ServiceController::class,'create'])->name('service.create');
+
+Route::post('/service.store',[ServiceController::class,'store'])->name('service.store')->middleware('auth');
+
+Route::get('/manage/services',[ServicesManagerController::class,'manage'])->name('mange.services');
 
 
+Route::get('/service.add{step?}|{username?}',ServiceForm::class)->name('service.add.livewire');
+//Service Manager
 
 
+});
+Route::get('/product/{product}',[ProductController::class,'show'])->name('product.show');
 
 
 
@@ -115,7 +170,7 @@ Route::get("/heho",function(){
     return view("components.sidebar.sidebar");
 });
 
-Route::apiResource('products',\App\Http\Controllers\ProductController::class);
+// Route::apiResource('products',\App\Http\Controllers\ProductController::class);
 
 
 

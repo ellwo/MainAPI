@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
+use App\Models\Bussinse;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -30,9 +33,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $type=$request["type"];
+
+        return redirect()->route('product.add.livewire',['step'=>1,'username'=>$request['username']]);
+
         //
+
+
     }
 
     /**
@@ -44,6 +53,58 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request,[
+            'name'=>'required|string|max:100',
+            'price'=>'numeric|required',
+            'discrip'=>'string',
+            'parts'=>'string',
+            'owner_id'=>'required',
+            'owner_type'=>'required',
+            'department_id'=>'required|exists:departments,id',
+        ]);
+
+
+
+        if($request['owner_type']==Bussinse::class){
+
+            $bussinse=Bussinse::find($request["owner_id"]);
+            if($bussinse->user_id!=auth()->user()->id)
+            abort(403,'لاتمتلك الصلاحيات اللازمة لاتمام العملية');
+
+
+        }
+
+
+
+         $note=[];
+         $n_key=$request["n_key"];
+         $n_value=$request["n_value"];
+         for($i=0; $i<count($n_key); $i++){
+            $note[$n_key[$i]]=$n_value[$i];
+         }
+
+
+         $product=Product::create([
+            'name'=>$request['name'],
+            'price'=>$request['price'],
+            'discrip'=>$request['discrip'],
+            'owner_id'=>$request['owner_id'],
+            'owner_type'=>$request['owner_type'],
+            'department_id'=>$request['department_id'],
+            'img'=>$request['img'],
+            'imgs'=>$request['imgs'],
+            'status'=>$request["status"],
+            'year_created'=>$request["year_created"],
+            'note'=>$note
+        ]);
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $product->parts()->attach($parts);
+
+
+         return redirect()->route('mange.products')->with('status','تمت اضافة المنتج بنجاح');
+
 
     }
 
@@ -58,7 +119,35 @@ class ProductController extends Controller
 
         //return $product->;
         //dd($product);re
+        visits($product);
+        $id=$product->id;
+        $product=$product->with('parts')->withAvg('ratings:value')->where('id','=',$id)->first();
+
+        $realted_products=[];
+
+       $owner3= $product->owner->products()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       if($product->department!=null)
+       $dept_3=$product->department->products()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       else
+       $dept_3=Product::withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+
+
+       foreach($owner3 as $p){
+        $realted_products[]=$p;
+       }
+       foreach($dept_3 as $p){
+        $realted_products[]=$p;
+       }
+
+
+
+
+
+
+        return view('productsview.show',['product'=>$product,'related_products'=>$realted_products]);
         return dd($product);
+
+
         return ProductResource::make($product);
         //
     }
@@ -69,9 +158,29 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+
+
+     public function rate(Request $request)
+     {
+        $product=Product::find($request['product_id']);
+
+        $user=Auth::user();
+
+      $rate=  $user->rate_comment($product,$request['value'],$request['comment']);
+
+        return $data=[
+            'status'=>true,
+            'last_rate'=>$rate
+
+        ];
+
+        # code...
+     }
+
     public function edit(Product $product)
     {
         //
+        return view('manage.product.product-edit',compact('product'));
     }
 
     /**
@@ -83,7 +192,59 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required|string|max:100',
+            'price'=>'numeric|required',
+            'discrip'=>'string',
+            'parts'=>'string',
+            'owner_id'=>'required',
+            'owner_type'=>'required',
+            'department_id'=>'required|exists:departments,id',
+        ]);
+
+  if($request['owner_type']==Bussinse::class){
+
+            $bussinse=Bussinse::find($request["owner_id"]);
+            if($bussinse->user_id!=auth()->user()->id)
+            abort(403,'لاتمتلك الصلاحيات اللازمة لاتمام العملية');
+
+
+        }
+
+
+
+         $note=[];
+         $n_key=$request["n_key"];
+         $n_value=$request["n_value"];
+         for($i=0; $i<count($n_key); $i++){
+            $note[$n_key[$i]]=$n_value[$i];
+         }
+
+
+         $product->update([
+            'name'=>$request['name'],
+            'price'=>$request['price'],
+            'discrip'=>$request['discrip'],
+            'owner_id'=>$request['owner_id'],
+            'owner_type'=>$request['owner_type'],
+            'department_id'=>$request['department_id'],
+            'img'=>$request['img'],
+            'imgs'=>$request['imgs'],
+            'status'=>$request["status"],
+            'year_created'=>$request["year_created"],
+            'note'=>$note
+        ]);
+        $parts=explode(',',$request->parts);
+        // $cities=$request["cities"];
+         $product->parts()->attach($parts);
+
+
+         return redirect()->route('mange.products')->with('status','تم تعديل المنتج بنجاح');
+
+
+
+
+
     }
 
     /**

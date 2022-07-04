@@ -65,6 +65,21 @@ class User extends Authenticatable implements Blocking,Follower
     }
 
 
+    public function rate_comment($model,$value,$comment)
+    {
+        $this->rate($model,$value);
+
+      //return $rate;
+        $rate  =$model->ratings()->where('model_id','=',$this->id)->orderBy("id","desc")->first();
+
+        $rate->comment=$comment;
+        $rate->save();
+        return $rate;
+
+        # code...
+    }
+
+
     // public function chatrooms()
     // {
     //     # code...

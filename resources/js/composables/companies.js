@@ -59,8 +59,9 @@ export default function useCompanies() {
     const sendMessage = async(data) => {
         errors.value = ''
         try {
-            await axios.post('/api/chat', data)
-                //await router.push({name: 'chat.index'})
+            var response = await axios.post('/api/chat', data)
+            console.log(response.data);
+            //await router.push({name: 'chat.index'})
 
         } catch (e) {
             if (e.response.status === 422) {
