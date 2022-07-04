@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between flex-shrink-0 px-3">
     <!-- Logo -->
-    <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2">
+    <a href="{{ route('home') }}" class="inline-flex items-center gap-2">
         <x-sm-application-logo class="w-12" aria-hidden="true"
           />
         <span class="sr-only">K UI Logo</span>

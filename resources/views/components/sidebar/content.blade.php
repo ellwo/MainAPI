@@ -1,21 +1,24 @@
 <x-perfect-scrollbar as="nav" aria-label="main" class="flex flex-col flex-1 gap-4 px-3">
-
+{{--
     <x-sidebar.link title="Dashboard" href="{{ route('dashboard') }}" :isActive="request()->routeIs('dashboard')">
         <x-slot name="icon">
             <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
-    </x-sidebar.link>
+    </x-sidebar.link> --}}
 
 
-    @php
-        $links = array_fill(0, 20, '');
-    @endphp
 <x-sidebar.link title="Dashboard" href="{{ route('dashboard') }}" :isActive="request()->routeIs('dashboard')">
     <x-slot name="icon">
         <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 </x-sidebar.link>
-<x-sidebar.link title="ادارة المنتجات" href="{{ route('mange.products',['type'=>'all']) }}" :isActive="request()->routeIs('mange.products')">
+<x-sidebar.link title="ادارة منتجاتي" href="{{ route('mange.products',['type'=>'all']) }}" :isActive="request()->routeIs('mange.products')">
+    <x-slot name="icon">
+        <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+    </x-slot>
+
+</x-sidebar.link>
+<x-sidebar.link title="ادارة خدماتي المعروضة" href="{{ route('mange.services',['type'=>'all']) }}" :isActive="request()->routeIs('mange.services')">
     <x-slot name="icon">
         <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
@@ -47,22 +50,29 @@
 <x-sidebar.dropdown collapsible="true" title="حساباتي التسويقية " :active="request()->routeIs('bussinses')">
 
     <x-slot name="icon" >
-        <span aria-hidden="true">
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-        </span>
+        <x-heroicon-s-collection class="h-5 w-5"/>
     </x-slot>
     @foreach (auth()->user()->bussinses as  $buss)
 
-    <x-sidebar.link href="{{route('b.manage',['username'=>$buss->username])}}" title="{{$buss->name}} " :isActive="request()->routeIs('b.manage')">
+    <x-sidebar.sublink class="flex space-x-4" href="{{route('b.manage',['username'=>$buss->username])}}" title="{{$buss->name}} " :active="request()->routeIs('b.manage/@'.$buss->username)">
 
-    </x-sidebar.link>
+        <x-slot name='icon'>
+        <x-heroicon-o-adjustments class="w-5 h-5" />
+        </x-slot>
+
+
+    </x-sidebar.sublink>
     @endforeach
 
 </x-sidebar.dropdown>
+
+<x-sidebar.link title="انشاء حساب تسويقي جديد" href="{{ route('b.create') }}" :isActive="request()->routeIs('b.create')">
+    <x-slot name="icon">
+        <x-heroicon-o-plus class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+    </x-slot>
+
+</x-sidebar.link>
+
 
 
 

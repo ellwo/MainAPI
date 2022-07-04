@@ -80533,11 +80533,6 @@ body:not(.page-index) #header.header-8 .header-bottom .verticalmenu-main .toggle
     #header.header-3 .header-bottom>.container>.row {
         margin: 0;
         overflow: hidden;
-        background-image: -webkit-linear-gradient(left, #21a2fd 0%, #7967fe 100%);
-        background-image: -o-linear-gradient(left, #21a2fd 0%, #7967fe 100%);
-        background-image: linear-gradient(to right, #21a2fd 0%, #7967fe 100%);
-        background-repeat: repeat-x;
-        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#FF21A2FD', endColorstr='#FF7967FE', GradientType=1);
         -webkit-border-radius: 60px;
         -moz-border-radius: 60px;
         -ms-border-radius: 60px;

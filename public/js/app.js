@@ -25840,7 +25840,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [item.unread_messages_count != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unread_messages_count), 1
         /* TEXT */
-        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @if($unreadedcount !=0)\n\n            <small class=\"inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full\">\n                {{$unreadedcount}}\n            </small>\n            @endif ")])])])];
+        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @if($unreadedcount !=0)\r\n\r\n            <small class=\"inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full\">\r\n                {{$unreadedcount}}\r\n            </small>\r\n            @endif ")])])])];
       }),
       _: 2
       /* DYNAMIC */
@@ -26183,7 +26183,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* TEXT */
       )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.created_at), 1
       /* TEXT */
-      )])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\n ")], 64
+      )])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n ")], 64
       /* STABLE_FRAGMENT */
       );
     }), 128

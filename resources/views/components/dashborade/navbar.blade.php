@@ -28,7 +28,9 @@
         </button>
 
         <!-- Brand -->
+        <a href="{{ route('home') }}">
         <x-application-logo class="h-14"/>
+        </a>
 
         <!-- Mobile sub menu button -->
         <button @click="isMobileSubMenuOpen = !isMobileSubMenuOpen"

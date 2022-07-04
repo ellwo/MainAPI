@@ -1,7 +1,7 @@
 @props(['isActive' => false, 'title' => '', 'collapsible' => false])
 
 @php
-    $isActiveClasses =  $isActive ? 'text-white bg-primary-100 shadow-lg hover:bg-darker' : 'text-gray-500 hover:text-gray-700 hover:bg-primary-100 dark:hover:text-gray-300 dark:hover:bg-dark-eval-2';
+    $isActiveClasses =  $isActive ? 'text-primary bg-primary-dark shadow-lg hover:bg-darker' : 'text-gray-500 hover:text-darker hover:bg-primary-100 dark:hover:text-darker dark:hover:bg-dark-eval-2';
 
     $classes = 'flex-shrink-0 flex items-center gap-2 p-2 transition-colors rounded-md overflow-hidden ' . $isActiveClasses;
 
