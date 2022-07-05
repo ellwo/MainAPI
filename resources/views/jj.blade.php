@@ -51,9 +51,9 @@ data-boxRows=2
 
 @foreach ($ads as $ad)
 <div id="htmlcaption_{{ $ad->id }}" class="nivo-html-caption relative">
-    <div class="absolute bottom-0 w-full bg-white border  rounded-lg p-8 text-dark  ">
+    <div class="absolute bottom-0 w-full bg-m_primary-100 border  rounded-lg p-8 text-light  ">
         <div class="bottom-0">
-            <div class="nov-title effect-0" >
+            <div class="nov-title effect-0 mb-4" >
                 {{ $ad->note }}
             </div>
             <div class="nov-html effect-0">

@@ -6,7 +6,7 @@
                 data-textshowmore="Show More" data-textless="Hide" data-desktop_item="3">
                 <div class="toggle-nav bg-m_primary-dark dark:bg-m_primary d-flex align-items-center justify-content-start">
                     <span class="btnov-lines"></span>
-                    <span>Shop By Categories</span>
+                    <span>تسوق عن طريق القسم </span>
                     <span class="caret-circle"></span>
                 </div>
                 <div class="verticalmenu-content has-showmore show">

@@ -150,7 +150,9 @@
 const FORM_URL="{{route('b-follow')}}";
 
 function ContactForm(buss_id ,typef,message) {
-      return {
+
+
+    return {
 
         showbutton:true,
         formMessage: message,
@@ -215,4 +217,5 @@ function ContactForm(buss_id ,typef,message) {
 
 
 </script>
+</x-slot>
 </x-guest-layout>

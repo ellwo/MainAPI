@@ -8,6 +8,7 @@ use App\Http\Controllers\Manage\ProductsManagerController;
 use App\Http\Controllers\Manage\ServicesManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UploadeController;
 use App\Http\Livewire\Manage\Product\ProductForm;
@@ -98,6 +99,10 @@ Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete
 
 
 
+
+
+
+Route::get('/search',[SearchController::class,'index'])->name('search');
 
 Route::resource('ad',AdController::class)->name('index','ad');
 
