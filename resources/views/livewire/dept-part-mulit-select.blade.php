@@ -1,14 +1,14 @@
 <div >
     <div >
-        <div class="flex  p-8 mx-auto " >
+        <div class="sm:flex " >
 
 
-            <div class="sm:flex" >
-            <div class="relative inline-flex flex-col items-center space-y-4">
+            <div class="sm:flex justify-between" >
+            <div class="relative flex-col justify-between space-x-4 space-y-2 ">
 
                 <x-label for="department_id" :value="__('اختر القسم ')" />
 
-                <select  wire:model.debounce='dept' name="department_id" class="h-10 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-full appearance-none hover:border-gray-400 focus:outline-none">
+                <select  wire:model='dept' name="department_id" class="pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none  hover:border-gray-400 focus:outline-none">
                    @if ($type=='all')
 
                    @foreach( $catgraies as $ca)

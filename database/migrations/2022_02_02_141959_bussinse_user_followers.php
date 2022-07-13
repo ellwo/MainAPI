@@ -15,7 +15,7 @@ class BussinseUserFollowers extends Migration
     {
         Schema::create('bussinse_user', function (Blueprint $table) {
  //           $table->id();
-            $table->foreignId("bussinse_id")->constrained();
+            $table->foreignId("bussinse_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignId("user_id")->constrained();
             $table->integer("isblocked")->default(0);
             $table->timestamps();

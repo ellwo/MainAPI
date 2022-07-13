@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\BussinseController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Manage\ProductsManagerController;
 use App\Http\Controllers\Manage\ServicesManagerController;
+use App\Http\Controllers\MarktsController;
+use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -33,29 +37,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get("/products",[\App\Http\Controllers\Api\BussinseController::class,'index']);
-
-
-
-// Route::get('/ch{any}', [App\Http\Controllers\ChatController::class,"index"])
-//     ->middleware('auth')
-//     ->where('any', '.*');
-
-
-
-
-
-
 Route::post('/block',[App\Http\Controllers\Block\BlockingController::class,'block'])->name("block");
-
-
 Route::post("/create_chatroom",[App\Http\Controllers\ChatController::class,'create_chatroom'])->name("create_chatroom")->middleware("auth");
-
 Route::post("/chatroom_message",[App\Http\Controllers\Api\Chat\ChatController::class,'chatroom_messages'])->name("chatroom_messagel");
 Route::post("/user_chat",[App\Http\Controllers\Api\Chat\ChatController::class,'user_chat'])->name("user_chatl");
 Route::apiResource('chatt',App\Http\Controllers\Api\Chat\ChatController::class);
-
-    Route::get("/inbox/{type?}/{chattings?}/{chat_room_id?}",[App\Http\Controllers\ChatController::class,"index"])->name('inbox')->middleware("auth")->where('any', '.*');
+Route::get("/inbox/{type?}/{chattings?}/{chat_room_id?}",[App\Http\Controllers\ChatController::class,"index"])->name('inbox')->middleware("auth")->where('any', '.*');
 
 
 Route::view("/vuetry","layoutvue");
@@ -79,32 +66,15 @@ Route::get('/dashboard', function () {
 
 Route::get("/b/@{username}",[BussinseController::class,'show'])->name("b.show");
 
-
-Route::resource('/b',BussinseController::class)->only(['index','update','store','edit','create'])->name('index','b');
 Route::post("/uploade",[UploadeController::class,'store'])->name("uploade");
 Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete.uploade");
 
 
 
 
-
-// //Product Manager
-// Route::put('/product/update{product}',[ProductController::class,'update'])->name('product.update');
-// Route::get('/product/edit{product}',[ProductController::class,'edit'])->name('product.edit');
-// Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
-// Route::post('/product.store',[ProductController::class,'store'])->name('product.store')->middleware('auth');
-// Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name('mange.products');
-// Route::get('/product.add{step?}|{username?}',ProductForm::class)->name('product.add.livewire');
-// //Product Manager
-
-
-
-
-
-
 Route::get('/search',[SearchController::class,'index'])->name('search');
 
-Route::resource('ad',AdController::class)->name('index','ad');
+Route::get('/search-product',[SearchController::class,'product_search'])->name('search-product');
 
 
 
@@ -112,10 +82,16 @@ Route::middleware(['auth'])->group(function () {
     #codeon(){
 
 
+
+
+
+
+
         //her the bussinse Manager
         Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
 Route::post("/b-follow",[BussinseController::class,'follow_bussinse'])->name("b-follow");
 Route::get('/b.manage/{username?}',[BussinseController::class,'manage'])->name('b.manage');
+Route::resource('/b',BussinseController::class)->only(['index','update','store','edit','create'])->name('index','b');
 
 
 
@@ -149,7 +125,13 @@ Route::get('/service.add{step?}|{username?}',ServiceForm::class)->name('service.
 
 
 });
+
+
+
+
 Route::get('/product/{product}',[ProductController::class,'show'])->name('product.show');
+
+Route::get('/service/{product}',[ProductController::class,'show'])->name('service.show');
 
 
 
@@ -158,25 +140,8 @@ Route::get('/product/{product}',[ProductController::class,'show'])->name('produc
 
 // useless routes
 // Just to demo sidebar dropdown links active states.
-Route::get('/buttons/text', function () {
-    return view('buttons-showcase.text');
-})->middleware(['auth'])->name('buttons.text');
-
-Route::get('/buttons/icon', function () {
-    return view('buttons-showcase.icon');
-})->middleware(['auth'])->name('buttons.icon');
-
-Route::get('/buttons/text-icon', function () {
-    return view('buttons-showcase.text-icon');
-})->middleware(['auth'])->name('buttons.text-icon');
-
-Route::get("/heho",function(){
-
-    return view("components.sidebar.sidebar");
-});
-
-// Route::apiResource('products',\App\Http\Controllers\ProductController::class);
 
 
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

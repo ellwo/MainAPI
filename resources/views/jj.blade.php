@@ -94,7 +94,7 @@ data-boxRows=2
 
 
 
-    @include('ex.products-home',['l_products'=>$l_products,'r_products'=>$r_products])
+    @include('ex.products-home',['routename'=>'product.show','l_products'=>$l_products,'r_products'=>$r_products])
 
 
 
@@ -102,7 +102,7 @@ data-boxRows=2
 
 
 
-    @include('ex.products-home',['l_products'=>$l_service,'r_products'=>$r_service])
+    @include('ex.products-home',['routename'=>'service.show','l_products'=>$l_service,'r_products'=>$r_service])
 
 
 

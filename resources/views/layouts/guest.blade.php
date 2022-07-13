@@ -21,6 +21,16 @@
     </style>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+
+
+
+
+    <!-- end modules/novblockwishlist/novblockwishlist_top.tpl -->
+
+
+
+
+
     @livewireStyles
     <!-- Scripts -->
 </head>
@@ -41,10 +51,7 @@
     <div   class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark dark:text-light">
             <!-- Loading screen -->
 
-            <div x-ref="loading"
-                class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-primary-darker">
-                Loading.....
-            </div>
+        <x-loading/>
 
 
                         <!-- Sidebar -->
@@ -53,9 +60,13 @@
             <div  class="flex flex-col flex-1 min-h-full "
             style="transition-property: margin; transition-duration: 150ms;"
             >
-            <x-navbar/>
+
+
+            {{-- <x-navbar/> --}}
 
                 <main  class="flex-1 px-4 sm:px-6">
+
+
 
                     {{$slot}}
 

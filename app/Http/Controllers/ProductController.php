@@ -119,7 +119,7 @@ class ProductController extends Controller
 
         //return $product->;
         //dd($product);re
-        visits($product);
+        $product->vzt()->increment();
         $id=$product->id;
         $product=$product->with('parts')->withAvg('ratings:value')->where('id','=',$id)->first();
 
@@ -192,6 +192,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+
         $this->validate($request,[
             'name'=>'required|string|max:100',
             'price'=>'numeric|required',
@@ -236,7 +237,11 @@ class ProductController extends Controller
         ]);
         $parts=explode(',',$request->parts);
         // $cities=$request["cities"];
+        $product->parts()->detach();
          $product->parts()->attach($parts);
+
+
+         $product->save();
 
 
          return redirect()->route('mange.products')->with('status','تم تعديل المنتج بنجاح');

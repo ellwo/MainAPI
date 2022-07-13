@@ -9,7 +9,7 @@
                     <span>تسوق عن طريق القسم </span>
                     <span class="caret-circle"></span>
                 </div>
-                <div class="verticalmenu-content has-showmore show">
+                <div class="verticalmenu-content has-showmore ">
                     <div id="_desktop_verticalmenu" class="nov-verticalmenu block" data-count_showmore="6">
                         <div class="box-content block_content">
                             <div id="verticalmenu" class="verticalmenu" role="navigation">
@@ -51,9 +51,11 @@
                         <div id="megamenu" class="nov-megamenu clearfix">
                             <ul class="menu level1">
 
-                                <li class="item  has-sub"><span class="opener"></span><a href="#"
-                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="text-m_primary mx-2 h-5 w-5"/>الاسواق</div></a>
-                                    <div class="dropdown-menu" style="width:270px">
+                                <li class="item  has-sub" x-data='{opendropdown1:false,dclass:"hidden"}' x-on:mousemove='opendropdown1=true; dclass=""' ><span class="opener"></span>
+
+                                    <a  x-on:click='opendropdown1=!opendropdown1; dclass=dclass=="hidden"?"":"hidden";'
+                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="text-m_primary dark:text-m_primary-dark mx-2 h-5 w-5"/>الاسواق</div></a>
+                                    <div :class="dclass" class="dropdown-menu" style="width:270px">
                                         <ul class="">
                                             @foreach ($markts as $m)
                                             <li class="item "><a
@@ -63,9 +65,9 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="item  group"><span class="opener"></span><a
-                                        title="Categories"><div class="dark:text-white flex"><x-bi-grid-fill class="w-5 h-5 mx-2 text-m_primary"/>الاقسام</div></a>
-                                    <div class="dropdown-menu">
+                                <li class="item group"  x-data='{opendropdown2:false,dclass:"hidden"}' x-on:mousemove='opendropdown2=true;dclass=""'><span class="opener"></span><a
+                                    x-on:click='opendropdown2=!opendropdown2; dclass=dclass=="hidden"?"":"hidden";' class="cursor-pointer" title="Categories"><div class="dark:text-white flex"><x-bi-grid-fill class="w-5 h-5 mx-2 dark:text-m_primary-dark text-m_primary"/>الاقسام</div></a>
+                                    <div  :class="dclass" class="dropdown-menu">
                                         <ul class="">
                                             <li class="item container group">
                                                 <div class="dropdown-menu">
@@ -74,7 +76,7 @@
                                                         @foreach ($depts as $dept )
 
                                                         <li class="item col-lg-3 col-md-3 html">
-                                                            <a href="#{{ $dept->id }}"><span
+                                                            <a href="{{route('search-product',['dept'=>$dept->id]) }}"><span
                                                                 class="menu-title">{{ $dept->name }}</span></a>
 
                                                         </li>
@@ -87,6 +89,16 @@
 
                                         </ul>
                                     </div>
+
+                                    {{-- <div x-bind:class="{'hidden':!opendropdown2,'flex flex-col sm:h-0 h-64 sm:overflow-hidden':opendropdown2}" class="flex flex-col sm:h-0 h-64 sm:overflow-hidden" >
+                                        <ul class="">
+                                            @foreach ($depts as $m)
+                                            <li class="item "><a
+                                                    href="/savemart/en/index.php?fc=module&amp;module=smartblog&amp;id_post=14&amp;controller=details"
+                                                    title="Blog detail">{{ $m->name }}</a></li>
+                                                    @endforeach
+                                        </ul>
+                                    </div> --}}
                                 </li>
 
                             </ul>

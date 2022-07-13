@@ -17,7 +17,6 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->text('name');
             $table->integer('type');
-            $table->integer("typegender");
             $table->text("img")->nullable();
             $table->text('note')->nullable();
 

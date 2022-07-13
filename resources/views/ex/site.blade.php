@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/theme-4527f124.css') }}" type="text/css" media="all">
 
+    @livewireStyles
 
     <script type="text/javascript" src="{{ asset('js/bottom-3c96ed23.js') }}" defer ></script>
 
@@ -55,6 +56,7 @@
     </script>
 
 
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 
 
@@ -234,7 +236,8 @@
 
 
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    @livewireScripts
 
     @yield('script')
 

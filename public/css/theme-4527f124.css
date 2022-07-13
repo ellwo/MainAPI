@@ -51735,10 +51735,6 @@ body .ui-tooltip {
     }
 }
 
-.hidden {
-    display: none!important
-}
-
 a {
     text-decoration: none;
     color: #666
@@ -74236,10 +74232,6 @@ ul.footer_links_ja li a.btn:hover {
 #module-jmarketplace-sellerproducts .delete_product {
     background-color: #d9534f;
     border-color: #d43f3a
-}
-
-.hidden {
-    display: none
 }
 
 .jmarketplace-products .product-miniature {

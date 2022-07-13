@@ -32,14 +32,15 @@ class Product extends Model
         "status",
         'discrip',
         'owner_id',
-        'owner_type'
+        'owner_type',
+        'department_id'
     ];
     protected $casts =[
         'colors'=>'array',
         'note'=>'array',
         'imgs'=>'array',
         'created_at'=>'datetime:Y-m-d',
-        'year_created'=>'datetime:Y'
+        'updated_at'=>'datetime:Y/m',
     ];
 
 

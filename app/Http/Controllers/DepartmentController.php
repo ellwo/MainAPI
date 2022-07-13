@@ -14,7 +14,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $department = Department::all();
+        return view("admene.Department.addd" , compact('department'));
     }
 
     /**
@@ -35,7 +36,26 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required|unique:departments,name|string',
+        ]);
+        $this->validate($request,[
+            'note'=>'required|unique:departments,note|string',
+        ]);
+        $department = new Department();
+        $department->name = $request->name;
+        $department->type = $request->type;
+        $department->img = $request->image;
+        $department->note = $request->note;
+        $department->save();
+        return redirect()->back();
+
+    }
+    public function delete($id)
+    {
+        $flight = Department::find($id);
+        $flight->delete();
+        return redirect()->back();
     }
 
     /**
@@ -55,9 +75,10 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit($id)
     {
-        //
+        $department = Department::find($id);
+        return view("admene.Department.update" ,compact('department'));
     }
 
     /**
@@ -67,9 +88,19 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request,$id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required|unique:cities,name|string',
+         ]);
+         $department = Department::find($id);
+         $department->name = $request->name;
+         $department->type = $request->type;
+         $department->img = $request->image;
+         $department->note = $request->note;
+         $department->save();
+         return redirect()->route('show_Department');
+
     }
 
     /**

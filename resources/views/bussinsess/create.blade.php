@@ -1,64 +1,69 @@
 <x-dashe-layout>
 
 
-    <div class="flex flex-col p-4 mx-auto my-auto bg-white rounded-lg md:max-w-4xl dark:bg-darker lg:p-4">
+    <div class="flex flex-col p-4 mx-auto my-auto mb-8 space-y-4 bg-white rounded-lg dark:bg-darker lg:p-4" x-data='stpes'>
 
-        <form method="POST"  action="{{route('b.store')}}" x-data='stpes'>
+        <form method="POST" x-init="setUp"  action="{{route('b.store')}}" >
             @csrf
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
 
-            <div id="steps" class="flex flex-col items-center">
+            <div id="steps" class="flex-col items-center justify-center p-0 mx-auto lg:w-3/4">
 
-                <div id="step0" x-show="step==0">
-                    <div class="flex flex-col p-8 mx-auto ">
+                <div id="step0"    x-transition:enter="transition  opacity-25 duration-500 ease-in-out"
+                 x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="transition opacity-25 translate-x-0 duration-500 ease-in-out"
+                           x-show="step==0">
+                    <div class="flex flex-col p-8 mx-auto space-y-4 " dir="auto">
 
-                        <div class="relative inline-flex flex-col items-center mx-auto space-y-4">
+                        <h1 class="text-3xl font-bold dark:text-white text-darker">
+                            تحديد نوع الحساب التسويقي
+                            {{ old('parts') }}
+                        </h1>
+                        <hr>
 
-                            <x-label for="department_id" :value="__('اختر القسم ')" />
-
-                            <select name="department_id" class="h-10 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-full appearance-none hover:border-gray-400 focus:outline-none">
-                                @foreach( $catgraies as $ca)
-                                <option value="{{$ca->id}}">{{$ca->name}}</option>
-                                @endforeach
-                            </select>
-                          </div>
+                        @livewire('dept-part-mulit-select',[
+                            'dept'=>old('department_id')!=null? old('department_id'):'any',
+                            'selected'=>old('parts')!=null ? explode(',',old('parts')):[] ])
 
 
 
 
 
                     </div>
-                                @include('components.mulit-select',
-                                ['id'=>'city',
-                                'inputname'=>'cities',
-                                'items'=>$cities,
-                                'lablename'=>'المدن'
 
-                                ])
-
-                                @include('components.mulit-select',
-                                ['id'=>'part',
-                                'inputname'=>'parts',
-                                'items'=>$parts,
-                                'lablename'=>'الفئات',
-
-                                ])
 
             </div>
 
-           <div id="stpe1"  x-show="step==1">
+           <div id="stpe1"    x-transition:enter="transition  opacity-25 duration-500 ease-in-out"
+           x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100" x-transition:leave="transition opacity-25 translate-x-0 duration-500 ease-in-out"
+                  x-show="step==1">
+                  <h1 dir="rtl" class="space-y-4 text-3xl font-bold dark:text-white text-darker">
+                    المعلومات الاساسية
+                </h1>
+                <hr>
+                <br>
+                <div class="flex flex-col p-8 mx-auto ">
+                    <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
+
+                    <div id="avatar" class="border rounded-full "></div>
+                </div>
+                <br>
+
             <div class="space-y-2 " dir="auto">
-                <x-label for="name" :value="__('الاسم')" />
+                <x-label for="name" :value="__('اسم الحساب التسويقي')" />
 
-                    <x-input id="name" class="block w-full" type="text" name="name"
-                    value="{{old('name')}}"
-                    placeholder="{{ __('الاسم') }}" required autofocus />
+                    <x-input x-model='dataform.name' id="name" class="block w-full" type="text" name="name"
+                    placeholder="{{ __('اسم الحساب التسويقي') }}" required autofocus />
+                     @error('name')
+                         <span x-init="step=1" class="text-sm text-danger">{{ $message }}</span>
+                     @enderror
             </div>
 
-            <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
+            <div class="flex flex-col space-y-8 md:space-y-0 md:flex-row md:space-x-4">
                 <div class="w-full space-y-2 ">
-                    <x-label for="email" :value="__('Email')" />
+                    <x-label for="email" dir="rtl" :value="__('الايميل')" />
 
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon">
@@ -68,18 +73,12 @@
 
 
                         </x-slot>
-                        <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color" type="email" name="email"
-                            value="{{old('email')}}" placeholder="{{ __('Email') }}" required autofocus />
-                            {{-- @if (auth()->user()->hasVerifiedEmail())
-                            <x-slot name="righticon">
-                                <span class="rounded bg-success text-light">
-                                    تم التاكيد
+                        <x-input x-model='dataform.email' withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color" type="email" name="email"
+                             placeholder="{{ __('Email') }}" required autofocus />
 
-                                </span>
-                            </x-slot>
-                            @endif --}}
-
-                        </x-input-with-icon-wrapper>
+                        </x-input-with-icon-wrapper>  @error('email')
+                         <span x-init="step=1" class="text-sm text-danger">{{ $message }}</span>
+                     @enderror
                 </div>
                 <div class="w-full space-y-2">
                     <x-label for="username" :value="__('اسم المستخدم')" />
@@ -93,17 +92,31 @@
 
                         </x-slot>
                         <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-                       value="{{old('username')}}" type="text" name="username"
+                       x-model='dataform.username'  type="text" name="username"
                         placeholder="{{ __('Username') }}" required autofocus />
                     </x-input-with-icon-wrapper>
+                    @error('name')
+                    <span x-init="step=1" class="text-sm text-danger">{{ $message }}</span>
+                @enderror
                 </div>
 
             </div>
 
 
 
+            <br>
+
+
+           </div>
+           <div x-show="step==2">
+            <h1 dir="rtl" class="text-3xl font-bold dark:text-white text-darker">
+                معلومات التواصل
+            </h1>
+            <hr>
+            <br>
             <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-                <div class="w-full space-y-2" x-data='{contact_count:1}'>
+
+                <div class="w-full space-y-2 " x-data='{contact_count:1}'>
                     <x-label for="email" :value="__('ارقام التواصل ')" />
 
                     <template x-for="i in contact_count">
@@ -144,7 +157,7 @@
 
 
 
-                <div class="w-full space-y-2" >
+                <div class="w-full space-y-2 " >
                     <x-label for="username" :value="__('روابط مواقع التواصل ')" />
 
 
@@ -152,7 +165,7 @@
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
 
-                            <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
+                            <x-bi-facebook class="w-5 h-5 text-blue-900 dark:text-primary-light" />
 
 
 
@@ -164,7 +177,7 @@
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
 
-                            <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
+                            <x-bi-twitter class="w-5 h-5 text-info " />
 
 
 
@@ -176,7 +189,7 @@
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
 
-                            <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
+                            <x-bi-whatsapp aria-hidden="true" class="w-5 h-5 text-green-900 "/>
 
 
                         </x-slot>
@@ -190,26 +203,108 @@
 
             </div>
 
-           </div>
-         <div id="step0" x-show="step==2">
-            <div class="flex flex-col p-8 mx-auto ">
-                <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
+            <br>
+            <hr>
+            <br>
+            <div x-data="{loc_count:0}" class="space-y-4">
+                <h4 dir="rtl" class="text-xl font-bold dark:text-white text-darker">
+                    العناوين
+                    <hr dir="rtl" class="w-1/5 text-right "/>
 
-                <div id="avatar" class="rounded-md "></div>
+                </h4>
 
 
 
-                <div id="jj"></div>
+                <div class="p-4 border border-blue-600 rounded-xl" dir="rtl" >
+                    <h5>
+                        الفرع الرئيسي
+                    </h5>
+                    <hr>
+                    <br>
+
+                <div class="relative flex-wrap justify-between space-x-2 sm:flex " dir="rtl">
+
+                    @livewire('city-markt-select', ['city' => auth()->user()->city_id!=null?auth()->user()->city_id:'any'], key(time()))
+                     <div class="space-y-4">
+                        <x-label for="department_id" :value="__('العنوان')" />
+
+                        <input   name="address[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                    </div>
+                    <div class="space-y-4">
+                        <x-label for="department_id" :value="__('رقم الهاتف')" />
+
+                        <input   name="phone[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+
+
+                    @for ($i=1; $i<=3; $i++)
+
+                    <div x-show="loc_count>={{ $i }}" class="p-4 border border-blue-600 rounded-xl" dir="rtl" >
+                        <h5 >
+                            {{ 'فرع رقم['.($i+1).']' }}
+                        </h5>
+                        <hr>
+                        <br>
+
+                    <div class="relative flex-wrap justify-between space-x-2 sm:flex " dir="rtl">
+                        @livewire('city-markt-select', ['city' => auth()->user()->city_id!=null?auth()->user()->city_id:'any'], key(time()))
+                         <div class="space-y-4">
+                            <x-label for="department_id" :value="__('العنوان')" />
+
+                            <input   name="address[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                        </div>
+                        <div class="space-y-4">
+                            <x-label for="department_id" :value="__('رقم الهاتف')" />
+
+                            <input   name="phone[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    @endfor
+
+
+                <div x-show="loc_count<4" class="flex mx-auto text-center">
+                <button type="button" x-on:click="loc_count++" class="flex p-2 mx-auto text-green-900 border border-green-900 dark:bg-white rounded-xl">
+                    اضافة فرع
+                    <x-heroicon-o-plus class="w-5 h-5 text-green-900 border "/>
+                </button>
+                </div>
+
+
+
+
+
+
 
             </div>
 
 
+            <div  class="flex justify-center w-full p-2 mx-auto mt-4 text-center " x-show="step==2">
+                <button   class="flex p-4 px-8 m-5 mx-auto text-xl font-bold text-center text-white rounded-md bg-success dark:text-white" >
+                   انشاء الحساب
+                    <x-heroicon-s-save class="w-8 h-8"/>
+                </button>
 
 
+            </div>
 
+           </div>
+         <div id="step0" class="flex flex-col space-y-4"
+         x-transition:enter="transition  opacity-25 duration-500 ease-in-out"
+         x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition opacity-25 translate-x-0 duration-500 ease-in-out"
 
-
-
+         class="flex justify-between" x-show="step==1">
             <div class="flex flex-col p-8 mx-auto ">
                 <x-label for="imgs" :value="__('صور عرض اضافية   ')" />
 
@@ -217,33 +312,14 @@
             </div>
 
 
-
-        </div>
-
-        <div class="mx-auto " x-show="step==2">
-            <x-button class="w-full " >
-                حفظ
-            </x-button>
-
-
         </div>
 
 
 
 
 
-           <div class="flex space-x-4 justify-items-stretch ">
-
-            <x-button type="button" x-show="step>0" x-on:click="pervstep">
-                السابق
-
-               </x-button>
-            <x-button type="button" x-show="step<5" x-on:click="nextstep">
-                التالي
-               </x-button>
 
 
-           </div>
 
             </div>
 
@@ -253,6 +329,18 @@
 
         </form>
 
+        <div dir="rtl" class="flex items-end justify-between w-1/2 mx-auto ">
+
+            <x-button  variant="info" type="button" x-show="step<5" x-on:click="nextstep">
+                التالي
+               </x-button>
+            <x-button  variant="goset" type="button" x-show="step>0" x-on:click="pervstep">
+                السابق
+
+               </x-button>
+
+
+           </div>
 
 
     </div>
@@ -260,7 +348,7 @@
 
 
 
-    <slot name="script">
+    <x-slot name="script">
         <script src="{{asset('js/jquery.min.js')}}"></script>
 
         <script src="{{asset('js/uploadeimage.js')}}">
@@ -276,7 +364,7 @@
                     id:"avatar",
                     shep:"rect",
                     w:850,h:850,
-                     src:"no"
+                     src:"{{ old('avatar') }}"
         });
          imgs=new ImagetoServer(
                 {
@@ -284,7 +372,7 @@
                     id:"imgs",
                     shep:"rect",
                     w:650,h:650,
-                     src:"no",
+                     src:'@json(old("imgs"))',
                      multi:true
 
         });
@@ -293,7 +381,7 @@
             const stpes=()=>{
 
                 return {
-                    step:0,
+                    step:{{ isset($step)?$step:0 }},
 
                     nextstep(){
                         this.step++;
@@ -303,23 +391,20 @@
                         this.step--;
 
                     },
+                    errors:{
+                        step:0
+                    },
+                    setUp(){
+//                        this.step=this.errors.step;
+
+                    },
 
 
                     dataform:{
-                        step0:{
-                            department_id:0,
-                        }
-                        ,
-                        step1:{
-                            name:'',
-                            username:'',
-                            email:'',
+                            name:'{{ old("name") }}',
+                            username:'{{ old("username") }}',
+                            email:'{{ old("email") }}',
 
-
-                        },
-                        step2:{
-
-                        }
 
                     }
 
@@ -336,7 +421,7 @@
         </script>
 
 
-    </slot>
+    </x-slot>
 
 
 

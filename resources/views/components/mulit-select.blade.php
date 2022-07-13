@@ -22,12 +22,12 @@
       <div class="relative inline-block w-64">
           <div class="relative flex flex-col items-center">
               <div x-on:click="open" class="w-full ">
-                  <div class="flex p-1 my-2 bg-white border border-gray-200 rounded dark:border-primary dark:bg-dark ">
+                  <div class="flex p-1 my-2 bg-white border border-gray-200 rounded dark:border-m_primary dark:bg-dark ">
                       <div class="flex flex-wrap flex-auto dark:bg-dark">
                           <template x-for="(option,index) in selected" :key="options[option].value">
                               <div
-                                  class="flex items-center justify-center px-2 py-1 m-1 font-medium rounded-full bg-primary ">
-                                  <div class="flex-initial max-w-full text-xs font-normal leading-none"
+                                  class="flex items-center justify-center px-2 py-1 m-1 font-medium rounded-full bg-m_primary ">
+                                  <div class="flex-initial max-w-full  font-normal leading-none"
                                    x-model="options[option]" x-text="options[option].text"></div>
                                   <div class="flex flex-row-reverse flex-auto">
                                       <div x-on:click="remove(index,option)">

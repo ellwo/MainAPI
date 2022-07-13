@@ -10,7 +10,8 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable=[
-        'name','note','type'
+        'name','note','type',
+        'img'
     ];
 
     public function parts()

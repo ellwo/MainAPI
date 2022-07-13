@@ -19,8 +19,8 @@
         <div class="sm:w-2/3   rounded-md">
 
             <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
-                @for($i = 1; $i <= 4; $i++)
-                   @include('search-pages.product-card-xl')
+                @for($i = 0; $i < 4; $i++)
+                   @include('search-pages.product-card-xl',['product'=>$products[$i],'routename'=>'product.show'])
                 @endfor
 
             </div>
@@ -35,8 +35,8 @@
 
             <div class=" ">
 
-                @for ($i = 0; $i < 3; $i++)
-                    @include('search-pages.product-card-sm')
+                @for ($i = 4; $i < 7; $i++)
+                    @include('search-pages.product-card-sm',['product'=>$products[$i],'routename'=>'product.show'])
                 @endfor
 
             </div>
@@ -74,8 +74,8 @@
         <div class="sm:w-2/3   rounded-md">
 
             <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
-                @for($i = 1; $i <= 4; $i++)
-                   @include('search-pages.product-card-xl')
+                @for($i = 0; $i < 4; $i++)
+                   @include('search-pages.product-card-xl',['product'=>$services[$i],'routename'=>'service.show'])
                 @endfor
 
             </div>
@@ -90,8 +90,8 @@
 
             <div class=" ">
 
-                @for ($i = 0; $i < 3; $i++)
-                    @include('search-pages.product-card-sm')
+                @for ($i = 4; $i < 7; $i++)
+                    @include('search-pages.product-card-sm',['product'=>$services[$i],'routename'=>'service.show'])
                 @endfor
 
             </div>

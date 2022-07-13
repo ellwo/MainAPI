@@ -565,7 +565,7 @@ function upLoad(data, url, id_input, th, inputname) {
 
 
     var loadbtn = '<div id="lodbtn' + th.id + '" class="text-center  "> <span class="btn text-xl loading mx-auto my-auto bg-white text-blue-500 p-1 btn-circle "></span> </div>';
-    var errorbtn = '<div id="errorbtn' + th.id + '" class=" text-cente "> <button type="button" class="btn  mx-auto my-auto text-red-800   btn-circle  bg-white btn-ghost">اعادة المحاولة</button> </div>';
+    var errorbtn = '<div id="errorbtn' + th.id + '" class=" text-cente "> <button type="button" class=" mx-auto my-auto  border-danger-darker border-2 text-danger  m-4 p-2 rounded-xl">اعادة المحاولة</button> </div>';
     //th.parent().append(loadbtn);
     th.slideUp(400).parent().append(loadbtn);
     th.attr("disabled", "disabled");
@@ -604,6 +604,7 @@ function upLoad(data, url, id_input, th, inputname) {
             } else {
                 $("#lodbtn" + th.id).slideUp(300).remove();
                 th.parent().append(errorbtn);
+
 
                 $("#errorbtn" + th.id + " button").on('click', function() {
                     upLoad(data.data64, url, id_input, th);
@@ -886,7 +887,7 @@ function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize) {
                 var inputnamee = '"' + inputname + '"';
 
                 // <div class="">
-                var imageshow = "<div id='imgview" + count + "' class=' rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+                var imageshow = "<div id='imgview" + count + "' class='mx-auto rounded-lg border-info-darker border-2 m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
                 //                var im = "";
 
 

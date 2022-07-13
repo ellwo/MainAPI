@@ -36,6 +36,7 @@ class UploadeController extends Controller
             $path=$foldername.'/'.$name;
             $pathtogoogel=$foldernamegoogle.$name;
 
+//            return 'no data';
 
             try{
                 $pathh= Storage::disk('public')->put($path,base64_decode($img));

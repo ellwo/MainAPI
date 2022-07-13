@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bussinse;
+use App\Models\Location;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,6 +55,7 @@ class BussinseController extends Controller
        // return dd(Bussinse::with('cities','parts')->where('username','dobaa')->first());
 
 
+
         $this->validate($request,[
             'name'=>'required|unique:bussinses,name|string',
             'department_id'=>'required|exists:departments,id',
@@ -67,7 +69,7 @@ class BussinseController extends Controller
             'username'=>$request["username"],
             'email'=>$request["email"],
             'department_id'=>$request['department_id'],
-            'user_id'=>25,
+            'user_id'=>auth()->user()->id,
             'avatar'=>$request["avatar"],
             'phone_numbers'=>$request["phone_numbers"],
             'contact_links'=>$request["contact_links"],
@@ -76,13 +78,32 @@ class BussinseController extends Controller
             'address'=>$request["address"],
         ]);
 
-        $cities=explode(',',$request->cities);
+  //      $cities=explode(',',$request->cities);
         // $cities=$request["cities"];
-         $buss->cities()->attach($cities);
+//         $buss->cities()->attach($cities);
 
         $parts=explode(',',$request->parts);
         // $cities=$request["cities"];
          $buss->parts()->attach($parts);
+
+         $address=$request->address;
+         $phone=$request->phone;
+         $markts=$request->markt_id;
+
+         for($i=0; $i<count($markts); $i++){
+            Location::create([
+                'markt_id'=>$markts[$i],
+                'address'=>$address[$i],
+                'phone'=>$phone[$i],
+                'bussinse_id'=>$phone[$i]
+            ]);
+         }
+
+
+
+
+
+
         // $parts=$request["parts"];
         // $buss->attach($parts);
 

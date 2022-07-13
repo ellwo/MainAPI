@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -14,7 +15,9 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $country = Country::all();
+        $city = City::all();
+        return view("admene.citye.addd" , compact('country','city'));
     }
 
     /**
@@ -35,7 +38,17 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $this->validate($request,[
+            'name'=>'required|unique:cities,name|string',
+
+        ]);
+        $co = Country::find($request->county_id);
+        $city = new City();
+        $city->name = $request->name;
+        $co->cities()->save($city);
+        return redirect()->back();
+
     }
 
     /**
@@ -44,6 +57,7 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
+
     public function show(City $city)
     {
         //
@@ -55,9 +69,11 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function edit(City $city)
+    public function edit($id)
     {
-        //
+        $city = City::find($id);
+        $country = Country::all();
+        return view("admene.citye.update" ,compact('city','country'));
     }
 
     /**
@@ -67,9 +83,18 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request,$id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required|unique:cities,name|string',
+         ]);
+        $co = Country::find($request->county_id);
+         $cit = City::find($id);
+         $cit->name = $request->name;
+         $co->cities()->save($cit);
+         $city = City::all();
+         return redirect()->route('show_city');
+
     }
 
     /**
@@ -81,5 +106,11 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         //
+    }
+    public function delete($id)
+    {
+        $flight = City::find($id);
+        $flight->delete();
+        return redirect()->back();
     }
 }

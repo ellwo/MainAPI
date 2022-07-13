@@ -25,7 +25,7 @@
 
             @if ($product->owner_type=="App\Models\User")
 
-            <livewire:dept-part-mulit-select selected="{{ $product->parts->pluck('id')->toArray() }}" dept="{{ $product->department_id }}" key="{{ time() }}">
+            @livewire('dept-part-mulit-select', ['type' => 2,'selected'=>$product->parts->pluck('id')->toArray(),'dept'=>$product->department_id], key(time()))
 
             @else
             <div>

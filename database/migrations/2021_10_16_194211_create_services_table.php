@@ -25,7 +25,7 @@ class CreateServicesTable extends Migration
             $table->text('discrip')->nullable();
             $table->text('how_long')->nullable();
 
-            $table->foreignId('department_id')->constrained('departments');
+            $table->foreignId('department_id')->nullable()->constrained('departments')->nullOnDelete();
             //$table->
 
             $table->timestamps();

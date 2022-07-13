@@ -33,6 +33,7 @@ class City extends Model
         # code...
         return $this->belongsToMany(Product::class);
     }
+
     public function service()
     {
         return $this->belongsToMany(Service::class);
@@ -41,6 +42,11 @@ class City extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+        # code...
+    }
+    public function markts()
+    {
+        return $this->hasMany(Markt::class);
         # code...
     }
 }

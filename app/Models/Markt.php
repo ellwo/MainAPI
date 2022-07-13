@@ -15,5 +15,11 @@ class Markt extends Model
         'long_map'
     ];
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+        # code...
+    }
+
 
 }

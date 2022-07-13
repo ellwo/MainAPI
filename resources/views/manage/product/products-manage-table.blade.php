@@ -122,7 +122,7 @@
 							{{$product->created_at}}
 						</td>
 						<td class="p-3 ">
-							<a href="#" class="mr-2 text-gray-400 hover:text-dark dark:hover:text-gray-100">
+							<a href="{{ route('product.show',$product) }}" target="_blank" class="mr-2 text-gray-400 hover:text-dark dark:hover:text-gray-100">
 								<i class="text-base material-icons-outlined">visibility</i>
 							</a>
 							<a href="{{ route('product.edit',['product'=>$product]) }}" class="mx-2 text-gray-400 hover:text-yellow-700">

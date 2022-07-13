@@ -32,8 +32,13 @@ class MainController extends Controller
 
        $leftproducts=visits(Product::class)->top(6);
 
+
+
+
        $leftproducts=Product::with('owner')->withAvg('ratings:value')->withCount('ratings')->whereIn('id',$leftproducts->pluck('id'))->get();
        $leftService=Service::with('owner')->withAvg('ratings:value')->withCount('ratings')->whereIn('id',$leftService->pluck('id'))->get();
+
+
 
 
        $right_product=Product::with('owner')->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(4)->get();

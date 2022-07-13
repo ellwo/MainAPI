@@ -96,121 +96,6 @@
                                                                 </div>
                                                             @endforeach
 
-                                                            {{-- <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="-3" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/51-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="-2" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/52-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="-1" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/53-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide" data-slick-index="0"
-                                                aria-hidden="true" style="width: 120px;" tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb selected"
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/49-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/49-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/49-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide" data-slick-index="1"
-                                                aria-hidden="true" style="width: 120px;" tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb"
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/50-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/50-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/50-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-current slick-active"
-                                                data-slick-index="2" aria-hidden="false" style="width: 120px;"
-                                                tabindex="0">
-                                                <img class="img-fluid thumb js-thumb"
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/51-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-active"
-                                                data-slick-index="3" aria-hidden="false" style="width: 120px;"
-                                                tabindex="0">
-                                                <img class="img-fluid thumb js-thumb"
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/52-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-active"
-                                                data-slick-index="4" aria-hidden="false" style="width: 120px;"
-                                                tabindex="0">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/53-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned slick-active"
-                                                data-slick-index="5" aria-hidden="false" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb"
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/49-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/49-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/49-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="6" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/50-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/50-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/50-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="7" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/51-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/51-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="8" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/52-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/52-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div>
-                                            <div class="item thumb-container slick-slide slick-cloned"
-                                                data-slick-index="9" aria-hidden="true" style="width: 120px;"
-                                                tabindex="-1">
-                                                <img class="img-fluid thumb js-thumb "
-                                                    data-image-medium-src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    data-image-large-src="https://demo.bestprestashoptheme.com/savemart/53-large_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    src="https://demo.bestprestashoptheme.com/savemart/53-medium_default/nullam-tempor-orci-eu-pretium.jpg"
-                                                    alt="" title="" itemprop="image">
-                                            </div> --}}
                                                         </div>
                                                     </div>
 
@@ -512,7 +397,13 @@
                                                                         src="{{ $product->owner->avatar }}">
                                                                 </div>
                                                                 <div class="">
-                                                                    <a href="#"><span
+                                                                    <a href=" @if ($product->owner_type=="App\Models\Bussinse")
+                                                                        {{ route('b.show',$product->owner->username) }}
+
+                                                                        @else
+                                                                        {{ route('profile.show',$product->owner->username) }}
+
+                                                                        @endif"><span
                                                                             class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
                                                                         <br>
                                                                         <span class="font-normal text-info">

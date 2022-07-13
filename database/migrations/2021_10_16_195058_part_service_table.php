@@ -16,8 +16,8 @@ class PartServiceTable extends Migration
         Schema::create('part_service', function (Blueprint $table) {
             //
 
-            $table->foreignId('part_id')->constrained();
-            $table->foreignId('service_id')->constrained();
+            $table->foreignId('part_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

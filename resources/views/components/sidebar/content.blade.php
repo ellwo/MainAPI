@@ -12,6 +12,11 @@
         <x-icons.dashboard class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 </x-sidebar.link>
+
+@role('admin')
+<x-sidebar.content-admin />
+@endrole
+
 <x-sidebar.link title="ادارة منتجاتي" href="{{ route('mange.products',['type'=>'all']) }}" :isActive="request()->routeIs('mange.products')">
     <x-slot name="icon">
         <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -47,6 +52,7 @@
 
 
 </x-sidebar.dropdown>
+
 <x-sidebar.dropdown collapsible="true" title="حساباتي التسويقية " :active="request()->routeIs('bussinses')">
 
     <x-slot name="icon" >
