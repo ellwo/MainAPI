@@ -64,10 +64,11 @@ class ProductSearch extends Component
                 $query->where('department_id',"=",$this->dept)->Orwhere(function($query){
                     $query->where('name','LIKE','%'.$this->search.'%')
                     ->Orwhere('discrip','LIKE','%'.$this->search.'%')
-                    ->Orwhere('note','LIKE','%'.$this->search.'%')            ->OrwhereBetween('year_created', ['2010', '2019']);
+                    ->Orwhere('note','LIKE','%'.$this->search.'%')->OrwhereBetween('year_created', ['2010', '2019']);
                 });
             })->orderBy('updated_at','desc')->paginate($this->pre_page);
         }
+
 
 
         return view('livewire.search.product-search',['products'=>$products]);

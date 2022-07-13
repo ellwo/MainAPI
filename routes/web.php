@@ -131,7 +131,7 @@ Route::get('/service.add{step?}|{username?}',ServiceForm::class)->name('service.
 
 Route::get('/product/{product}',[ProductController::class,'show'])->name('product.show');
 
-Route::get('/service/{product}',[ProductController::class,'show'])->name('service.show');
+Route::get('/service/{service}',[ServiceController::class,'show'])->name('service.show');
 
 
 

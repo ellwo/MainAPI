@@ -108,6 +108,34 @@ class ServiceController extends Controller
     public function show(Service $service)
     {
         //
+
+     $service->vzt()->increment();
+        $id=$service->id;
+        $service=$service->with('parts')->withAvg('ratings:value')->where('id','=',$id)->first();
+
+        $realted_products=[];
+
+       $owner3= $service->owner->services()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       if($service->department!=null)
+       $dept_3=$service->department->services()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       else
+       $dept_3=Service::withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+
+
+       foreach($owner3 as $p){
+        $realted_products[]=$p;
+       }
+       foreach($dept_3 as $p){
+        $realted_products[]=$p;
+       }
+
+
+
+
+
+
+        return view('servicesview.show',['product'=>$service,'related_products'=>$realted_products]);
+
     }
 
     /**
