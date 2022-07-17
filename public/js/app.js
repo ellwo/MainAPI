@@ -25278,6 +25278,16 @@ __webpack_require__.r(__webpack_exports__);
       "type": props.type,
       "chatting_id": props.chattings
     };
+    console.log("chattings chatprofile" + props.chattings);
+    console.log("userid chatprofile" + props.userid);
+    Echo["private"]("usernotfiyMessage." + props.userid).listen("MessageRescive", function (e) {
+      console.log("from ChtPRofile Echo usernotify");
+      console.log(e.message);
+
+      if (e.message.sender != props.chattings) {
+        pushnew(e.message);
+      }
+    });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       console.log("on Mounted");
       getChatrooms(data).then(function () {
@@ -25285,7 +25295,47 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
 
-    var pushnew = function pushnew() {};
+    var pushnew = function pushnew(message) {
+      var chatroom2;
+      var index;
+      chats.value.forEach(function (element) {
+        if (element.id == message.chat_room_id) {
+          index = chats.value.indexOf(element);
+        }
+      });
+      var res = chats.value.at(index);
+      chatroom2 = {
+        chatable: {
+          avatar: res.chatable.avatar,
+          id: res.chatable.id,
+          name: res.chatable.name,
+          username: res.chatable.username
+        },
+        from_id: res.from_id,
+        from_type: res.from_type,
+        id: res.id,
+        isitBlocked: res.isitBlocked,
+        lasttmessage: {
+          chat_room_id: message.chat_room_id,
+          content: message.content,
+          created_at: message.created_at,
+          id: message.id,
+          is_readed: message.is_readed,
+          sender: message.sender,
+          type_message: message.type_message
+        },
+        updated_at: res.updated_at,
+        to_id: res.to_id,
+        to_type: res.to_type,
+        unread_messages_count: res.unread_messages_count++
+      }; // chatroom2.id=750;
+
+      console.log(chatroom2); // var first=chats.value.at(0);
+
+      chats.value.splice(index, 1);
+      chats.value.unshift(chatroom2);
+      console.log(index);
+    };
 
     return {
       chatrooms: chatrooms,
@@ -25296,6 +25346,10 @@ __webpack_require__.r(__webpack_exports__);
       chattings: props.chattings,
       type: props.type
     };
+  },
+  activated: function activated(props) {
+    console.log("Is Activeted");
+    console.log("Is Activeted" + props.chattings);
   }
 }));
 
@@ -25450,7 +25504,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 prePage.value += 1;
                 louding.value = true;
                 data2 = {
-                  "chat_room_id": props.chat_room_id,
+                  "chat_room_id": chatroomid_ref.value,
                   "chattings_id": props.chattings,
                   "page": prePage.value
                 };
@@ -25476,19 +25530,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     });
                     console.log();
                   } else {
-                    mmm = m.toString(); //   var ob={mmm.toString() : messages.messages[m]}
-                    // console.log(ob)
-                    //chtroom.value[m]=[]
-                    //   var ob=chtroom.value[m]
-                    //  Array.prototype.pop.call(chtroom.value)
-                    // chtroom.value.pop()
-
+                    mmm = m.toString();
                     ob = messages.value;
-                    chtroom.value = _objectSpread(_objectSpread({}, ob), chtroom.value); //Object.assign(ob,chtroom.value)
-                    //chtroom.value.pop()
-
-                    console.log(messages.value); //     {m:messages.messages[m]}
-                    // )
+                    chtroom.value = _objectSpread(_objectSpread({}, ob), chtroom.value);
+                    console.log(messages.value);
                   }
                 } //chtroom.value.
 
@@ -25549,11 +25594,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var sendMessageForm = /*#__PURE__*/function () {
       var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var formdata, ob, lastindex, element;
+        var formdata, ob, lastindex, formatAMPM, d, element;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                formatAMPM = function _formatAMPM(date) {
+                  var hours = date.getHours();
+                  var minutes = date.getMinutes();
+                  var ampm = hours >= 12 ? 'PM' : 'AM';
+                  hours = hours % 12;
+                  hours = hours ? hours : 12; // the hour '0' should be '12'
+
+                  minutes = minutes < 10 ? '0' + minutes : minutes;
+                  var strTime = hours + ':' + minutes + ' ' + ampm;
+                  return strTime;
+                };
+
                 console.log(chatroomid_ref.value);
                 formdata = (0,vue__WEBPACK_IMPORTED_MODULE_4__.reactive)({
                   "chat_room_id": chatroomid_ref.value,
@@ -25562,10 +25619,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   "type_message": "text",
                   "is_readed": 0
                 });
-                _context4.next = 4;
-                return sendMessage(_objectSpread({}, formdata));
+                sendMessage(_objectSpread({}, formdata));
 
-              case 4:
                 if (Object.keys(messages.value).length == 0) {
                   //  await   getChatroom(data)
                   console.log("lentgh is equle 0");
@@ -25583,12 +25638,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 lastindex = Object.keys(chtroom.value).at(Object.keys(chtroom.value).length - 1);
                 if (lastindex == "اليوم") console.log("yes it is اليوم");else console.log("no it is اليوم");
                 console.log("last index " + lastindex);
+                d = new Date();
                 chtroom.value[lastindex].push({
                   "content": form.content,
                   "sender": form.sender,
                   "type_message": form.type_message,
                   "chat_room_id": form.chat_room_id,
-                  "is_readed": form.is_readed
+                  "is_readed": form.is_readed,
+                  'created_at': formatAMPM(d)
                 });
                 element = document.getElementById("lastone");
                 element.lastElementChild.scrollIntoView({
@@ -25597,7 +25654,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(formdata);
                 form.content = '';
 
-              case 13:
+              case 14:
               case "end":
                 return _context4.stop();
             }
@@ -25792,19 +25849,24 @@ var _hoisted_12 = {
   "class": "w-32 truncate"
 };
 var _hoisted_13 = {
+  key: 0,
   "class": "text-gray-600 dark:text-gray-400"
 };
 var _hoisted_14 = {
+  key: 1,
+  "class": "text-gray-600 dark:text-gray-400"
+};
+var _hoisted_15 = {
   "class": "text-right flex-2"
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", {
   "class": "text-gray-500"
 })], -1
 /* HOISTED */
 );
 
-var _hoisted_16 = {
+var _hoisted_17 = {
   key: 0,
   "class": "inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full"
 };
@@ -25836,11 +25898,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* PROPS */
         , _hoisted_6), _ctx.chat_room_id == item.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_8])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.chatable.name), 1
         /* TEXT */
-        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.lasttmessage != null ? item.lasttmessage.content : ''), 1
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [item.lasttmessage != null && item.lasttmessage.type_message == 'text' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.lasttmessage != null ? item.lasttmessage.content : ''), 1
         /* TEXT */
-        )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [item.unread_messages_count != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unread_messages_count), 1
+        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), item.lasttmessage != null && item.lasttmessage.type_message == 'order' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_14, " طلب جديد " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.lasttmessage.content.order.id), 1
         /* TEXT */
-        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @if($unreadedcount !=0)\r\n\r\n            <small class=\"inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full\">\r\n                {{$unreadedcount}}\r\n            </small>\r\n            @endif ")])])])];
+        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [item.unread_messages_count != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.unread_messages_count), 1
+        /* TEXT */
+        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @if($unreadedcount !=0)\n\n            <small class=\"inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full\">\n                {{$unreadedcount}}\n            </small>\n            @endif ")])])])];
       }),
       _: 2
       /* DYNAMIC */
@@ -25878,7 +25942,7 @@ var _hoisted_3 = {
   "class": "lg:w-3/5"
 };
 var _hoisted_4 = {
-  "class": "h-full border-l"
+  "class": "h-full"
 };
 var _hoisted_5 = {
   "class": "border h-1/4 rounded-xl"
@@ -26031,10 +26095,118 @@ var _hoisted_28 = {
   "class": "flex-1 px-2"
 };
 var _hoisted_29 = {
-  "class": "inline-block p-2 px-6 text-gray-700 bg-gray-300 rounded-full"
+  key: 0,
+  "class": "inline-block p-4 px-6 bg-yellow-400 rounded-md text-darker"
 };
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" [طلب] ");
+
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_32 = ["href"];
+
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("زيارة ");
+
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_35 = {
+  "class": "p-1 bg-yellow-200 rounded-xl text-darker"
+};
+
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_37 = ["src"];
+
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_39 = {
+  "class": "flex flex-col"
+};
+
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-xl font-bold"
+}, "تفاصيل الطلب", -1
+/* HOISTED */
+);
+
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_42 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "العنوان", -1
+/* HOISTED */
+);
+
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_45 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "الملاحظات", -1
+/* HOISTED */
+);
+
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_48 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "الكمية", -1
+/* HOISTED */
+);
+
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_51 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "اجمالي السعر", -1
+/* HOISTED */
+);
+
+var _hoisted_53 = {
+  "class": "p-2 bg-yellow-400 rounded-full text-darker"
+};
+
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_55 = {
+  key: 1,
+  "class": "inline-block p-2 px-6 text-white bg-blue-600 rounded-full"
+};
+
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pl-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", {
   "class": "text-gray-500"
@@ -26042,41 +26214,149 @@ var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_31 = {
+var _hoisted_57 = {
   key: 1,
   "class": "flex mb-4 text-xs text-right message me"
 };
-var _hoisted_32 = {
+var _hoisted_58 = {
   "class": "flex-1 px-2"
 };
-var _hoisted_33 = {
-  "class": "inline-block p-2 px-6 text-white bg-blue-600 rounded-full"
-};
-var _hoisted_34 = {
-  "class": "pr-4"
-};
-var _hoisted_35 = {
-  "class": "text-gray-500"
+var _hoisted_59 = {
+  key: 0,
+  "class": "inline-block p-4 px-6 bg-yellow-400 rounded-md text-darker"
 };
 
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" [طلب] ");
+
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_62 = ["href"];
+
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("زيارة ");
+
+var _hoisted_64 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_65 = {
+  "class": "p-1 bg-yellow-200 rounded-xl text-darker"
+};
+
+var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_67 = ["src"];
+
+var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_69 = {
+  "class": "flex flex-col"
+};
+
+var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-xl font-bold"
+}, "تفاصيل الطلب", -1
+/* HOISTED */
+);
+
+var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_72 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_73 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "العنوان", -1
+/* HOISTED */
+);
+
+var _hoisted_74 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_75 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "الملاحظات", -1
+/* HOISTED */
+);
+
+var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_78 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_79 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "الكمية", -1
+/* HOISTED */
+);
+
+var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_81 = {
+  "class": "flex flex-col space-x-4"
+};
+
+var _hoisted_82 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "font-bold text-blue-900"
+}, "اجمالي السعر", -1
+/* HOISTED */
+);
+
+var _hoisted_83 = {
+  "class": "p-2 bg-yellow-400 rounded-full text-darker"
+};
+
+var _hoisted_84 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_85 = {
+  key: 1,
+  "class": "inline-block p-2 px-6 text-white bg-blue-600 rounded-full"
+};
+var _hoisted_86 = {
+  "class": "pr-4"
+};
+var _hoisted_87 = {
+  "class": "text-gray-500"
+};
+
+var _hoisted_88 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_89 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   id: "lastone"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr")], -1
 /* HOISTED */
 );
 
-var _hoisted_38 = {
+var _hoisted_90 = {
   "class": ""
 };
-var _hoisted_39 = {
+var _hoisted_91 = {
   "class": "flex bg-white rounded-lg shadow dark:bg-darker write"
 };
 
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_92 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex items-center content-center p-4 pr-0 text-center justify-items-stretch flex-3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "block text-center text-gray-400 hover:text-gray-800"
@@ -26094,25 +26374,25 @@ var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_41 = {
+var _hoisted_93 = {
   "class": "flex-1"
 };
 
-var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex items-center content-center w-32 p-2 flex-2\"><div class=\"flex-1 text-center\"><span class=\"text-gray-400 hover:text-gray-800\"><span class=\"inline-block align-text-bottom\"><svg fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" stroke=\"currentColor\" viewBox=\"0 0 24 24\" class=\"w-6 h-6\"><path d=\"M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13\"></path></svg></span></span></div><div class=\"flex-1\"><button type=\"submit\" class=\"inline-block w-10 h-10 bg-blue-400 rounded-full\"><span class=\"inline-block align-text-bottom\"><svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-4 h-4 text-white\"><path d=\"M5 13l4 4L19 7\"></path></svg></span></button></div></div>", 1);
+var _hoisted_94 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex items-center content-center w-32 p-2 flex-2\"><div class=\"flex-1 text-center\"><span class=\"text-gray-400 hover:text-gray-800\"><span class=\"inline-block align-text-bottom\"><svg fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" stroke=\"currentColor\" viewBox=\"0 0 24 24\" class=\"w-6 h-6\"><path d=\"M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13\"></path></svg></span></span></div><div class=\"flex-1\"><button type=\"submit\" class=\"inline-block w-10 h-10 bg-blue-400 rounded-full\"><span class=\"inline-block align-text-bottom\"><svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-4 h-4 text-white\"><path d=\"M5 13l4 4L19 7\"></path></svg></span></button></div></div>", 1);
 
-var _hoisted_43 = {
+var _hoisted_95 = {
   key: 1,
   "class": "text-xs text-white bg-danger rounded-xl sm:text-sm"
 };
 
-var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+var _hoisted_96 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
   dir: "auto",
   "class": "p-4 mx-auto"
 }, " عذرا لايمكنك ارسال رسائل لهذا المستخدم ! ", -1
 /* HOISTED */
 );
 
-var _hoisted_45 = [_hoisted_44];
+var _hoisted_97 = [_hoisted_96];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_chat_profile_vue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("chat-profile-vue");
 
@@ -26177,21 +26457,65 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         alt: "chat-user"
       }, null, 8
       /* PROPS */
-      , _hoisted_27)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+      , _hoisted_27)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [message.type_message == 'order' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_30, _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+        "class": "flex space-x-2",
+        href: message.content.routename
+      }, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.product.name), 1
       /* TEXT */
-      )]), _hoisted_30])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" her from me "), message.sender == _ctx.chattings ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+      )], 8
+      /* PROPS */
+      , _hoisted_32), _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.product.price), 1
       /* TEXT */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.created_at), 1
+      ), _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+        "class": "h-40",
+        src: message.content.product.img
+      }, null, 8
+      /* PROPS */
+      , _hoisted_37), _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.address), 1
       /* TEXT */
-      )])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n ")], 64
+      )]), _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.note), 1
+      /* TEXT */
+      )]), _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [_hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.qun), 1
+      /* TEXT */
+      )]), _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.qun * message.content.product.price + "/ر.ي"), 1
+      /* TEXT */
+      )]), _hoisted_54])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), message.type_message == 'text' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+      /* TEXT */
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_56])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" her from me "), message.sender == _ctx.chattings ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [message.type_message == 'order' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_60, _hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+        "class": "flex space-x-2",
+        href: message.content.routename
+      }, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.product.name), 1
+      /* TEXT */
+      )], 8
+      /* PROPS */
+      , _hoisted_62), _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.product.price), 1
+      /* TEXT */
+      ), _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+        "class": "h-40",
+        src: message.content.product.img
+      }, null, 8
+      /* PROPS */
+      , _hoisted_67), _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [_hoisted_70, _hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [_hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.address), 1
+      /* TEXT */
+      )]), _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [_hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.note), 1
+      /* TEXT */
+      )]), _hoisted_77, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [_hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.qun), 1
+      /* TEXT */
+      )]), _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_81, [_hoisted_82, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_83, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content.order.qun * message.content.product.price + "/ر.ي"), 1
+      /* TEXT */
+      )]), _hoisted_84])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), message.type_message == 'text' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_85, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+      /* TEXT */
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_87, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.created_at), 1
+      /* TEXT */
+      )])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\n ")], 64
       /* STABLE_FRAGMENT */
       );
     }), 128
     /* KEYED_FRAGMENT */
-    )), _hoisted_36]);
+    )), _hoisted_88]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), _hoisted_37], 32
+  )), _hoisted_89], 32
   /* HYDRATE_EVENTS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" her is the Form"), _ctx.isitBlocked == false ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
     key: 0,
@@ -26200,7 +26524,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.sendMessageForm && _ctx.sendMessageForm.apply(_ctx, arguments);
     }, ["prevent"])),
     dir: "rtl"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "hidden",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return _ctx.form.chat_room_id = $event;
@@ -26208,7 +26532,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     name: "chat_room_id"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.chat_room_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.chat_room_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_91, [_hoisted_92, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_93, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return _ctx.form.content = $event;
     }),
@@ -26219,9 +26543,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.content]])]), _hoisted_42])])], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.content]])]), _hoisted_94])])], 32
   /* HYDRATE_EVENTS */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isitBlocked == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_43, _hoisted_45)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isitBlocked == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_95, _hoisted_97)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),
@@ -26616,18 +26940,13 @@ function useCompanies() {
               messages.value = response.data.messages;
               chatable.value = response.data.chatable;
               isitBlocked.value = response.data.isitBlocked;
-              console.log("messages her");
-              console.log(messages.value);
-              console.log("chatroom her");
-              console.log(chatroom.value);
-              console.log("chatable her");
-              console.log(chatable.value);
-              console.log("resp");
+              console.log("Has More");
+              console.log(response.data);
               return _context3.abrupt("return", {
                 messages: response.data.messages
               });
 
-            case 17:
+            case 10:
             case "end":
               return _context3.stop();
           }

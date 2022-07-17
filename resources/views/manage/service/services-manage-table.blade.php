@@ -76,6 +76,8 @@
                 </div>
             </div>
             <div class="flex flex-col  md:overflow-x-hidden overflow-x-scroll w-full  mx-auto ">
+                {{ $products->links() }}
+
                 <table class="table md:min-w-full text-xs px-4 space-y-6 sm:text-sm border-separate text-dark dark:text-light">
                     <thead class=" dark:text-light bg-light dark:bg-dark">
                         <tr>

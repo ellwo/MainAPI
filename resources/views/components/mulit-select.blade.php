@@ -1,6 +1,6 @@
 
-<div >
-<div>
+<div  >
+<div class="" >
     <x-label for="department_id" :value="$lablename" />
 
     <select  class="hidden" id="{{$id}}">
@@ -16,9 +16,10 @@
     </select>
 
 
+<div x-data="dropdown()" x-init="loadOptions('{{$id}}')" class="flex flex-col items-center w-full mx-auto h-1/3">
+      <input  name="{{$inputname}}" type="hidden" wire:model='selectedParts' x-on:change='alert("change")'  x-bind:value='selectedValues()'    />
 
-<div x-data="dropdown()" x-init="loadOptions('{{$id}}')" class="flex flex-col items-center w-full mx-auto md:w-1/2 h-1/3">
-      <input  name="{{$inputname}}" type="hidden" x-bind:value="selectedValues()">
+      <input type="hidden" name="" x-model='selected'>
       <div class="relative inline-block w-64">
           <div class="relative flex flex-col items-center">
               <div x-on:click="open" class="w-full ">
@@ -27,7 +28,7 @@
                           <template x-for="(option,index) in selected" :key="options[option].value">
                               <div
                                   class="flex items-center justify-center px-2 py-1 m-1 font-medium rounded-full bg-m_primary ">
-                                  <div class="flex-initial max-w-full  font-normal leading-none"
+                                  <div class="flex-initial max-w-full font-normal leading-none"
                                    x-model="options[option]" x-text="options[option].text"></div>
                                   <div class="flex flex-row-reverse flex-auto">
                                       <div x-on:click="remove(index,option)">
@@ -98,11 +99,18 @@
           <!-- on tailwind components page will no work  -->
       </div>
 
+      @if (isset($searching) && $searching==true)
+      <button class="inline-flex p-2 mx-auto text-white bg-blue-800 rounded-md" x-on:click='$wire.set("selectedParts",selectedValues()) '>  تنفيذ</button>
+      @endif
 
 </div>
 
 
+
+
+
                 </div>
+
 
         <script>
 
@@ -152,10 +160,12 @@
 
 
                     },
+                    selectedvalue:new Array(),
                     selectedValues(){
 
 
                         return this.selected.map((option)=>{
+                            this.selectedvalue.push( this.options[option].value);
                             return this.options[option].value;
                         })
                     }

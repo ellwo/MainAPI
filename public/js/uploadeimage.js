@@ -431,7 +431,7 @@ class ImagetoServer {
 
         var idbtn = "'img" + this.id + "'";
 
-        var class_row = "grid lg:grid-cols-3";
+        var class_row = "grid lg:grid-cols-3 sm:grid-cols-2";
 
         if (!this.multi)
             class_row = "flex";
@@ -443,9 +443,9 @@ class ImagetoServer {
             'class="imguploade hidden " ' +
             ' name="input' + this.id + '" id="img' + this.id + '" type="file"  />  <input value="" id="' + this.id + '"  name="' + this.id + '" type="hidden" />' +
             ' <div class="' + class_row + '" id="imgrow' + this.id + '"> ' +
-            ' <div class=" rounded-lg m-2 "> ' +
+            ' <div class=" rounded-lg m-2 mx-auto"> ' +
             ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
-            ' <img id="imgsrc' + this.id + '"   class="  mx-auto rounded-full border image-full"/> ' +
+            ' <img id="imgsrc' + this.id + '"   class="mx-auto h-64 rounded-full border image-full"/> ' +
             '</div>   </div> </div> </div> </div> ';
 
         //  alert("ksa");
@@ -526,7 +526,7 @@ class ImagetoServer {
 
             if (e.target.files.length > 1) {
 
-                $("#" + id_d).append("<button type='button'  class='w-full block btn' id='uploadall'>تاكيد الكل</button>");
+                $("#" + id_d).parent().append("<button type='button'  class='w-full block btn' id='uploadall'>تاكيد الكل</button>");
 
                 console.log("is more then one");
                 $("#uploadall").click(function() {

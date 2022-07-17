@@ -15,9 +15,10 @@
                             <div id="verticalmenu" class="verticalmenu" role="navigation">
                                 <ul class="menu level1">
                                     @foreach ($depts as $d)
-                                    <li class="item parent"><a href="#" title="Laptops &amp; Accessories">
-                                            <i class="hasicon nov-icon"></i>{{ $d->name }} &amp;
-                                            Accessories</a><span class="show-sub fa-active-sub"></span>
+                                    <li class="item parent"><a href="{{ route('search',['dept'=>$d->id]) }}"
+                                    title="{{ $d->name }}">
+                                            <i class="hasicon nov-icon"></i>{{ $d->name }}
+                                        </a><span class="show-sub fa-active-sub"></span>
                                         <span class="w-3/4 truncate menu-sub-title">{{ $d->note }}</span>
                                         <div class="dropdown-menu" style="width:222px">
 
@@ -26,8 +27,8 @@
 
                                                 @foreach ($d->parts as $p)
                                                     <li class="item ">
-                                                        <a href="#"
-                                                            title="Macbook Pro">{{ $p->name }}</a>
+                                                        <a href="{{ route('search',['dept'=>$d->id,'part'=>$p->id]) }}"
+                                                            title="{{ $p->name }}">{{ $p->name }}</a>
                                                     </li>
                                                 @endforeach
 
@@ -76,7 +77,7 @@
                                                         @foreach ($depts as $dept )
 
                                                         <li class="item col-lg-3 col-md-3 html">
-                                                            <a href="{{route('search-product',['dept'=>$dept->id]) }}"><span
+                                                            <a href="{{route('search',['dept'=>$dept->id]) }}"><span
                                                                 class="menu-title">{{ $dept->name }}</span></a>
 
                                                         </li>
@@ -111,18 +112,12 @@
                     <!-- Block search module TOP -->
                     <div id="desktop_search_content" >
                         <form method="get"
-                            action="https://demo.bestprestashoptheme.com/savemart/ar/module/novadvancedsearch/result"
+                            action="{{ route('search') }}"
                             id="searchbox" class="form-novadvancedsearch">
-                            <input type="hidden" name="fc" value="module">
-                            <input type="hidden" name="module" value="novadvancedsearch">
-                            <input type="hidden" name="controller" value="result">
-                            <input type="hidden" name="orderby" value="position">
-                            <input type="hidden" name="orderway" value="desc">
-                            <input type="hidden" name="id_category" class="id_category" value="0">
                             <div class="input-group">
                                 <input type="text" id="search_query_top"
                                     class="search_query ui-autocomplete-input form-control ac_input"
-                                    name="search_query" value="" placeholder="Search" novautocomplete="off">
+                                    name="search" value="" placeholder="بحث" >
 
                                 {{-- <div class="input-group-btn nov_category_tree hidden-sm-down">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
@@ -133,7 +128,8 @@
                                 </div> --}}
 
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="submit" name="submit_search"><i
+                                    <button class="btn btn-secondary" type="submit" name="submit_search">
+                                        <i
                                             class="material-icons">search</i></button>
                                 </span>
                             </div>

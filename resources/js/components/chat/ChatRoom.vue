@@ -14,7 +14,7 @@
           <div class=" lg:w-3/5">
 
         <!--  here is the chatrooms-->
-       <div  class="h-full border-l" >
+       <div  class="h-full " >
 
      <div class="border h-1/4 rounded-xl ">
         <h5 class="p-2 text-center border-b-2 border-gray-200 ">
@@ -123,9 +123,64 @@
                                     </div>
                                 </div>
                                 <div class="flex-1 px-2">
-                                    <div class="inline-block p-2 px-6 text-gray-700 bg-gray-300 rounded-full">
-                                        <span >{{message.content}}</span>
-                                    </div>
+
+                <template v-if="message.type_message=='order'">
+        <div class="inline-block p-4 px-6 bg-yellow-400 rounded-md text-darker ">
+            <span >
+
+                                         [طلب]
+                                            <hr>
+
+                                            <a class="flex space-x-2 " :href=message.content.routename >زيارة
+                                            <span>{{ message.content.product.name }}</span>
+                                            </a>
+                                            <br>
+                                            <span class="p-1 bg-yellow-200 rounded-xl text-darker">{{ message.content.product.price }}</span>
+                                            <hr/>
+                                            <img class="h-40" :src="message.content.product.img" />
+                                            <hr>
+                                            <div class="flex flex-col">
+                                                <span class="text-xl font-bold">تفاصيل الطلب</span>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">العنوان</span>
+                                                    {{ message.content.order.address }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الملاحظات</span>
+                                                    {{ message.content.order.note }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الكمية</span>
+                                                    {{ message.content.order.qun }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">اجمالي السعر</span>
+
+                                                   <span class="p-2 bg-yellow-400 rounded-full text-darker">{{ (message.content.order.qun*message.content.product.price) +"/ر.ي"}}
+                                                </span>
+                                                </div>
+                                                <hr>
+
+                                            </div>
+ </span>
+
+
+        </div>
+                                            </template>
+
+                                            <template v-if="message.type_message=='text'">
+                                                  <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
+            <span >
+
+                                          {{message.content}}
+                                          </span>
+                                          </div>
+                                            </template>
+
                                     <div class="pl-4"><small  class="text-gray-500" ></small></div>
                                 </div>
                             </div>
@@ -135,9 +190,64 @@
                             <template v-if="message.sender==chattings">
 <div class="flex mb-4 text-xs text-right message me">
     <div class="flex-1 px-2">
-        <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
-            <span >{{message.content}}</span>
+                <template v-if="message.type_message=='order'">
+        <div class="inline-block p-4 px-6 bg-yellow-400 rounded-md text-darker ">
+            <span >
+
+                                         [طلب]
+                                            <hr>
+
+                                            <a class="flex space-x-2 " :href=message.content.routename >زيارة
+                                            <span>{{ message.content.product.name }}</span>
+                                            </a>
+                                            <br>
+                                            <span class="p-1 bg-yellow-200 rounded-xl text-darker">{{ message.content.product.price }}</span>
+                                            <hr/>
+                                            <img class="h-40" :src="message.content.product.img" />
+                                            <hr>
+                                            <div class="flex flex-col">
+                                                <span class="text-xl font-bold">تفاصيل الطلب</span>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">العنوان</span>
+                                                    {{ message.content.order.address }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الملاحظات</span>
+                                                    {{ message.content.order.note }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الكمية</span>
+                                                    {{ message.content.order.qun }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">اجمالي السعر</span>
+
+                                                   <span class="p-2 bg-yellow-400 rounded-full text-darker">{{ (message.content.order.qun*message.content.product.price) +"/ر.ي"}}
+                                                </span>
+                                                </div>
+                                                <hr>
+
+                                            </div>
+ </span>
+
+
         </div>
+                                            </template>
+
+                                            <template v-if="message.type_message=='text'">
+                                                  <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
+            <span >
+
+                                          {{message.content}}
+                                          </span>
+                                          </div>
+                                            </template>
+
+
         <div class="pr-4"><small class="text-gray-500" >{{message.created_at}}</small></div>
     </div>
                              </div>
@@ -367,7 +477,7 @@ export default defineComponent({
             louding.value=true
 
             const data2={
-                "chat_room_id":props.chat_room_id,
+                "chat_room_id":chatroomid_ref.value,
                 "chattings_id":props.chattings,
                 "page":prePage.value
             }
@@ -400,24 +510,9 @@ export default defineComponent({
                 }
                 else{
                     var mmm=m.toString();
-                 //   var ob={mmm.toString() : messages.messages[m]}
-                   // console.log(ob)
-                 //chtroom.value[m]=[]
-
-              //   var ob=chtroom.value[m]
-                //  Array.prototype.pop.call(chtroom.value)
-
-                 // chtroom.value.pop()
                  var ob=messages.value;
                  chtroom.value={...ob,...chtroom.value}
-
-                   //Object.assign(ob,chtroom.value)
-                  //chtroom.value.pop()
-
                  console.log(messages.value)
-
-                //     {m:messages.messages[m]}
-                // )
                 }
             }
                 //chtroom.value.
@@ -477,7 +572,7 @@ export default defineComponent({
 
               });
 
-             await sendMessage({...formdata})
+              sendMessage({...formdata})
              if(Object.keys(messages.value).length==0){
                 //  await   getChatroom(data)
 
@@ -504,16 +599,27 @@ export default defineComponent({
 
 
 
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
 
 
 
-
+            var d=new Date();
                 chtroom.value[lastindex].push({
                  "content":form.content,
                  "sender":form.sender,
                  "type_message":form.type_message,
                  "chat_room_id":form.chat_room_id,
-                 "is_readed":form.is_readed
+                 "is_readed":form.is_readed,
+                 'created_at':formatAMPM(d)
              });
 
 var element = document.getElementById("lastone");

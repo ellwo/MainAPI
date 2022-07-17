@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\Chat;
 
+use App\Events\MessageRescive;
 use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\MessageResource;
 use App\Models\Bussinse;
 use App\Models\ChatRoom;
 use App\Models\City;
@@ -14,6 +16,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
@@ -124,33 +127,48 @@ class ChatController extends Controller
         }
 
 
+
             if ($request["page"]==1)
-            $messages=$chatroom->messages()->select("*")
-            ->orderBy("id","desc")->paginate(5)->reverse()
+           { $messages=$chatroom->messages()->select("*")
+            ->orderBy("id","desc")->paginate(15)->reverse()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-                return Carbon::parse($date->created_at)->format('d M Y'); // grouping by months
-            });
+                return Carbon::parse($date->created_at)->format('d/m/Y'); // grouping by months
+                        });
+                    }
 
-            if($request["page"]!=1)
+
+            if($request["page"]!=1){
             $messages=$chatroom->messages()->select("*")
-            ->orderBy("id","desc")->paginate(5)
+            ->orderBy("id","desc")->paginate(15)
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-                return Carbon::parse($date->created_at)->format('d M Y'); // grouping by months
+                return Carbon::parse($date->created_at)->format('d/m/Y'); // grouping by months
             });
+        }
 
+        //$lastPage=$messages->lastPage()==$messages->currentPage();
             $data[]=[
                 'chatroom'=>$messages,
-                'chatable'=>$chatroom->chatable($request["chattings_id"])
+                'chatable'=>$chatroom->chatable($request["chattings_id"]),
 
             ];
 
+            $lastkey=null;
+            foreach($messages as $k=>$v)
+            $lastkey=$k;
+
+            if($lastkey!=null)
+            {
+                $lastkey=strtotime($lastkey);
+               $lastkey= date("Y-m-d h:i:sa", $lastkey);
+            }
             return [
                 'chatroom'=>$chatroom,
+                'lastindex'=>$lastkey,
                 'messages'=>$messages,
                 'chatable'=>$chatroom->chatable($request["chattings_id"]),
-                'isitBlocked'=>$chatroom->isitBlocked($request["chattings_id"])
+                'isitBlocked'=>$chatroom->isitBlocked($request["chattings_id"]),
 
 
             ];
@@ -191,11 +209,22 @@ class ChatController extends Controller
         if(!$validator->fails()){
         $message=Message::create($validator->validated());
 
+        $chatroom=ChatRoom::find($request["chat_room_id"]);
+        if($chatroom->to_id!=$request["sender"])
+        $id=$chatroom->from_id;
+        else
+        $id=$chatroom->to_id;
+
         try{
+
         broadcast(new MessageSent($message));
+        broadcast(new MessageRescive($message,$id));
         }catch(Exception $e){
             return $e->getMessage();
         }
+        return [
+            'userauth'=>$id
+        ];
 
 
     } else{

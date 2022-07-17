@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bussinse;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -47,8 +48,6 @@ class ServiceController extends Controller
         $this->validate($request,[
             'name'=>'required|string|max:100',
             'price'=>'numeric|required',
-            'discrip'=>'string',
-            'parts'=>'string',
             'owner_id'=>'required',
             'owner_type'=>'required',
             'department_id'=>'required|exists:departments,id',
@@ -91,6 +90,7 @@ class ServiceController extends Controller
         ]);
         $parts=explode(',',$request->parts);
         // $cities=$request["cities"];
+        if($request->parts!='')
          $product->parts()->attach($parts);
 
 
@@ -149,6 +149,23 @@ class ServiceController extends Controller
         //
         return view('manage.service.service-edit',['product'=>$service]);
 
+    }
+
+    public function rate(Request $request)
+    {
+       $product=Service::find($request['product_id']);
+
+       $user=Auth::user();
+
+     $rate=  $user->rate_comment($product,$request['value'],$request['comment']);
+
+       return $data=[
+           'status'=>true,
+           'last_rate'=>$rate
+
+       ];
+
+       # code...
     }
 
     /**

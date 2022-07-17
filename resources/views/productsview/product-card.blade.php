@@ -1,14 +1,14 @@
   <div class="text-center item">
         <div class="border rounded-lg border-dark hover:border-m_primary product-miniature js-product-miniature item-two first_item" data-id-product="{{ $product->id }}"
-            data-id-product-attribute="60" itemscope="" itemtype="http://schema.org/Product">
+            data-id-product-attribute="60" itemscope="" >
             <div class="relative flex justify-between w-full p-1">
-                <div class="flex   ">
-                    <div class=" mx-1 rounded-full">
+                <div class="flex ">
+                    <div class="mx-1 rounded-full ">
                         <img class="w-16 h-16 rounded-full"
                             src="{{ $product->owner->avatar }}">
                     </div>
                     <div class="text-right">
-                        <a href=" @if ($product->owner_type=="App\Models\Bussinse")
+                        <a href=" @if ($product->owner_type==="App\Models\Bussinse")
                             {{ route('b.show',$product->owner->username) }}
 
                             @else
@@ -16,7 +16,7 @@
 
                             @endif" class="flex flex-col">
                             <span
-                                class="font-bold text-darker  dark:text-white">{{ $product->owner->name }}</span>
+                                class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
 
                             <span class="font-bold text-blue-900">
                                 {{ '@' . $product->owner->username }}
@@ -27,23 +27,23 @@
                 </div>
             </div>
             <hr>
-            <div class="product-cat-content mb-0 mt-2">
+            <div class="mt-2 mb-0 product-cat-content">
 
-                <div class="category-title flex-col flex">
+                <div class="flex flex-col category-title">
 
 
-                    <a href="#">
-                        <span class="dark:text-gray-400  text-blue-900"><span class="text-darker font-bold">القسم/</span>{{ $product->department!=null ? $product->department->name:"" }}</span>
+                    <a href="{{ route('search',['dept'=>$product->department_id]) }}">
+                        <span class="text-blue-900 dark:text-gray-400"><span class="font-bold text-darker dark:text-light">القسم/</span>{{ $product->department!=null ? $product->department->name:"" }}</span>
                     </a>
                 </div>
 
 
-                <div class="product-title mb-0" itemprop="name"><a
+                <div class="mb-0 product-title" itemprop="name"><a
                         href="{{ route($routename,$product) }}">
                        <span class="dark:text-gray-300"> {{ $product->name }}</span></a></div>
 
             </div>
-            <div class="thumbnail-container relative">
+            <div class="relative thumbnail-container">
 
                 <a href="{{ route($routename,$product) }}"
                     class="thumbnail product-thumbnail two-image">
@@ -61,30 +61,44 @@
 
 
 
-							<span class="px-2 absolute top-4 left-2 @if($product->status==0) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php
-                                echo  $product->status==0?"جديد":"مستخدم";
-                            @endphp</span>
+
+                @if (get_class($product)==="App\Models\Product")
+
+                <span class="px-2 absolute top-4 left-2 @if($product->status==0) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php
+                    echo  $product->status==0?"جديد":"مستخدم";
+                @endphp</span>
+                @endif
 
 
 
 
 
             </div>
-            <div class="product-description pb-0">
+            <div class="pb-0 product-description">
                 <div class="product-groups">
                     <div class="product-group-price">
 
-                        <div class="product-price-and-shipping flex relative flex-wrap justify-between" >
+                        <div class="relative flex flex-wrap justify-between product-price-and-shipping" >
 
 
 
-                            <span itemprop="price" class="price  text-dark rounded-full p-2 bg-yellow-300 ">{{ $product->price."/ر.ي" }}</span>
+                            <span itemprop="price" class="p-2 bg-yellow-300 rounded-full price text-dark ">{{ $product->price."/ر.ي" }}</span>
 
-                            <span class="text-dark rounded-full p-3 font-bold bg-yellow-300 ">
+                            @if (get_class($product)==="App\Models\Product")
+
+                            <span class="p-3 font-bold bg-yellow-300 rounded-full text-dark ">
                                 <span class="text-md text-m_primary-onprimary">
                                 سنة الصنع
                                 </span>
                                 {{ $product->year_created }}</span>
+                                @else
+                                <span class="p-3 font-bold bg-yellow-300 rounded-full text-dark ">
+                                    <span class="text-md text-m_primary-onprimary">
+                        المدة
+                                    </span>
+                                    {{ $product->how_long }}</span>
+
+                                @endif
 
 
 
@@ -95,49 +109,53 @@
 
                     </div>
                     <div class="product-comments">
-                        <div class="star_content flex">
+                        <div class="flex star_content">
                             @php
                             $count = (int) $product->ratings_value_avg;
                         @endphp
                         @for ($i = 1; $i <= $count; $i++)
-                            <x-heroicon-s-star class="h-10 w-10 inline-flex text-m_primary"/>
+                            <x-heroicon-s-star class="inline-flex w-10 h-10 text-m_primary"/>
                         @endfor
                         @for ($i = 0; $i < 5 - $count; $i++)
 
-                        <x-heroicon-o-star class="h-10 w-10 inline-flex text-m_primary"/>
+                        <x-heroicon-o-star class="inline-flex w-10 h-10 text-m_primary"/>
                         @endfor
 
                         </div>
                     </div>
                     <div class="flex justify-between space-x-2">
-                        <div class="h-10 text-darker dark:text-white text-xl font-semibold">
+                        <div class="h-10 text-xl font-semibold text-darker dark:text-white">
                             {{ $product->vzt()->count()."/زيارة" }}</div>
 
-                    <div class="h-10 text-darker dark:text-white text-xl font-semibold">
+                    <div class="h-10 text-xl font-semibold text-darker dark:text-white">
                         {{ $product->updated_at}}</div>
                     </div>
 
 
                 </div>
-                <div style="bottom:8rem !important" class="product-buttons d-flex justify-content-start " itemprop="offers"
+                <div style="bottom:10rem !important" class="product-buttons d-flex justify-content-start " itemprop="offers"
                     itemscope="" itemtype="http://schema.org/Offer">
 
-                    <a class="addToWishlist wishlistProd_2" href="#" data-rel="2">
+                    <a class="m-1" href="#" >
 
-                    <div  class="h-full flex justify-center flex-col rounded-full bg-m_primary-dark " >
+                    <div  class="flex flex-col justify-center p-2 h-full rounded-full dark:bg-white bg-m_primary-dark " >
 
-                            <x-heroicon-o-heart class="w-8 h-8 mx-auto text-m_primary"/>
+                            <x-bi-cart class="w-8 h-8 mx-auto text-m_primary"/>
                     </div>
                     </a>
 
 
-                    <a class="addToWishlist wishlistProd_2" href="#" data-rel="2"
-                        onclick="WishlistCart('wishlist_block_list', 'add', '2', false, 1); return false;">
-                        <i class="fa fa-heart"></i>
-                        <span>Add to Wishlist</span>
-                    </a>
-                    <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
-                        <i class="fa fa-search"></i><span> نظرة سريعة</span>
+                    <a class="m-1">
+
+                        <div  class="flex flex-col justify-center h-full p-2 rounded-full dark:bg-white bg-m_primary-dark " >
+
+                            <x-heroicon-o-heart class="w-8 h-8 mx-auto text-m_primary"/>
+                    </div></a>
+                    <a href="{{ route('search',['dept'=>$product->department_id,'search'=>$product->name]) }}"  class="m-1 " >
+
+                    <div  class="flex flex-col justify-center p-2 h-full rounded-full dark:bg-white bg-m_primary-dark " >
+                        <x-heroicon-o-search class="w-8 h-8 mx-auto text-m_primary"/>
+                </div>
                     </a>
                 </div>
             </div>

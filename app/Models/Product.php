@@ -44,6 +44,14 @@ class Product extends Model
     ];
 
 
+
+    public function orders()
+    {
+
+        return $this->hasMany(ProductOrder::class);
+        # code...
+    }
+
     public function vzt()
     {
         return visits($this);

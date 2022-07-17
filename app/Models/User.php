@@ -65,6 +65,16 @@ class User extends Authenticatable implements Blocking,Follower
     }
 
 
+    public function orders()
+    {
+        return $this->hasMany(ProductOrder::class);   # code...
+    }
+    public function owne_orders()
+    {
+        return $this->hasManyThrough(ProductOrder::class,$this->products());
+        # code...
+    }
+
     public function rate_comment($model,$value,$comment)
     {
         $this->rate($model,$value);

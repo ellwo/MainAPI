@@ -230,12 +230,12 @@
 
             <form onsubmit="ajxaproform(event,this,'{{route('b.savechangeimgs')}}')">
                 <input type="hidden" name="bussinse_username" value="{{$bussinse->username}}"/>
-            <div class="flex flex-col mx-auto text-dark ">
+            <div class="flex  flex-col mx-auto text-dark ">
                 <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
 
                 <div id="avatar" class="rounded-md "></div>
             </div>
-            <div class="flex flex-col p-8 mx-auto ">
+            <div class="flex flex-col  mx-auto ">
                 <x-label for="imgs" :value="__('صور عرض اضافية   ')" />
 
                 <div id="imgs" class="rounded-md "></div>
@@ -284,20 +284,11 @@
                     </div>
                     <div class="flex flex-col items-center mx-auto">
                                 @include('components.mulit-select',
-                                ['id'=>'city',
-                                'inputname'=>'cities',
-                                'items'=>$cities,
-                                'lablename'=>'المدن',
-                                'selected'=>$bussinse->cities->pluck('id')->toArray()
-
-                                ])
-
-                                @include('components.mulit-select',
                                 ['id'=>'part',
                                 'inputname'=>'parts',
                                 'items'=>$parts,
                                 'lablename'=>'الفئات',
-                                'selected'=>$bussinse->parts->pluck('id')->toArray()
+                                'selected'=>$bussinse->parts?->pluck('id')->toArray()
 
                                 ])
                     </div>
@@ -357,13 +348,34 @@
 
 
 
-<div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-    @php
-        $i=0;
-        $count=$bussinse->phone_numbers==null ? 1 :  count($bussinse->phone_numbers);
-    @endphp
-    <div class="w-full space-y-2" x-data='{contact_count:{{$count}} }'>
+<div class="flex flex-col space-y-4 md:space-y-0 md:flex-row">
+    <div class="w-full space-y-2" x-data='{contact_count:0}'>
         <x-label for="email" :value="__('ارقام التواصل ')" />
+
+        @foreach ($bussinse->phone_numbers as $p)
+
+        <x-input-with-icon-wrapper>
+            <x-slot name="icon">
+
+                <x-heroicon-o-phone aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
+            </x-slot>
+            <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
+            type="text" value="{{$p}}" name="phone_numbers[]"
+                 placeholder="{{ __('+967') }}"  />
+                {{-- @if (auth()->user()->hasVerifiedEmail())
+                <x-slot name="righticon">
+                    <span class="rounded bg-success text-light">
+                        تم التاكيد
+
+                    </span>
+                </x-slot>
+                @endif --}}
+
+            </x-input-with-icon-wrapper>
+        </template>
+
+        @endforeach
+
 
         <template x-for="i in contact_count">
 
@@ -373,7 +385,7 @@
                 <x-heroicon-o-phone aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
             </x-slot>
             <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
-            type="text" value="{{$bussinse->phone_numbers!=null? $bussinse->phone_numbers[$i++]:''}}" name="phone_numbers[]"
+            type="text" value="" name="phone_numbers[]"
                  placeholder="{{ __('+967') }}"  />
                 {{-- @if (auth()->user()->hasVerifiedEmail())
                 <x-slot name="righticon">
@@ -414,7 +426,8 @@
 
             </x-slot>
             <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="{{$bussinse->contact_links!=null?$bussinse->contact_links[0]:'' }}" type="text" name="contact_links[]"
+           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[0]!=null ? $bussinse->contact_links[0]:''}}
+           " type="text" name="contact_links[]"
             placeholder="{{ __('facebook user or link') }}"  autofocus />
         </x-input-with-icon-wrapper>
         <x-input-with-icon-wrapper>
@@ -426,7 +439,8 @@
 
             </x-slot>
             <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="{{$bussinse->contact_links!=null?$bussinse->contact_links[1]:''}}" type="text" name="contact_links[]"
+           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[1]!=null ? $bussinse->contact_links[1]:''}}
+           " type="text" name="contact_links[]"
             placeholder="{{ __('twitter username') }}"  autofocus />
         </x-input-with-icon-wrapper>
         <x-input-with-icon-wrapper>
@@ -437,8 +451,11 @@
 
             </x-slot>
             <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="{{$bussinse->contact_links!=null?$bussinse->contact_links[2]:'' }}" type="text" name="contact_links[]"
-            placeholder="{{ __('whatsApp number') }}"  autofocus />
+           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[2]!=null ? $bussinse->contact_links[2]:''}}
+           " type="text" name="contact_links[]"
+
+           placeholder="{{ __('whatsApp number') }}"  autofocus />
+
         </x-input-with-icon-wrapper>
 
 

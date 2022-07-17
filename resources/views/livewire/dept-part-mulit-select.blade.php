@@ -1,14 +1,14 @@
 <div >
     <div >
-        <div class="sm:flex " >
+        <div class="flex " >
 
 
-            <div class="sm:flex justify-between" >
+            <div class="justify-between flex" >
             <div class="relative flex-col justify-between space-x-4 space-y-2 ">
 
                 <x-label for="department_id" :value="__('اختر القسم ')" />
 
-                <select  wire:model='dept' name="department_id" class="pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none  hover:border-gray-400 focus:outline-none">
+                <select  wire:model='dept' name="department_id" class="pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none">
                    @if ($type=='all')
 
                    @foreach( $catgraies as $ca)
@@ -30,7 +30,8 @@
               'inputname'=>'parts',
               'items'=>$department->parts,
               'lablename'=>'الفئات',
-              'selected'=>$selected
+              'selected'=>$selected,
+              'searching'=>$searching,
 
               ])
               @else
@@ -40,6 +41,7 @@
               'inputname'=>'parts',
               'items'=>$department->parts,
               'lablename'=>'الفئات',
+              'searching'=>$searching,
 
               ])
               @endif

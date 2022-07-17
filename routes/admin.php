@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\MarktsController;
 use App\Http\Controllers\PartController;
 use Illuminate\Http\Request;
@@ -47,6 +52,21 @@ Route::post("/Parts_show/update{id}",[PartController::class,'update'])->name("up
 
 
 
+
+
+});
+
+
+
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('permissions', PermissionsController::class);
+    Route::delete('permissions_mass_destroy', [PermissionsController::class,'massDestroy'])->name('permissions.mass_destroy');
+    Route::delete('roles_mass_destroy', [RolesController::class,'massDestroy'])->name('roles.mass_destroy');
+    Route::resource('roles', RolesController::class);
+    Route::delete('users_mass_destroy', [UsersController::class,'massDestroy'])->name('users.mass_destroy');
+    Route::resource('users', UsersController::class);
+    Route::get('home',[MainController::class,'index'])->name('home');
 
 
 });

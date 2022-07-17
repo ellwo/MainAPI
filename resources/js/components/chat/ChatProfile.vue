@@ -29,9 +29,21 @@
     </div>
     <div class="flex-1 px-2">
         <div class="w-32 truncate"><span class="text-gray-800 dark:text-light">{{item.chatable.name}}</span></div>
-        <div class="w-32 truncate"><small class="text-gray-600 dark:text-gray-400">
+        <div class="w-32 truncate">
 
-            {{item.lasttmessage!=null?item.lasttmessage.content:''}}  </small></div>
+            <template v-if="item.lasttmessage!=null&&item.lasttmessage.type_message=='text'">
+            <small class="text-gray-600 dark:text-gray-400">
+
+            {{item.lasttmessage!=null?item.lasttmessage.content:''}}  </small>
+            </template>
+            <template v-if="item.lasttmessage!=null&&item.lasttmessage.type_message=='order'">
+            <small class="text-gray-600 dark:text-gray-400">
+                طلب جديد {{ item.lasttmessage.content.order.id}}
+                </small>
+            </template>
+
+
+            </div>
     </div>
     <div class="text-right flex-2">
         <div><small class="text-gray-500"></small></div>
@@ -113,8 +125,26 @@ export default  defineComponent({
         const data={
             "type":props.type,
             "chatting_id":props.chattings
-
         };
+
+
+               console.log("chattings chatprofile"+props.chattings);
+
+               console.log("userid chatprofile"+props.userid);
+
+                   Echo.private("usernotfiyMessage."+props.userid).listen("MessageRescive",(e)=>{
+
+console.log("from ChtPRofile Echo usernotify");
+                           console.log(e.message);
+
+
+               if(e.message.sender!=props.chattings)
+               {
+                pushnew(e.message);
+
+               }
+           });
+
 
 
 
@@ -134,7 +164,57 @@ export default  defineComponent({
 
 
 
-        const pushnew=()=>{
+        const pushnew=(message)=>{
+            var chatroom2;
+            var index;
+            chats.value.forEach(element => {
+                if(element.id==message.chat_room_id){
+                   index=chats.value.indexOf(element);
+                }
+            });
+
+
+var res=chats.value.at(index);
+            chatroom2={
+                chatable:{
+avatar: res.chatable.avatar,
+id: res.chatable.id,
+name: res.chatable.name,
+username:res.chatable.username},
+
+
+from_id: res.from_id,
+from_type: res.from_type,
+id:res.id,
+isitBlocked: res.isitBlocked,
+
+
+lasttmessage:{
+chat_room_id: message.chat_room_id,
+content: message.content,
+created_at: message.created_at,
+id:message.id,
+is_readed: message.is_readed,
+sender: message.sender,
+type_message: message.type_message},
+
+
+
+updated_at: res.updated_at
+,
+to_id: res.to_id
+,to_type: res.to_type
+,unread_messages_count: res.unread_messages_count++};
+
+            // chatroom2.id=750;
+     console.log(chatroom2);
+
+            // var first=chats.value.at(0);
+             chats.value.splice(index, 1);
+chats.value.unshift(chatroom2);
+
+           console.log (index);
+
         }
 
 
@@ -162,5 +242,10 @@ export default  defineComponent({
 
 
     },
+    activated(props){
+
+        console.log("Is Activeted");
+        console.log("Is Activeted"+props.chattings);
+    }
 })
 </script>

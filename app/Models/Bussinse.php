@@ -49,6 +49,16 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
+
+
+    public function orders()
+    {
+
+        return $this->hasManyThrough(ProductOrder::class,$this->products());
+        # code...
+    }
+
+
     public function locations()
     {
         return $this->hasMany(Location::class);

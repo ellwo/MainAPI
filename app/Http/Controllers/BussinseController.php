@@ -95,7 +95,7 @@ class BussinseController extends Controller
                 'markt_id'=>$markts[$i],
                 'address'=>$address[$i],
                 'phone'=>$phone[$i],
-                'bussinse_id'=>$phone[$i]
+                'bussinse_id'=>$buss->id
             ]);
          }
 
@@ -290,10 +290,8 @@ class BussinseController extends Controller
             'username'=>$request["username"],
             'email'=>$request["email"],
             'department_id'=>$request['department_id'],
-            'user_id'=>25,
             'phone_numbers'=>$request["phone_numbers"],
             'contact_links'=>$request["contact_links"],
-
             'note'=>$request["note"],
             'address'=>$request["address"],
         ]);

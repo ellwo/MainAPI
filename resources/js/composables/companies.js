@@ -33,27 +33,17 @@ export default function useCompanies() {
         chatroom.value = response.data.chatroom;
         messages.value = response.data.messages
         chatable.value = response.data.chatable
-        isitBlocked.value = response.data.isitBlocked
+        isitBlocked.value = response.data.isitBlocked;
 
 
 
 
-        console.log("messages her")
-        console.log(messages.value)
 
-        console.log("chatroom her")
-        console.log(chatroom.value)
-
-        console.log("chatable her")
-        console.log(chatable.value)
-        console.log("resp")
+        console.log("Has More")
+        console.log(response.data)
         return {
             messages: response.data.messages
         }
-
-        console.log(response.data)
-
-        console.log(response.data.chatroom)
 
     }
     const sendMessage = async(data) => {

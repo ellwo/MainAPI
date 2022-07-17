@@ -8,7 +8,7 @@
     @foreach ($products as $product)
 
     <div class="relative border rounded-md border-primary">
-        <a class="block w-full h-40 bg-center bg-no-repeat bg-cover rounded-lg" href="{{route('product.show',['product'=>$product->id])}}"
+        <a class="block w-full h-40 bg-center bg-no-repeat bg-cover rounded-lg" href="{{route($proORserv=='pro'?'product.show':'service.show',[$proORserv=='pro'?'product':'service'=>$product->id])}}"
         style="background-image:url('{{$product->img}}')" ></a>
         <span class="absolute bottom-0 left-0 px-2 text-xl font-bold bg-primary rounded-xl text-dark" >{{$product->price}}<span class="text-xs">/ر.ي</span></span>
         <span class="absolute bottom-0 right-0 px-2 text-xl font-bold bg-primary rounded-xl text-dark" >{{$product->name}}</span>

@@ -11,16 +11,15 @@ use App\Http\Controllers\Manage\ServicesManagerController;
 use App\Http\Controllers\MarktsController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UploadeController;
 use App\Http\Livewire\Manage\Product\ProductForm;
 use App\Http\Livewire\Manage\Service\ServiceForm;
-use App\Models\Bussinse;
-use App\Models\City;
-use App\Models\Location;
-use App\Models\Markt;
+use App\Http\Livewire\Orders\Product\ProductOrders;
+use App\Models\ProductOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,9 +36,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+
+
+
+
 Route::post('/block',[App\Http\Controllers\Block\BlockingController::class,'block'])->name("block");
 Route::post("/create_chatroom",[App\Http\Controllers\ChatController::class,'create_chatroom'])->name("create_chatroom")->middleware("auth");
+
 Route::post("/chatroom_message",[App\Http\Controllers\Api\Chat\ChatController::class,'chatroom_messages'])->name("chatroom_messagel");
+
 Route::post("/user_chat",[App\Http\Controllers\Api\Chat\ChatController::class,'user_chat'])->name("user_chatl");
 Route::apiResource('chatt',App\Http\Controllers\Api\Chat\ChatController::class);
 Route::get("/inbox/{type?}/{chattings?}/{chat_room_id?}",[App\Http\Controllers\ChatController::class,"index"])->name('inbox')->middleware("auth")->where('any', '.*');
@@ -75,6 +83,8 @@ Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete
 Route::get('/search',[SearchController::class,'index'])->name('search');
 
 Route::get('/search-product',[SearchController::class,'product_search'])->name('search-product');
+Route::get('/search-service',[SearchController::class,'service_search'])->name('search-service');
+Route::get('/search-bussinse',[SearchController::class,'bussinse_search'])->name('search-bussinse');
 
 
 
@@ -87,8 +97,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+        Route::get('/product-order/{product}',[ProductOrderController::class,'create'])->name('productorder.create');
+        Route::post('/product-order-store',[ProductOrderController::class,'store'])->name('productorder.store');
+
+        Route::get('/owne-orders',ProductOrders::class)->name('owne-orders');
+
         //her the bussinse Manager
-        Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
+Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');
 Route::post("/b-follow",[BussinseController::class,'follow_bussinse'])->name("b-follow");
 Route::get('/b.manage/{username?}',[BussinseController::class,'manage'])->name('b.manage');
 Route::resource('/b',BussinseController::class)->only(['index','update','store','edit','create'])->name('index','b');
@@ -107,6 +122,7 @@ Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name
 Route::get('/product.add{step?}|{username?}',ProductForm::class)->name('product.add.livewire');
 //Product Manager
 Route::post('/product.rate',[ProductController::class,'rate'])->name('product.rate');
+Route::post('/service.rate',[ServiceController::class,'rate'])->name('service.rate');
 
 //Service Manager
 Route::put('/service/update{service}',[ServiceController::class,'update'])->name('service.update');

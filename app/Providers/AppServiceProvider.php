@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
+
         $catgraies=Cache::remember('catgraies',60*60*360,function(){
             return Department::with('parts')->get();
 

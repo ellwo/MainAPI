@@ -14,7 +14,7 @@
                     @if($user->id!=auth()->user()->id)
                     <form method="POST" action="{{route('create_chatroom')}}">
                         @csrf
-                        <input type="hidden" name="chatable_id" value="{{$buss->username}}" />
+                        <input type="hidden" name="chatable_id" value="{{$user->username}}" />
                         <input type="hidden" name="type" value="user" />
                     <x-button>
                         <x-heroicon-o-chat class="w-4 h-4"/>
@@ -81,7 +81,7 @@
                     <span class="py-1 text-xs text-gray-800 dark:text-light">صفحة شخصية</span>
                     <span class="flex py-1 text-xs text-info dark:text-light">
                         <x-heroicon-o-map class="w-4 h-4"/>
-                        {{$user->city->name}}</span>
+                        {{$user->city!=null?$user->city->name:""}}</span>
 
                 <p>
                     @php
@@ -201,7 +201,7 @@ x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300
                                             <div class="flex flex-col">
                                                 <div class="flex-none w-full font-bold leading-none text-md">{{$buss->name}}|<br><a href="{{route("b.show",["username"=>$buss->username])}}"><span class="text-xs text-info">{{"@".$buss->username}}</span></a></div>
                                                 <div class="flex-auto my-1 text-gray-500">
-                                                    <span class="mr-3 border-r border-gray-200 max-h-0"></span><span class="text-info"> {{$buss->department->name}}</span>
+                                                    <span class="mr-3 border-r border-gray-200 max-h-0"></span><span class="text-info"> {{$buss->department?->name}}</span>
                                                 </div>
                                             </div>
                                         </div>

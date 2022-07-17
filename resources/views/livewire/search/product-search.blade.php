@@ -1,23 +1,59 @@
-<div class="flex flex-col p-8 mx-auto space-y-4 border w-full lg:w-4/5 sm:w-full rounded-xl border-darker dark:bg-darker ">
+<div class="flex flex-col w-full p-8 mx-auto space-y-4 border lg:w-4/5 sm:w-full rounded-xl border-darker dark:bg-darker ">
 
     <div class="flex flex-wrap justify-between">
 
 
-        <div>
-            <livewire:dept-part-mulit-select type=1 dept="{{ $dept }}" key="{{ time() }}">
+        <div wire:ignore.self>
+            <livewire:dept-part-mulit-select searching=true type=1 dept="{{ $dept }}" key="{{ time() }}">
         </div>
 
 
+        <div class="flex flex-wrap sm:w-1/3 items-center w-full mx-auto my-8 space-x-4 text-center ">
+            @foreach ($selectedParts as $item)
+            <div
+            class="flex items-center justify-center px-2 py-1 m-1 font-medium text-white rounded-full bg-darker dark:bg-m_primary ">
+            <div class="flex-initial max-w-full font-normal leading-none"
+             >{{ $item->name }}</div>
+            <div class="flex flex-row-reverse flex-auto">
+                <div wire:click="delete_part({{ $item->id }})">
+                    <svg class="w-6 h-6 fill-current " role="button" viewBox="0 0 20 20">
+                        <path d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0
+                   c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183
+                   l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15
+                   C14.817,13.62,14.817,14.38,14.348,14.849z" />
+                    </svg>
 
-        <div class="relative flex-col justify-between space-x-4 space-y-2 ">
+                </div>
+            </div>
+        </div>
+            @endforeach
+            </div>
 
-            <x-label value=" ترتيب " />
-            <select id="select">
-                <option value="">dd</option>
-                <option value="">dd</option>
-                <option value="">dd</option>
-                <option value="">dd</option>
-            </select>
+        <div class="relative sm:flex sm:flex-col sm:justify-between space-x-4 space-y-2 ">
+
+
+            <div x-data="{ dropdownOpen: false }" class="relative flex items-end">
+
+                <button class="flex rounded-md border dark:border-m_primary p-2" x-on:click="dropdownOpen = !dropdownOpen"  >
+                <span>
+                    <svg id="icon_navigation_more_vert_24px" data-name="icon/navigation/more_vert_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <rect id="Boundary" width="24" height="24" fill="none"/>
+              <path id="_Color" data-name=" ↳Color" d="M2,16a2,2,0,1,1,2-2A2,2,0,0,1,2,16Zm0-6A2,2,0,1,1,4,8,2,2,0,0,1,2,10ZM2,4A2,2,0,1,1,4,2,2,2,0,0,1,2,4Z" transform="translate(10 4)"/>
+            </svg>
+
+                </span>
+                فلترة حسب
+                </button>
+
+                <div x-show="dropdownOpen" class="absolute top-10 left-0 dark:text-darker  z-50 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl">
+                    <a class="block px-4 py-2 cursor-pointer  text-gray-800 border-b hover:bg-gray-200" wire:click='change_orderby("updated_at","asc")'>التاريخ تصاعدي </a>
+                    <a class="block px-4 py-2 cursor-pointer text-gray-800 border-b hover:bg-gray-200" wire:click='change_orderby("updated_at","desc")'>التاريخ تنازلي </a>
+                    <a class="block px-4 py-2 cursor-pointer text-gray-800 border-b hover:bg-gray-200" wire:click='change_orderby("price","asc")' >السعر تصاعدي </a>
+                    <a class="block px-4 py-2 cursor-pointer text-gray-800 border-b hover:bg-gray-200" wire:click='change_orderby("price","desc")'>السعر تنازلي </a>
+
+                </div>
+              </div>
+
         </div>
 
     </div>
@@ -36,11 +72,12 @@
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </span>
-            <span wire:loading class="absolute  left-0 inline-flex items-center px-4 border-r top-1/3">
-                <x-heroicon-o-refresh class="w-10 h-10 bg-white p-2 rounded-full text-m_primary-onprimary"/>
+            <span wire:loading class="absolute left-0 inline-flex items-center px-4 border-r top-1/3">
+                <x-heroicon-o-refresh class="w-10 h-10 p-2 bg-white rounded-full text-m_primary-onprimary"/>
             </span>
         </div>
     </div>
+
 
 
 
@@ -49,15 +86,26 @@
 
 
 
-    <div class="relative z-20 flex flex-col w-full justify-center  px-4 space-y-4   ">
+    <div class="relative z-20 flex flex-col justify-center w-full px-4 space-y-4 ">
 
+        <div class="flex overflow-x-scroll  p-8  items-center w-full mx-auto my-8  text-center ">
+            @foreach ($allparts as $item)
+            <div wire:click="set_part({{ $item->id }})"
+            class="flex items-center justify-center px-2 py-2  font-medium @if($item->id==$part) text-blue-900 bg-info-50 @else bg-darker text-white @endif rounded-sm  border-m_primary dark:border-m_primary-darker border dark:bg-m_primary ">
+            <div class="w-full cursor-pointer  font-normal leading-none"
+             >{{ $item->name }}</div>
+            <div class="flex flex-row-reverse flex-auto">
 
+            </div>
+        </div>
+            @endforeach
+            </div>
 
-        <div  wire:loading class="absolute inset-0 h-full w-full bg-white dark:bg-darker opacity-100 z-50 flex flex-col items-center justify-center text-2xl text-white  ">
+        <div  wire:loading class="absolute inset-0 z-50 flex flex-col items-center justify-center w-full h-full text-2xl text-white bg-white opacity-100 dark:bg-darker ">
 
-           <x-application-logo class="sm:h-1/5 sm:w-1/5 opacity-100 mx-auto "/>
+           <x-application-logo class="mx-auto opacity-100 sm:h-1/5 sm:w-1/5 "/>
 
-            <div class="w-24 h-24   mx-auto text-center opacity-100  ">
+            <div class="w-24 h-24 mx-auto text-center opacity-100 ">
                 <svg viewBox="0 0 860.1 876.5">
                     <path class="animate-spin from-blue-900"
                         style="stroke: black; stroke-width: 1; transform-origin: 33.47285199% 32.89218482%; animation-duration: 3s; fill: var(--tw-gradient-from)"
@@ -102,7 +150,7 @@
 
         </style>
 
-        <div class="dark:text-light ltr-impo text-3xl">
+        <div class="text-3xl dark:text-light ltr-impo">
             {{ count($products)!=0?$products->links():"" }}
 
         </div>

@@ -18,23 +18,16 @@
 
                     <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
                         <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://demo.bestprestashoptheme.com/savemart/ar/">
+                            <a itemprop="item" href="{{ route('home') }}">
                                 <span itemprop="name">الصفحة الرئيسية</span>
                             </a>
                             <meta itemprop="position" content="1">
                         </li>
                         <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://demo.bestprestashoptheme.com/savemart/ar/9-smartphone-tablet">
-                                <span itemprop="name">Smartphone &amp; Tablet</span>
+                            <a itemprop="item" href="{{ route('search') }}">
+                                <span itemprop="name">{{ $product->department!=null?$product->department->name:"الجميع" }}</span>
                             </a>
                             <meta itemprop="position" content="2">
-                        </li>
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item"
-                                href="https://demo.bestprestashoptheme.com/savemart/ar/smartphone-tablet/1-40-hummingbird-printed-t-shirt.html#/الحجم-ص/اللون_-رمادي_داكن">
-                                <span itemprop="name">Nullam sed sollicitudin mauris</span>
-                            </a>
-                            <meta itemprop="position" content="3">
                         </li>
                     </ol>
 
@@ -710,7 +703,10 @@
                                                     <hr>
 
                                                     <div class="flex flex-col p-4 mt-12 space-y-4 border rounded-lg" >
-                                                       <form x-on:submit.prevent="submitForm">
+
+                                                        @auth
+
+                                                        <form x-on:submit.prevent="submitForm">
                                                         <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
 
                                                         <div class="flex mx-auto text-center" >
@@ -772,11 +768,18 @@
                                                         </div>
 
                                                        </form>
+                                                       @else
+                                                       <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
+                                                       <h4>لاضافة تقييمك لابد من <a href="{{ route('register') }}" class="text-blue-900 underline">انشاء حساب </a> او <a class="text-blue-900 underline" href="{{ route('login') }}"> تسجيل الدخول</a></h4>
+
+
+                                                       @endauth
+
 
                                                         @section('script')
                                                         <script>
 
-                                                            const FORM_URL="{{ route('product.rate') }}";
+                                                            const FORM_URL="{{ route('service.rate') }}";
 
                                                             function rate(){
 
@@ -946,6 +949,34 @@
     </div>
 
 
+    <div class="w-4/5 p-8 m-4 mx-auto border rounded-xl">
+
+        <section class="clearfix relate-product product-accessories">
+            <h1 class="text-5xl dark:text-white">
+                الخدمات المشابهة
+            </h1>
+            <hr class="dark:border-light">
+
+
+                    <div class="grid xl:grid-cols-4 ">
+                    @foreach ($related_products as $prod )
+
+                    <div style="width: 243px;" class="m-4 h-3/4 ">
+
+                    @include('productsview.product-card',['product'=>$prod,'routename'=>'product.show'])
+                    </div>
+                    @endforeach
+                    </div>
+
+
+
+        </section>
+
+
+
+
+
+    </div>
 
 
 

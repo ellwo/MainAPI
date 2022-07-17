@@ -23,10 +23,15 @@ trait CanConvristion{
         $model_id=$model->id;
 
 
-        $count=$this->chatrooms_only()->where(function($query)use ($model){
-         $query->where('to_id',"=",$model->id)->where('to_type','=',get_class($model));
+        $count=ChatRoom::where(function($query)use ($model){
+
+
+            $query->where('to_id',"=",$model->id)->where('to_type','=',get_class($model))->where('from_id',"=",$this->id)->where('from_type','=',get_class($this));
+
+
         })->Orwhere(function($query)use ($model){
-            $query->where('from_id',"=",$model->id)->where('from_type','=',get_class($model));
+            $query->where('from_id',"=",$model->id)->where('from_type','=',get_class($model))
+            ->where('to_id',"=",$this->id)->where('to_type','=',get_class($this));
            })->first();
 
 

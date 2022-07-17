@@ -66,8 +66,6 @@ class ServicesManageTable extends Component
             }
 
         }
-        session()->flash('status','تم  التعديل بنجاح مبهر تماما للغاية ياعزيزي ');
-        session()->flash('tital','عملية التعديل ');
         return view('manage.service.services-manage-table',['products'=>$products,'bussinses'=>$bussinses_ids]);
     }
 

@@ -2,6 +2,36 @@
 
 @section('search-content')
 
+    <div class="flex flex-col items-center justify-center space-y-4 w-3/4 mx-auto rounded">
+        <div class="text-2xl text-darker dark:text-light">اقسام </div>
+        <div class="flex flex-wrap w-3/4">
+            @foreach ($searching_departments as $item)
+                <div class="rounded-xl bg-darker text-light dark:bg-m_primary text-xl cursor-pointer m-2 p-2">
+                    <a href="{{ route('search',['dept'=>$item->id]) }}">
+                       <div class="text-white hover:text-blue-500"> {{ $item->name }}</div>
+                    </a>
+
+                </div>
+            @endforeach
+        </div>
+        <hr>
+        <div class="text-2xl text-darker dark:text-light">فئات </div>
+        <div class="flex flex-wrap w-3/4">
+            @foreach ($searching_parts as $item)
+                <div class="rounded-xl bg-darker  dark:bg-m_primary text-xl cursor-pointer m-2 p-2">
+                    <a href="{{ route('search',['dept'=>$item->department_id,'part'=>$item->id]) }}">
+                      <div class="text-light">  {{ $item->name }}</div>
+                    </a>
+
+                </div>
+            @endforeach
+        </div>
+        <hr>
+
+
+    </div>
+
+
     <div class="flex flex-col  m-8">
 
         <div class="flex flex-row  ">
@@ -19,9 +49,9 @@
         <div class="sm:w-2/3   rounded-md">
 
             <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
-                @for($i = 0; $i < 4; $i++)
-                   @include('search-pages.product-card-xl',['product'=>$products[$i],'routename'=>'product.show'])
-                @endfor
+                @foreach($products->take(4) as $product)
+                   @include('search-pages.product-card-sm',['product'=>$product,'routename'=>'product.show'])
+                @endforeach
 
             </div>
 
@@ -35,9 +65,9 @@
 
             <div class=" ">
 
-                @for ($i = 4; $i < 7; $i++)
-                    @include('search-pages.product-card-sm',['product'=>$products[$i],'routename'=>'product.show'])
-                @endfor
+                @foreach ($products->skip(4)->take(3) as $product)
+                    @include('search-pages.product-card-sm',['product'=>$product,'routename'=>'product.show'])
+                @endforeach
 
             </div>
 
@@ -74,9 +104,9 @@
         <div class="sm:w-2/3   rounded-md">
 
             <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
-                @for($i = 0; $i < 4; $i++)
-                   @include('search-pages.product-card-xl',['product'=>$services[$i],'routename'=>'service.show'])
-                @endfor
+                @foreach($services->take(4) as $service)
+                   @include('search-pages.product-card-xl',['product'=>$service,'routename'=>'service.show'])
+                @endforeach
 
             </div>
 
@@ -90,9 +120,9 @@
 
             <div class=" ">
 
-                @for ($i = 4; $i < 7; $i++)
-                    @include('search-pages.product-card-sm',['product'=>$services[$i],'routename'=>'service.show'])
-                @endfor
+                @foreach ($services->skip(4)->take(3) as $service)
+                    @include('search-pages.product-card-sm',['product'=>$service,'routename'=>'service.show'])
+                @endforeach
 
             </div>
 
@@ -119,6 +149,7 @@
 
         </div>
     <div dir="rtl" class="grid gap-2 my-3 sm:grid-cols-4 grid-cols-2">
+
         @foreach ($bussinses as $buss)
         <div class="sm:h-64">
             <div class="flex max-h-full min-w-full min-h-full flex-col">
@@ -136,7 +167,7 @@
                                     <div class="flex flex-col">
                                         <div class=" w-full font-bold leading-none text-md">{{$buss->name}}|<br><a href="{{route("b.show",["username"=>$buss->username])}}"><span class="text-sm text-info">{{"@".$buss->username}}</span></a></div>
                                         <div class=" my-1 text-gray-500">
-                                            <span class="mr-3 border-r border-gray-200 max-h-0"></span><span class="text-info"> {{$buss->department->name}}</span>
+                                            <span class="mr-3 border-r border-gray-200 max-h-0"></span><span class="text-info"> {{$buss->department?->name}}</span>
                                         </div>
 
                                     </div>

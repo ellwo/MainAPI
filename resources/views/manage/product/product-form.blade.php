@@ -24,7 +24,7 @@
                 <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}"/>
                 <input type="hidden" name="owner_type" value="App\Models\User"/>
 
-                <livewire:dept-part-mulit-select type=1  dept="4" key="{{ time() }}">
+                <livewire:dept-part-mulit-select type=1  dept="any" key="{{ time() }}">
 
                 @else
 
@@ -107,7 +107,9 @@
                             <x-label :value="__('صورة العرض الاساسية')" />
 
                         <div id="img">
-                    </div>
+
+
+                        </div>
                         </div>
 
 

@@ -1,13 +1,12 @@
-<div class="flex flex-row rounded-md border mb-0  product-miniature js-product-miniature  " data-id-product="1"
-    data-id-product-attribute="40" itemscope="" itemtype="http://schema.org/Product">
+<div class="flex flex-row mb-0 border rounded-md product-miniature js-product-miniature ">
 
 
-    <div class="col-12 mt-16 col-w27 no-padding">
+    <div class="mt-16 col-12 col-w27 no-padding">
         <div class="thumbnail-container">
 
             <a href="{{ route($routename,$product) }}"
                 class="thumbnail product-thumbnail two-image">
-                <img class="rounded-full border-m_primary-100 border"
+                <img class="border rounded-full border-m_primary-100"
                     src="{{ $product->img }}"
                     alt=""
                     data-full-size-image-url="{{ $product->img }}"
@@ -43,16 +42,16 @@
                 <p class="">
                     <a title="View seller profile"
                         href="
-                        @if ($product->owner_type=="App\Models\Bussinse")
+                        @if ($product->owner_type==="App\Models\Bussinse")
                                        {{ route('b.show',$product->owner->username) }}
 
                                        @else
                                        {{ route('profile.show',$product->owner->username) }}
 
                                        @endif">
-                        <div class="dark:text-light flex">
+                        <div class="flex dark:text-light">
                             <span class="flex flex-row space-x-2">
-                            <x-heroicon-s-user class="h-6 w-6 text-gray-600"/>
+                            <x-heroicon-s-user class="w-6 h-6 text-gray-600"/>
                             {{ $product->owner->name }}
                         </span>
 </div>

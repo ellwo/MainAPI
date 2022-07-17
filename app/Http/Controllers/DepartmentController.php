@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class DepartmentController extends Controller
 {
@@ -48,6 +49,7 @@ class DepartmentController extends Controller
         $department->img = $request->image;
         $department->note = $request->note;
         $department->save();
+        Cache::forget('catgraies');
         return redirect()->back();
 
     }
@@ -55,6 +57,8 @@ class DepartmentController extends Controller
     {
         $flight = Department::find($id);
         $flight->delete();
+
+        Cache::forget('catgraies');
         return redirect()->back();
     }
 
@@ -99,6 +103,8 @@ class DepartmentController extends Controller
          $department->img = $request->image;
          $department->note = $request->note;
          $department->save();
+
+        Cache::forget('catgraies');
          return redirect()->route('show_Department');
 
     }

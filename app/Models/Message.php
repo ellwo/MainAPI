@@ -26,8 +26,64 @@ protected $casts = [
     'created_at' => 'datetime:h:i A',
 ];
 
+
+public function getContentAttribute($value)
+{   if($this->type_message=='text')
+    return $value;
+    else if($this->type_message=='order'){
+        $content=null;
+
+        $order=ProductOrder::with('product')->where('id','=',$value)->first();
+        if($order!=null)
+        {
+            $content=[
+                'product'=>$order->product,
+                'order'=>$order,
+                'routename'=>route('product.show',$order->product->id)
+            ];
+        }
+        else{
+            $content="يبدو ان هذه الرسالة لم تعد موجودة";
+        }
+
+    return $content;
+    }
+    else{
+        return $value;
+    }
+
+    # code...
+}
     function chatroom(){
         return $this->belongsTo(ChatRoom::class);
+    }
+
+
+    public function get_content_tochatroom()
+    {
+        if($this->type_message=='text')
+        return $this->content;
+        else if($this->type_message=='order'){
+            $content=null;
+
+            $order=ProductOrder::with('product')->where('id','=',$this->content)->first();
+            if($order!=null)
+            {
+                $content=[
+                    'product'=>$order->product,
+                    'order'=>$order
+                ];
+            }
+            else{
+                $content="يبدو ان هذه الرسالة لم تعد موجودة";
+            }
+
+        return $content;
+        }
+        else{
+            return $this->content;
+        }
+        # code...
     }
 
     function mdate(){

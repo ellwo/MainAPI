@@ -24,7 +24,7 @@
                 <input  type="hidden" name="owner_id" value="{{ auth()->user()->id }}"/>
                 <input  type="hidden" name="owner_type" value="App\Models\User"/>
 
-                @livewire('dept-part-mulit-select', ['type' => 2,'selected'=>[],'dept'=>$product->department_id], key(time()))
+                @livewire('dept-part-mulit-select', ['type' => 2,'selected'=>[],'dept'=>'any'], key(time()))
 
                 @else
 

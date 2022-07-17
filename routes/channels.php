@@ -22,6 +22,9 @@ Broadcast::channel("userchatrooms.{id}",function($id){
     return true;
 
 });
+Broadcast::channel('usernotfiyMessage.{id}',function(){
+   return true;
+});
 
 Broadcast::channel("chatroom.{id}",function(){
 

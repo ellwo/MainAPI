@@ -4,7 +4,7 @@
 
 
 
-@livewire('search.product-search',['dept'=>$dept])
+@livewire('search.product-search',['dept'=>$dept,'parts'=>$parts,'part'=>$part,'search'=>$search,'orderby'=>$orderby,'ordertype'=>$ordertype])
 
 
 

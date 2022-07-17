@@ -18,7 +18,7 @@
 
                         <h1 class="text-3xl font-bold dark:text-white text-darker">
                             تحديد نوع الحساب التسويقي
-                            {{ old('parts') }}
+                            
                         </h1>
                         <hr>
 
