@@ -48,6 +48,18 @@ public function getContentAttribute($value)
 
     return $content;
     }
+    else if($this->type_message=="serorder"){
+
+        $order=ServiceOrder::with('service')->where('id','=',$value)->first();
+        $content=[
+            'service'=>$order->service,
+            'order'=>$order,
+            'routename'=>route('service.show',$order->service->id)
+        ];
+
+        return $content;
+
+    }
     else{
         return $value;
     }

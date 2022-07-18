@@ -12,6 +12,7 @@ class Report extends Model
         'reporting_id',
         'reportable_id',
         'reportable_type',
+        'reporting_type',
         'type',
         'note'
     ];
@@ -20,8 +21,7 @@ class Report extends Model
 
     public function reporting()
     {
-        # code...
-
+        return $this->morphTo();
     }
 
     public function reportable()

@@ -133,24 +133,24 @@
                         <tr class="bg-white dark:bg-dark">
                             <td class="p-3">
                                 <div class="flex align-items-center">
-                                    <img class="object-cover w-12 h-12 rounded-full" src="{{ $order->product->img }}" alt="EZ">
+                                    <img class="object-cover w-12 h-12 rounded-full" src="{{ $order->service->img }}" alt="EZ">
                                     <div class="ml-3">
-                                        <div class="">{{ $order->product->name }}</div>
+                                        <div class="">{{ $order->service->name }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="p-3">
-                                @if (get_class($order->product->owner)=="App\\Models\\User")
+                                @if (get_class($order->service->owner)=="App\\Models\\User")
                                     الرئيسية
                                 @else
 
-                                {{ $order->product->owner->name }}
+                                {{ $order->service->owner->name }}
                                 <hr>
                                 <span class="font-bold text-blue-900">{{ "@".$order->product->owner->username }}</span>
                                 @endif
                             </td>
                             <td class="p-3 font-bold">
-                                {{ $order->product->price*$order->qun }}\ر.ي
+                                {{ $order->service->price*$order->qun }}\ر.ي
                             </td>
                             <td class="p-3">
                                 <span class="px-2 @if($order->status==1) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php

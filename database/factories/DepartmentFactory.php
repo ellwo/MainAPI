@@ -29,8 +29,6 @@ class DepartmentFactory extends Factory
             'img'=>$this->faker->imageUrl,
 
             'type'=>rand(1,2),
-            'typegender'=>rand(1,3)
-
         ];
     }
 }

@@ -238,6 +238,55 @@
         </div>
                                             </template>
 
+
+                <template v-if="message.type_message=='serorder'">
+        <div class="inline-block p-4 px-6 bg-yellow-400 rounded-md text-darker ">
+            <span >
+
+                                         [طلب]
+                                            <hr>
+
+                                            <a class="flex space-x-2 " :href=message.content.routename >زيارة
+                                            <span>{{ message.content.service.name }}</span>
+                                            </a>
+                                            <br>
+                                            <span class="p-1 bg-yellow-200 rounded-xl text-darker">{{ message.content.service.price }}</span>
+                                            <hr/>
+                                            <img class="h-40" :src="message.content.service.img" />
+                                            <hr>
+                                            <div class="flex flex-col">
+                                                <span class="text-xl font-bold">تفاصيل الطلب</span>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">العنوان</span>
+                                                    {{ message.content.order.address }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الملاحظات</span>
+                                                    {{ message.content.order.note }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">الكمية</span>
+                                                    {{ message.content.order.qun }}
+                                                </div>
+                                                <hr>
+                                                <div class="flex flex-col space-x-4">
+                                                    <span class="font-bold text-blue-900">اجمالي السعر</span>
+
+                                                   <span class="p-2 bg-yellow-400 rounded-full text-darker">{{ (message.content.order.qun*message.content.service.price) +"/ر.ي"}}
+                                                </span>
+                                                </div>
+                                                <hr>
+
+                                            </div>
+ </span>
+
+
+        </div>
+                                            </template>
+
                                             <template v-if="message.type_message=='text'">
                                                   <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
             <span >

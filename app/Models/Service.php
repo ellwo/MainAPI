@@ -41,6 +41,15 @@ class Service extends Model
         # code...
     }
 
+
+    public function orders()
+    {
+
+        return $this->hasMany(ServiceOrder::class);
+        # code...
+    }
+
+
     public function cities()
     {
         return $this->belongsToMany(City::class);

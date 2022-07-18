@@ -28,7 +28,10 @@
                 </h6>
                 <span class="text-xl font-semibold">{{$bussinse->items_count()}}</span>
 
-                <a href="">
+                <a href="   @if ($bussinse->department->type==1)
+                   {{ route('mange.products', ['type'=>"bussinse",' bussinse_username'=>$bussinse->username]) }} @else
+                   {{ route('mange.services', ['type'=>"bussinse",' bussinse_username'=>$bussinse->username]) }} @endif
+                   ">
                 <span
                     class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                     ادارة العروض

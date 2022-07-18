@@ -15,8 +15,8 @@ class PartProductTable extends Migration
     {
         Schema::create('part_product', function (Blueprint $table) {
             //
-            $table->foreignId('part_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('part_id')->nullable()->constrained('parts')->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
             $table->timestamps();
         });
     }

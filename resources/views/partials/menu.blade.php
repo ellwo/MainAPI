@@ -12,7 +12,7 @@
             </li>
             @can('users_manage')
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link  nav-dropdown-toggle" href="#">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fa-fw fas fa-users nav-icon">
 
                         </i>
@@ -41,6 +41,12 @@
 
                                 </i>
                                 {{ trans('cruds.user.title') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.users.index",['ban'=>true]) }}" class="nav-link {{ request()->is('admin/users?ban') || request()->is('admin/users/ban') ? 'active' : '' }}">
+                                <i class="text-danger fa-fw fas fa-user nav-icon">
+                                </i> المستخدمين المحظورين
                             </a>
                         </li>
                     </ul>

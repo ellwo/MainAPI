@@ -16,7 +16,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-User">
+            <table class="table table-bordered table-striped table-hover datatable datatable-User">
                 <thead>
                     <tr>
                         <th width="10">
@@ -33,6 +33,9 @@
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <th>
+                            الحظر والتبنيد
                         </th>
                         <th>
                             &nbsp;
@@ -55,9 +58,36 @@
                                 {{ $user->email ?? '' }}
                             </td>
                             <td>
-                                @foreach($user->roles()->pluck('name') as $role)
+                                @foreach($user->roles->pluck('name') as $role)
                                     <span class="badge badge-info">{{ $role }}</span>
                                 @endforeach
+                            </td>
+                            <td align='right' dir="rtl">
+
+                                @if(!$user->isBanned())
+                                <a class=" btn btn-danger btn-block" href="{{ route('admin.users.ban.show', $user) }}">
+                                    حظر
+                                    <x-heroicon-o-ban style="width: 20px;"/>
+                                </a>
+                                @else
+                                <div class="m-1">
+                                  <span class="p-1 m-2 border bg-danger">محظور
+                                  لمدة{{now()->diffInDays( $user->bans->pluck('expired_at')->first()) }}
+                                  يوم
+                               </span> </div>
+                                <div>
+                                    <form action="{{ route('admin.users.ban.post', ['user'=>$user,'type'=>'unban']) }}" method="post">
+                                        @csrf
+                                        <input class="btn btn-success" type="submit" value="الغاء الحظر">
+                                    </form>
+
+                                </div>
+
+                                @endif
+
+
+
+
                             </td>
                             <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">

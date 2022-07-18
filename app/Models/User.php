@@ -15,14 +15,15 @@ use Rennokki\Befriended\Contracts\Blocking;
 use Rennokki\Befriended\Contracts\Follower;
 use Rennokki\Befriended\Traits\CanFollow;
 use Spatie\Permission\Traits\HasRoles;
-
-class User extends Authenticatable implements Blocking,Follower
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
+class User extends Authenticatable implements Blocking,Follower, BannableContract
 {
     use HasApiTokens, HasFactory, Notifiable,CanRate,BelongsToThrough,
     CanConvristion,
     Block
-    ,HasRoles
-    ,CanFollow;
+    ,HasRoles, Bannable,
+    CanFollow;
 
     /**
      * The attributes that are mass assignable.

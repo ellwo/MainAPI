@@ -65,8 +65,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('roles_mass_destroy', [RolesController::class,'massDestroy'])->name('roles.mass_destroy');
     Route::resource('roles', RolesController::class);
     Route::delete('users_mass_destroy', [UsersController::class,'massDestroy'])->name('users.mass_destroy');
+    Route::get('users_ban/{user}',[UsersController::class,'ban'])->name('users.ban.show');
+    Route::post('users_ban/{user}',[UsersController::class,'ban_store'])->name('users.ban.post');
+
     Route::resource('users', UsersController::class);
     Route::get('home',[MainController::class,'index'])->name('home');
+
 
 
 });

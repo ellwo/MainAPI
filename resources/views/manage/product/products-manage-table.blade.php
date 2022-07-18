@@ -67,16 +67,20 @@
             <div>
 				<div  class="flex transition-shadow rounded-lg shadow">
 					<div class="flex flex-col items-center w-full space-y-2 ">
-                       <x-button href="{{ route('product.create',['username'=>$type!='all'&&$type!='useronly'?$username:'me']) }}" class='block w-32' variant="success">
-                        اضافة جديد
-                        <x-heroicon-o-plus class="w-4 h-4"/>
-                       </x-button>
-					</div>
+                        <x-button href="{{ route('product.create',['username'=>$type!='all'&&$type!='useronly'?$username:'me']) }}" class='block w-32' variant="success">
+                            اضافة جديد
+                            <x-heroicon-o-plus class="w-4 h-4"/>
+                           </x-button>
+                           <x-button  onclick="printContent('printTable')" class='block w-32' variant="info">
+                            طباعة
+                            <x-heroicon-o-printer  class="w-4 h-4"/>
+                           </x-button>
+                    </div>
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col w-full mx-auto overflow-x-scroll md:overflow-x-hidden ">
-			<table class="table px-4 space-y-6 text-xs border-separate md:min-w-full sm:text-sm text-dark dark:text-light">
+		<div id="printTable" class="flex flex-col w-full mx-auto overflow-x-scroll md:overflow-x-hidden ">
+			<table  class="table px-4 space-y-6 text-xs border-separate md:min-w-full sm:text-sm text-dark dark:text-light">
 				<thead class=" dark:text-light bg-light dark:bg-dark">
 					<tr>
 						<th class="p-3">المنتج </th>
@@ -138,9 +142,7 @@
 				</tbody>
 			</table>
             {{ $products->links() }}
-		</div>
-	</div>
-</div>
+
 <style>
 	.table {
 		border-spacing: 0 15px;
@@ -164,11 +166,11 @@
 		border-radius: .625rem 0 0 .625rem;
 	}
 </style>
+		</div>
+	</div>
+</div>
 
-<x-slot name="script">
-
-
-</x-slot>
+<script src="{{ asset('js/uploadeimage.js') }}"></script>
 
 
 

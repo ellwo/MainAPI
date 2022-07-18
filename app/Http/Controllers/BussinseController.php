@@ -19,6 +19,10 @@ class BussinseController extends Controller
     public function index()
     {
         //
+
+        // if (date('Y-m-d H:i:s') < auth()->user()->blocked_date) {
+        //     $blocked_days = now()->diffInDays(auth()->user()->blocked_date);
+
        $bussinses= Bussinse::with("department:id,name")->with("user:id")->withCount("followers_b")->withCount("products as products_count")->withAvg("ratings:value")->get();
         return view('bussinsess.bussinse-card',compact('bussinses'));
     }

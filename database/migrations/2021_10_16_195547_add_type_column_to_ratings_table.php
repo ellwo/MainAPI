@@ -10,11 +10,12 @@ class AddTypeColumnToRatingsTable extends Migration
     {
         Schema::table('ratings', function (Blueprint $table) {
             $table->string('type')->nullable();
+            $table->text('comment')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::dropColumns('ratings', ['type']);
+        Schema::dropColumns('ratings', ['type','comment']);
     }
 }

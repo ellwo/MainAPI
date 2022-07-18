@@ -30,10 +30,39 @@ class UsersController extends Controller
             return abort(401);
         }
 
-        $users = User::all();
+        if(isset($request['ban'] )&& $request["ban"]==1)
+        {
+            $users=User::onlyBanned()->get();
+
+        }
+        else
+        $users = User::with('roles')->get();
 
         return view('admin.users.index', compact('users'));
     }
+
+
+    public function ban(User $user)
+    {
+        $roles = Role::get()->pluck('name', 'name');
+
+        return view('admin.users.ban-user',compact('user','roles'));
+        # code...
+    }
+    public function ban_store(Request $request,User $user)
+    {
+
+
+        if($request->has('type') && $request['type']=="unban")
+        $user->unban();
+        else
+        $user->ban(["expired_at"=>$request['expired_at'],'comment'=>$request["comment"]]);
+
+        return redirect()->route('admin.users.index');
+        return view('admin.users.ban-user',compact('user'));
+        # code...
+    }
+
 
     /**
      * Show the form for creating new User.
@@ -92,7 +121,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsersRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
 
 
@@ -100,7 +129,7 @@ class UsersController extends Controller
             return abort(401);
         }
 
-        $user->update($request->all());
+//        $user->update($request->all());
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->syncRoles($roles);
 

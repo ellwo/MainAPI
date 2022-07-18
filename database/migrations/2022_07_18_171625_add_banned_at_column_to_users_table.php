@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PartServiceTable extends Migration
+class AddBannedAtColumnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class PartServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('part_service', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-
-            $table->foreignId('part_id')->nullable()->constrained('parts')->nullOnDelete();
-            $table->foreignId('service_id')->nullable()->constrained('services')->nullOnDelete();
-            $table->timestamps();
+            $table->timestamp('banned_at')->nullable();
         });
     }
 
@@ -29,6 +26,9 @@ class PartServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('part_service');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('banned_at');
+        });
     }
 }

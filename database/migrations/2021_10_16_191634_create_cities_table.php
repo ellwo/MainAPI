@@ -18,7 +18,7 @@ class CreateCitiesTable extends Migration
             $table->text('name');
             $table->text('location')->nullable();
             $table->foreignId('country_id')->nullable()
-            ->constrained('countries')->cascadeOnUpdate()->nullOnDelete();
+            ->constrained('countries')->nullOnDelete();
             $table->timestamps();
         });
     }

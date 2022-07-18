@@ -2184,10 +2184,6 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
 }
-.bg-info-lighter {
-	--tw-bg-opacity: 1;
-	background-color: rgba(34, 211, 238, var(--tw-bg-opacity));
-}
 .bg-blue-600 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
@@ -3761,12 +3757,12 @@ select {
 		padding: 1rem;
 	}
 
-	.sm\:p-16 {
-		padding: 4rem;
-	}
-
 	.sm\:p-6 {
 		padding: 1.5rem;
+	}
+
+	.sm\:p-16 {
+		padding: 4rem;
 	}
 
 	.sm\:p-1 {

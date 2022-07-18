@@ -15,10 +15,12 @@ use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceOrderController;
 use App\Http\Controllers\UploadeController;
 use App\Http\Livewire\Manage\Product\ProductForm;
 use App\Http\Livewire\Manage\Service\ServiceForm;
 use App\Http\Livewire\Orders\Product\ProductOrders;
+use App\Http\Livewire\Orders\Service\ServiceOrders;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -98,9 +100,14 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::get('/product-order/{product}',[ProductOrderController::class,'create'])->name('productorder.create');
+        Route::get('/service-order/{service}',[ServiceOrderController::class,'create'])->name('serviceorder.create');
+        Route::post('/service-order-store',[ServiceOrderController::class,'store'])->name('serviceorder.store');
+
         Route::post('/product-order-store',[ProductOrderController::class,'store'])->name('productorder.store');
 
-        Route::get('/owne-orders',ProductOrders::class)->name('owne-orders');
+        Route::get('/owne-product-orders',ProductOrders::class)->name('owne-product-orders');
+
+        Route::get('/owne-service-orders',ServiceOrders::class)->name('owne-service-orders');
 
         //her the bussinse Manager
 Route::post('/b.savechangeimgs',[BussinseController::class,'savechangeimgs'])->name('b.savechangeimgs');

@@ -82,10 +82,6 @@ class ProductSearch extends Component
         $from = date('2018-01-01');
         $to = date('2019-05-02');
 
-
-
-
-
         if($this->part!=''){
             $p=Part::find($this->part);
             $allparts=$p->department->parts;
@@ -97,7 +93,7 @@ class ProductSearch extends Component
         ->where(function($query){
                 $query->where('name','LIKE','%'.$this->search.'%')
                 ->Orwhere('discrip','LIKE','%'.$this->search.'%')
-                ->Orwhere('note','LIKE','%'.$this->search.'%')->OrwhereBetween('year_created', ['2010', '2019']);
+                ->Orwhere('note','LIKE','%'.$this->search.'%');
 
         })->whereHas(
             'parts',function ($query)use($selectedParts){
@@ -127,7 +123,7 @@ class ProductSearch extends Component
                 $query->where('department_id',"=",$this->dept)->Orwhere(function($query){
                     $query->where('name','LIKE','%'.$this->search.'%')
                     ->Orwhere('discrip','LIKE','%'.$this->search.'%')
-                    ->Orwhere('note','LIKE','%'.$this->search.'%')->OrwhereBetween('year_created', ['2010', '2019']);
+                    ->Orwhere('note','LIKE','%'.$this->search.'%');
                 });
             })->OrwhereHas(
                 'parts',function ($query)use($selectedParts){
