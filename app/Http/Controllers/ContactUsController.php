@@ -17,7 +17,7 @@ class ContactUsController extends Controller
         $mes=ContactUs::find($request['id']);
 
         // return dd($mes);
-        return view('replay_contact',compact('mes'));
+        return view('admin.contact.replay_contact',compact('mes'));
 
 
 
@@ -53,7 +53,7 @@ class ContactUsController extends Controller
 
     public function show_con(){
         $contac=ContactUs::all();
-        return view('show_contacts',compact('contac'));
+        return view('admin.contact.show_contacts',compact('contac'));
     }
     public function update_con(Request $request){
 
