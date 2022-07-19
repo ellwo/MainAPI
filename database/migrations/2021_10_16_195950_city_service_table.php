@@ -16,8 +16,8 @@ class CityServiceTable extends Migration
         Schema::create('city_service', function (Blueprint $table) {
             //
 
-            $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('cities')->nullOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained('services')->nullOnDelete();
             $table->timestamps();
         });
     }

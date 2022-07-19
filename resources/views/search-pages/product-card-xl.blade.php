@@ -1,5 +1,97 @@
-<div class="d-flex flex-wrap align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
-			<div class="col-6 col-w40 pl-0">
+
+<div class="flex-wrap d-flex align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
+    <div class="pl-0 col-6 col-w40">
+        <div class="thumbnail-container">
+
+                                <a href="{{ route($routename,$product) }}" class="thumbnail product-thumbnail two-image">
+                <img class="img-fluid image-cover" src="{{ $product->img }}" alt="" data-full-size-image-url="{{ $product->img }}" width="600" height="600">
+                <img class="img-fluid image-secondary" src="{{ $product->imgs!=null?$product->imgs[rand(0,count($product->imgs)-1)]:$product->img }}"
+                                  alt=""
+                                   data-full-size-image-url="{{ $product->imgs!=null?$product->imgs[rand(0,count($product->imgs)-1)]:$product->img }}"
+                                      width="600" height="600">
+                                    </a>
+
+        </div>
+    </div>
+    <div class="col-6 col-w60 no-padding">
+        <div class="product-description">
+            <div class="product-groups">
+               <div class="product-comments">
+<div class="star_content">
+@php
+$count = (int) $product->ratings_value_avg;
+@endphp
+@for ($i = 1; $i <= $count; $i++)
+<div class="star star_on"></div>
+@endfor
+@for ($i = 0; $i < 5 - $count; $i++)
+<div class="star">
+
+</div>
+@endfor
+</div>
+<span>5 review</span>
+</div>
+<p class="">
+<a title="View seller profile"
+href="@if ($product->owner_type=="App\Models\Bussinse")
+{{ route('b.show',$product->owner->username) }}
+
+@else
+{{ route('profile.show',$product->owner->username) }}
+
+@endif">
+<div class="flex dark:text-light">
+    <span class="flex flex-row space-x-2">
+    <x-heroicon-s-user class="w-6 h-6 text-gray-600"/>
+
+    {{ $product->owner->name }}
+</span>
+</div>
+</a>
+</p>
+
+
+                <div class="product-title" itemprop="name"><a href="{{ route($routename,$product) }}">
+                    <div class="dark:text-white">   {{$product->name}}</div></a></div>
+
+              <div class="product-group-price">
+
+         <div class="product-price-and-shipping">
+
+
+
+            <span itemprop="price" class="price"><div class="dark:text-light">{{ $product->price."/ر.ي" }}</div></span>
+
+
+
+
+
+
+                    </div>
+
+              </div>
+              </div>
+            <div class="product-buttons d-flex justify-content-center" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+
+                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
+                    @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
+                </div>
+
+<a class="addToWishlist wishlistProd_3" href="#" data-rel="3" onclick="WishlistCart('wishlist_block_list', 'add', '3', false, 1); return false;">
+<i class="fa fa-heart"></i>
+<span>Add to Wishlist</span>
+</a>
+                                        <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                    <i class="fa fa-search"></i><span> نظرة سريعة</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- <div class="flex-wrap d-flex align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
+			<div class="pl-0 col-6 col-w40">
 				<div class="thumbnail-container">
 
 										<a href="https://demo.bestprestashoptheme.com/savemart/ar/smartphone-tablet/3-95-the-best-is-yet-to-come-framed-poster.html#/1-الحجم-ص/13-اللون_-برتقالي" class="thumbnail product-thumbnail two-image">
@@ -24,9 +116,9 @@
 </div>     <p class="">
     <a title="View seller profile"
         href="https://demo.bestprestashoptheme.com/savemart/ar/jmarketplace/1_david-james/">
-        <div class="dark:text-light flex">
+        <div class="flex dark:text-light">
             <span class="flex flex-row space-x-2">
-            <x-heroicon-s-user class="h-6 w-6 text-gray-600"/>
+            <x-heroicon-s-user class="w-6 h-6 text-gray-600"/>
 
             David James
         </span>
@@ -71,4 +163,4 @@
 					</div>
 		        </div>
 	    	</div>
-		</div>
+		</div> --}}

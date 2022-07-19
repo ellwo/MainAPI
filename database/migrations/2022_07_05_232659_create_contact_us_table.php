@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePartsTable extends Migration
+class CreateContactUsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('parts', function (Blueprint $table) {
+        Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
-
             $table->text('name');
-            $table->text('note')->nullable();
-            $table->foreignId('department_id')->nullable()
-            ->constrained("departments")->nullOnDelete();
+            $table->text('email');
+            $table->integer('kind')->default(1);
+            $table->text('sabject')->nullable();
+            $table->text('message');
+            $table->text('massege_replay')->nullable();
+
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreatePartsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parts');
+        Schema::dropIfExists('contact_us');
     }
 }

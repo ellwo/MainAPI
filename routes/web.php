@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\BussinseController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
 use App\Http\Controllers\UploadeController;
+use App\Http\Livewire\Cart\CartTable;
 use App\Http\Livewire\Manage\Product\ProductForm;
 use App\Http\Livewire\Manage\Service\ServiceForm;
 use App\Http\Livewire\Orders\Product\ProductOrders;
@@ -54,6 +56,35 @@ Route::post("/user_chat",[App\Http\Controllers\Api\Chat\ChatController::class,'u
 Route::apiResource('chatt',App\Http\Controllers\Api\Chat\ChatController::class);
 Route::get("/inbox/{type?}/{chattings?}/{chat_room_id?}",[App\Http\Controllers\ChatController::class,"index"])->name('inbox')->middleware("auth")->where('any', '.*');
 
+
+
+
+
+
+
+
+
+
+
+Route::get("/contact",[ContactUsController::class,'contact'])->name('contact');
+Route::post("/create_contact",[ContactUsController::class,'create_contact'])->name('post.create_contact');
+
+
+//about us
+Route::view('/aboutUs','AboutUs');
+
+
+
+
+
+
+
+
+
+
+
+
+Route::view('/cart', 'cart')->name('cart');
 
 Route::view("/vuetry","layoutvue");
 

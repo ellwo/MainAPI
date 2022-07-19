@@ -4,6 +4,12 @@
 </h2>
 
 <hr>
+<x-sidebar.link title="ادارة المستخدمين والصلاحيات والامتيازات" href="{{ route('admin.users.index') }}" :isActive="request()->routeIs('mange.services')">
+    <x-slot name="icon">
+        <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+    </x-slot>
+
+</x-sidebar.link>
 
 <x-sidebar.link title="ادارة  المدن" href="{{ route('show_city') }}" :isActive="request()->routeIs('show_city')">
     <x-slot name="icon">

@@ -70,7 +70,7 @@
 
                                             {{-- هنا االصورة صورة العر --}}
 
-                                            <div class="product-cover">
+                                            <div class="product-cover rounded-md border">
                                                 <img class="" :src="img" alt="" title=""
                                                     style="width:100%;" itemprop="image">
                                                 {{-- <div class="layer hidden-sm-down" data-toggle="modal" data-target="#product-modal">
@@ -86,10 +86,15 @@
                                                         <div class="flex flex-wrap space-x-4 space-y-4 text-center ">
 
                                                             {{-- -هنا الصور الي تحت --}}
+                                                            <div class="h-32 cursor-pointer rounded-md border mt-2 ml-2">
+                                                                    <img @click="img='{{ $product->img }}'"
+                                                                        class="w-full h-full" src="{{ $product->img }}"
+                                                                        alt="" title="">
+                                                                </div>
 
 
                                                             @foreach ($product->imgs as $img)
-                                                                <div class="h-32 mt-2 ml-2">
+                                                                <div class="h-32 mt-2 cursor-pointer rounded-md border ml-2">
                                                                     <img @click="img='{{ $img }}'"
                                                                         class="w-full h-full" src="{{ $img }}"
                                                                         alt="" title="">
@@ -299,9 +304,18 @@
 
                                                     </div>
                                                     </div>
+                                                    <div class=" mr-2 flex cursor-pointer p-4  bg-transparent">
+                                                        <a href="{{ route('productorder.create', ['product'=>$product]) }}" class=" ">
+
+                                                            <div class="text-dark flex border rounded-full p-4">
+                                                                <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
+                                                            <span class="text-3xl dark:text-white">اطلب الان </span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
                                                     <div id="_desktop_productcart_detail">
                                                         <div class="product-add-to-cart in_border">
-                                                            <div class="add">
+                                                            {{-- <div class="add">
                                                                 <button class="btn btn-primary add-to-cart"
                                                                     data-button-action="add-to-cart" type="submit">
                                                                     <div class="icon-cart">
@@ -309,7 +323,15 @@
                                                                     </div>
                                                                     <span>أضف للسلة</span>
                                                                 </button>
+                                                            </div> --}}
+                                                            <div class=" rounded-full  border text-center items-center mx-2 flex space-x-4">
+                                                            اضف للسلة
+                                                            <div class="h-24 p-2 rounded-full border w-24 text-center my-auto mx-auto">
+                                                            @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'product.show'], key(time()))
+                                                           </div>
                                                             </div>
+
+
 
                                                             <a class="addToWishlist wishlistProd_6" href="#"
                                                                 data-rel="6"
@@ -601,6 +623,7 @@
                                                     <hr>
 
                                                     <div class="flex flex-col p-4 mt-12 space-y-4 border rounded-lg" >
+                                                    @auth
                                                        <form x-on:submit.prevent="submitForm">
                                                         <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
 
@@ -663,6 +686,13 @@
                                                         </div>
 
                                                        </form>
+                                                                                                              @else
+                                                       <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
+                                                       <h4>لاضافة تقييمك لابد من <a href="{{ route('register') }}" class="text-blue-900 underline">انشاء حساب </a> او <a class="text-blue-900 underline" href="{{ route('login') }}"> تسجيل الدخول</a></h4>
+
+
+                                                       @endauth
+
 
                                                         @section('script')
                                                         <script>

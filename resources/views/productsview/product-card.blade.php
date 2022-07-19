@@ -136,13 +136,10 @@
                 <div style="bottom:10rem !important" class="product-buttons d-flex justify-content-start " itemprop="offers"
                     itemscope="" itemtype="http://schema.org/Offer">
 
-                    <a class="m-1" href="#" >
-
-                    <div  class="flex flex-col justify-center p-2 h-full rounded-full dark:bg-white bg-m_primary-dark " >
-
-                            <x-bi-cart class="w-8 h-8 mx-auto text-m_primary"/>
+                    <div class="h-14 w-14 p-2 flex flex-col justify-center   rounded-full dark:bg-white bg-m_primary-dark">
+                        @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
                     </div>
-                    </a>
+
 
 
                     <a class="m-1">

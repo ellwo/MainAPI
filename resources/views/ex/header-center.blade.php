@@ -51,24 +51,7 @@
                      </a>
                 </div>
                 <div id="_desktop_cart">
-                    <div class="blockcart cart-preview active">
-                        <div class="header-cart">
-                            {{-- <div class="cart-left">
-                                <div class="shopping-cart"><i class="zmdi zmdi-shopping-cart"></i></div>
-                                <div class="cart-products-count">0</div>
-                            </div>
-                            <div class="cart-right d-flex flex-column align-self-end ml-13">
-                                <span class="title-cart">سلة الشراء</span>
-                                <span class="cart-item"> items</span>
-                            </div>
-                         --}}
-                         <a href="{{ route('profile') }}" class="relative" title="My Wishlists">
-                            <x-bi-cart2 class="text-primary-50 dark:text-m_primary h-16 w-16"/>
-                            <span class="text-sm absolute p-1 text-light bg-danger-lighter top-0 right-0 rounded-full">45</span>
-                         </a>
-                        </div>
-
-                    </div>
+                    @livewire('cart.cart-view', key(time()))
                 </div>
             </div>
         </div>

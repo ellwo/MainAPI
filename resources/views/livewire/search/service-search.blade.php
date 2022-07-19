@@ -159,7 +159,7 @@
         <div class="lg:grid lg:grid-cols-4 sm:grid sm:grid-cols-3 ">
             @foreach ($products as $product)
             <div class="mx-4 my-2">
-                @include('productsview.product-card',['product'=>$product,'routename'=>'product.show'])
+                @include('productsview.product-card',['product'=>$product,'routename'=>'service.show'])
             </div>
                 @endforeach
 

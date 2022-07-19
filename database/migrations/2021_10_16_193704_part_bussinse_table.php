@@ -14,8 +14,8 @@ class PartBussinseTable extends Migration
     public function up()
     {
         Schema::create('bussinse_part', function (Blueprint $table) {
-            $table->foreignId('part_id')->constrained();
-            $table->foreignId('bussinse_id')->constrained();
+            $table->foreignId('part_id')->nullable()->constrained('parts')->nullOnDelete();
+            $table->foreignId('bussinse_id')->nullable()->constrained('bussinses')->nullOnDelete();
             $table->timestamps();
 
             //

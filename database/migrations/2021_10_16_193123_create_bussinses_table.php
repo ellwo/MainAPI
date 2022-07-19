@@ -23,8 +23,8 @@ class CreateBussinsesTable extends Migration
             $table->json("phone_numbers")->nullable();
             $table->text("avatar")->nullable();
             $table->json("imgs")->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('department_id')->nullable()->constrained('departments')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained('departments')->nullOnDelete();
             $table->timestamps();
         });
     }

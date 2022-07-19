@@ -2,11 +2,11 @@
 
 @section('search-content')
 
-    <div class="flex flex-col items-center justify-center space-y-4 w-3/4 mx-auto rounded">
+    <div class="flex flex-col items-center justify-center w-3/4 mx-auto space-y-4 rounded">
         <div class="text-2xl text-darker dark:text-light">اقسام </div>
         <div class="flex flex-wrap w-3/4">
             @foreach ($searching_departments as $item)
-                <div class="rounded-xl bg-darker text-light dark:bg-m_primary text-xl cursor-pointer m-2 p-2">
+                <div class="p-2 m-2 text-xl cursor-pointer rounded-xl bg-darker text-light dark:bg-m_primary">
                     <a href="{{ route('search',['dept'=>$item->id]) }}">
                        <div class="text-white hover:text-blue-500"> {{ $item->name }}</div>
                     </a>
@@ -18,7 +18,7 @@
         <div class="text-2xl text-darker dark:text-light">فئات </div>
         <div class="flex flex-wrap w-3/4">
             @foreach ($searching_parts as $item)
-                <div class="rounded-xl bg-darker  dark:bg-m_primary text-xl cursor-pointer m-2 p-2">
+                <div class="p-2 m-2 text-xl cursor-pointer rounded-xl bg-darker dark:bg-m_primary">
                     <a href="{{ route('search',['dept'=>$item->department_id,'part'=>$item->id]) }}">
                       <div class="text-light">  {{ $item->name }}</div>
                     </a>
@@ -32,11 +32,11 @@
     </div>
 
 
-    <div class="flex flex-col  m-8">
+    <div class="flex flex-col m-8">
 
-        <div class="flex flex-row  ">
-            <h1 class="dark:text-white font-bold pb-4 text-3xl" >المنتجات</h1>
-            <hr class="w-2/3 border-m_primary-dark  border-2"/>
+        <div class="flex flex-row ">
+            <h1 class="pb-4 text-3xl font-bold dark:text-white" >المنتجات</h1>
+            <hr class="w-2/3 border-2 border-m_primary-dark"/>
 
         </div>
 
@@ -44,13 +44,13 @@
 
 
 
-        <div class="sm:flex sm:flex-row  rounded-md ">
+        <div class="rounded-md sm:flex sm:flex-row ">
 
-        <div class="sm:w-2/3   rounded-md">
+        <div class="rounded-md sm:w-2/3">
 
-            <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
+            <div class="p-2 lg:p-8 sm:p-4 sm:grid sm:grid-cols-2">
                 @foreach($products->take(4) as $product)
-                   @include('search-pages.product-card-sm',['product'=>$product,'routename'=>'product.show'])
+                   @include('search-pages.product-card-xl',['product'=>$product,'routename'=>'product.show'])
                 @endforeach
 
             </div>
@@ -61,9 +61,9 @@
 
 
 
-        <div class="sm:w-1/3  rounded-md ">
+        <div class="rounded-md sm:w-1/3 ">
 
-            <div class=" ">
+            <div class="">
 
                 @foreach ($products->skip(4)->take(3) as $product)
                     @include('search-pages.product-card-sm',['product'=>$product,'routename'=>'product.show'])
@@ -87,11 +87,11 @@
 
 
 
-    <div class="flex flex-col  m-8">
+    <div class="flex flex-col m-8">
 
-        <div class="flex flex-row  ">
-            <h1 class="dark:text-white font-bold pb-4 text-3xl" >الخدمات</h1>
-            <hr class="w-2/3 border-m_primary-dark  border-2"/>
+        <div class="flex flex-row ">
+            <h1 class="pb-4 text-3xl font-bold dark:text-white" >الخدمات</h1>
+            <hr class="w-2/3 border-2 border-m_primary-dark"/>
 
         </div>
 
@@ -99,11 +99,11 @@
 
 
 
-        <div class="sm:flex sm:flex-row  rounded-md ">
+        <div class="rounded-md sm:flex sm:flex-row ">
 
-        <div class="sm:w-2/3   rounded-md">
+        <div class="rounded-md sm:w-2/3">
 
-            <div class="lg:p-8 sm:p-4 p-2 sm:grid sm:grid-cols-2">
+            <div class="p-2 lg:p-8 sm:p-4 sm:grid sm:grid-cols-2">
                 @foreach($services->take(4) as $service)
                    @include('search-pages.product-card-xl',['product'=>$service,'routename'=>'service.show'])
                 @endforeach
@@ -116,9 +116,9 @@
 
 
 
-        <div class="sm:w-1/3  rounded-md ">
+        <div class="rounded-md sm:w-1/3 ">
 
-            <div class=" ">
+            <div class="">
 
                 @foreach ($services->skip(4)->take(3) as $service)
                     @include('search-pages.product-card-sm',['product'=>$service,'routename'=>'service.show'])
@@ -143,16 +143,16 @@
 
 
     <div class="relative">
-        <div class="flex flex-row  ">
-            <h1 class="dark:text-white font-bold pb-4 text-3xl" >حسابات تسويقية </h1>
-            <hr class="w-2/3 border-m_primary-dark  border-2"/>
+        <div class="flex flex-row ">
+            <h1 class="pb-4 text-3xl font-bold dark:text-white" >حسابات تسويقية </h1>
+            <hr class="w-2/3 border-2 border-m_primary-dark"/>
 
         </div>
-    <div dir="rtl" class="grid gap-2 my-3 sm:grid-cols-4 grid-cols-2">
+    <div dir="rtl" class="grid grid-cols-2 gap-2 my-3 sm:grid-cols-4">
 
         @foreach ($bussinses as $buss)
         <div class="sm:h-64">
-            <div class="flex max-h-full min-w-full min-h-full flex-col">
+            <div class="flex flex-col max-h-full min-w-full min-h-full">
                 <div class="bg-white dark:bg-dark dark:text-light dark:border->primary border border-white shadow-lg  rounded-3xl p-4 m-4">
                     <div class="flex-none sm:flex">
                         <div class="relative w-32 h-32 mb-3 sm:mb-0">
@@ -165,8 +165,8 @@
                             <div class="flex items-center justify-between sm:mt-2">
                                 <div class="flex items-center">
                                     <div class="flex flex-col">
-                                        <div class=" w-full font-bold leading-none text-md">{{$buss->name}}|<br><a href="{{route("b.show",["username"=>$buss->username])}}"><span class="text-sm text-info">{{"@".$buss->username}}</span></a></div>
-                                        <div class=" my-1 text-gray-500">
+                                        <div class="w-full font-bold leading-none  text-md">{{$buss->name}}|<br><a href="{{route("b.show",["username"=>$buss->username])}}"><span class="text-sm text-info">{{"@".$buss->username}}</span></a></div>
+                                        <div class="my-1 text-gray-500 ">
                                             <span class="mr-3 border-r border-gray-200 max-h-0"></span><span class="text-info"> {{$buss->department?->name}}</span>
                                         </div>
 
@@ -197,13 +197,13 @@
                                 </div>
 
                                 </div>
-                                <div class="flex pt-2 justify-between space-x-4 text-gray-500">
+                                <div class="flex justify-between pt-2 space-x-4 text-gray-500">
                                     <div class="" >
                                         <form method="POST" action="{{route('create_chatroom')}}">
                                             @csrf
                                             <input type="hidden" name="chatable_id" value="{{$buss->username}}" />
                                             <input type="hidden" name="type" value="Bussinse" />
-                                        <button class="bg-m_primary rounded-full p-2">
+                                        <button class="p-2 rounded-full bg-m_primary">
                                             <x-heroicon-o-chat class="w-8 h-8 text-darker"/>
                                         </button>
                                         </form>
@@ -228,8 +228,8 @@
                                         <form x-show="showform2"  x-data="ContactForm({{$buss->id}},'follow','متابعة')"  @submit.prevent="submitForm({{$buss->id}},'follow')">
                                             @csrf
                                         <div    >
-                                               <button @click='showform2=false' class="bg-success flex text-white rounded-xl p-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8  h-8 " viewBox="0 0 20 20"
+                                               <button @click='showform2=false' class="flex p-2 text-white bg-success rounded-xl">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 20 20"
                                                         fill="currentColor">
                                                         <path
                                                             d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
@@ -249,9 +249,9 @@
 
                                     <form x-show="!showform2" x-data="ContactForm({{$buss->id}},'unfollow','الغاء المتابعة')" @submit.prevent="submitForm({{$buss->id}},'unfollow')">
                                         <div   >
-                                         <button @click='showform2=true' class="bg-danger-darker text-white flex rounded-xl p-2">
+                                         <button @click='showform2=true' class="flex p-2 text-white bg-danger-darker rounded-xl">
 
-                                             <x-bi-person-dash-fill class="h-8 w-8 text-light" />
+                                             <x-bi-person-dash-fill class="w-8 h-8 text-light" />
                                                 <span class="" >الغاء المتابعة</span>
 
                                          </button>
@@ -267,8 +267,8 @@
                                     <form x-show="!showform2"  x-data="ContactForm({{$buss->id}},'follow','متابعة')"  @submit.prevent="submitForm({{$buss->id}},'follow')">
                                         @csrf
                                     <div    >
-                                           <button @click='showform2=true' class="bg-success flex text-white rounded-xl p-2">
-                                               <x-bi-person-plus class="h-8 w-8"/>
+                                           <button @click='showform2=true' class="flex p-2 text-white bg-success rounded-xl">
+                                               <x-bi-person-plus class="w-8 h-8"/>
                                                 <span >متابعة</span>
 
                                                 </button>
@@ -281,9 +281,9 @@
 
                                 <form x-show="showform2" x-data="ContactForm({{$buss->id}},'unfollow','الغاء المتابعة')" @submit.prevent="submitForm({{$buss->id}},'unfollow')">
                                     <div   >
-                                     <button @click='showform2=false' class="bg-danger-darker text-white flex rounded-xl p-2">
+                                     <button @click='showform2=false' class="flex p-2 text-white bg-danger-darker rounded-xl">
 
-                                         <x-bi-person-dash-fill class="h-8 w-8 text-light" />
+                                         <x-bi-person-dash-fill class="w-8 h-8 text-light" />
                                             <span class="" >الغاء المتابعة</span>
 
                                      </button>

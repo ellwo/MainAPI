@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MarktsController;
@@ -49,6 +50,11 @@ Route::get("/Parts_show/edit{id}",[PartController::class,'edit'])->name("edit_Pa
 Route::post("/Parts_show/update{id}",[PartController::class,'update'])->name("update_Parts");
 // Route::apiResource('products',\App\Http\Controllers\ProductController::class);
 
+
+
+Route::get("/show_contact",[ContactUsController::class,'show_con'])->name('post.show_con');
+Route::get("/messegeRep",[ContactUsController::class,'replay_con'])->name('post.messegeRep');
+Route::post("/update_con",[ContactUsController::class,'update_con'])->name('post.update_con');
 
 
 

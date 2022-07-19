@@ -15,8 +15,8 @@ class CityBussinseTable extends Migration
     {
         Schema::create('bussinse_city', function (Blueprint $table) {
 
-            $table->foreignId('bussinse_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('bussinse_id')->nullable()->constrained('bussinses')->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('cities')->nullOnDelete();
 
             $table->timestamps();
         });
