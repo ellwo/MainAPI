@@ -1380,8 +1380,8 @@ select {
 .h-2 {
 	height: 0.5rem;
 }
-.h-96 {
-	height: 24rem;
+.h-2\/3 {
+	height: 66.666667%;
 }
 .h-auto {
 	height: auto;
@@ -1394,9 +1394,6 @@ select {
 }
 .h-3\/5 {
 	height: 60%;
-}
-.h-2\/3 {
-	height: 66.666667%;
 }
 .max-h-full {
 	max-height: 100%;
@@ -1496,6 +1493,9 @@ select {
 }
 .w-2\/5 {
 	width: 40%;
+}
+.w-2 {
+	width: 0.5rem;
 }
 .min-w-full {
 	min-width: 100%;
@@ -3965,6 +3965,10 @@ select {
 
 	.md\:w-1\/2 {
 		width: 50%;
+	}
+
+	.md\:w-1\/4 {
+		width: 25%;
 	}
 
 	.md\:w-96 {

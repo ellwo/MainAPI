@@ -6,7 +6,7 @@
 <hr>
 <x-sidebar.link title="ادارة المستخدمين والصلاحيات والامتيازات" href="{{ route('admin.users.index') }}" :isActive="request()->routeIs('mange.services')">
     <x-slot name="icon">
-        <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        <x-bi-lock-fill class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 
 </x-sidebar.link>
@@ -27,7 +27,7 @@
 
 <x-sidebar.link title="ادارة الاسواق" href="{{ route('show_markts') }}" :isActive="request()->routeIs('show_markts')">
     <x-slot name="icon">
-        <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        <x-bi-shop class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 
 </x-sidebar.link>
