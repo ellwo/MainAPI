@@ -39,7 +39,7 @@ class Product extends Model
         'colors'=>'array',
         'note'=>'array',
         'imgs'=>'array',
-        'created_at'=>'datetime:Y-m-d',
+        'created_at'=>'date:Y-m-d',
         'updated_at'=>'datetime:Y/m',
     ];
 

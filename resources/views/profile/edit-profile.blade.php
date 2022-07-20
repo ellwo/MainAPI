@@ -1,11 +1,28 @@
 <x-dashe-layout>
 
-    <div class="relative max-w-4xl mx-auto my-24 mt-4 overflow-hidden rounded shadow-2xl ">
-        <div class="relative w-full h-64 overflow-hidden top bg-dark" >
-          <div class="relative flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50">
-            <img src="{{auth()->user()->avatar}}" class="object-cover w-24 h-24 rounded-full">
-            <h1 class="text-2xl font-semibold">Antonia Howell</h1>
-            <h4 class="text-sm font-semibold">Joined Since '19</h4>
+    <div class="max-w-4xl mx-auto my-24 mt-4 rounded shadow-2xl ">
+        <div class="flex flex-col w-full bg-dark" >
+          <div class="flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50 ">
+
+
+
+
+            <form method="POST" action="{{ route('profile.updateimage') }}">
+
+                @csrf
+                <div class="rounded-full ">
+                    <div id="avatar" class="h-2/3">
+
+                    </div>
+
+                </div>
+                <x-button>حفظ التعديلات</x-button>
+            </form>
+
+
+
+            <h1 class="text-2xl font-semibold">{{ auth()->user()->name }}</h1>
+            <h4 class="text-sm font-semibold">{{ auth()->user()->username }}</h4>
           </div>
         </div>
         <div class="grid grid-cols-12 bg-white " x-data='{tap:1}'>
@@ -16,7 +33,6 @@
         المعلومات الاساسية </button>
             <button @click="tap=2" :class='tap==2 ? "bg-primary  " : "bg-primary-50 hover:bg-primary" ' class="p-2 text-sm font-semibold text-center rounded cursor-pointer hover:text-gray-200">كلمة السر </button>
 
-            <a @click="tap=3" :class='tap==3 ? "bg-primary  " : "bg-primary-50 hover:bg-primary" ' class="p-2 text-sm font-semibold text-center rounded cursor-pointer hover:text-gray-200">اخرى </a>
 
           </div>
 
@@ -88,6 +104,8 @@
                     </div>
 
                 </div>
+                <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
+
                 <div class="w-full space-y-2">
                     <x-label for="username" :value="__('رقم الهاتف')" />
 
@@ -103,6 +121,31 @@
                        value="{{auth()->user()->phone}}" type="tel" name="phone"
                         placeholder="{{ __('') }}"  />
                     </x-input-with-icon-wrapper>
+                </div>
+                <div class="w-full space-y-2">
+                    <x-label for="username" :value="__('المدينة')" />
+
+                    <x-input-with-icon-wrapper>
+                        <x-slot name="icon" class="border border-1">
+
+                            <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" ></span>
+
+
+
+                        </x-slot>
+                        <select name="city_id" class="rounded-md" id="">
+
+                            @foreach ($cities as $c)
+                            <option @if ($c->id==auth()->user()->city_id)
+                                selected
+                            @endif value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+
+                        </select>
+                    </x-input-with-icon-wrapper>
+                </div>
+
+
                 </div>
                 <div class="w-full form-item" >
                     <label class="text-xl ">البايو</label>
@@ -232,9 +275,22 @@
       <x-slot  name="script">
 
     <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/uploadeimage.js') }}"></script>
 
 <script type="text/javascript">
 
+
+            var img=new ImagetoServer({
+                url:"{{ route('uploade') }}",
+                src:"{{ auth()->user()->avatar }}",
+                id:'avatar',
+                h:500,
+                w:500,
+                with_w_h:true,
+
+
+            });
 
 
 

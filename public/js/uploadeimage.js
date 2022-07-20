@@ -742,7 +742,7 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname,
                 var inputnamee = '"' + inputname + '"';
 
                 // <div class="">
-                var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+                var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn rounded-xl text-darker ' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
                 //                var im = "";
 
 

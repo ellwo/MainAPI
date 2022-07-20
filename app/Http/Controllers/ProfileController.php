@@ -30,6 +30,19 @@ class ProfileController extends Controller
 
 
 
+
+    public function updateimage(Request $request)
+    {
+        $user=Auth::user();
+        $user=User::find($user->id);
+
+        $user->avatar=$request['avatar'];
+        $user->save();
+
+        return back()->with('status','تم تعديل الصورة بنجاح');
+        # code...
+    }
+
     public function update_password(Request $request)
     {
         # code...
@@ -171,6 +184,7 @@ class ProfileController extends Controller
     $user->email=$request->email;
     $user->bio=$request->bio;
     $user->phone=$request->phone;
+    $user->city_id=$request->city_id;
 
     $user->save();
 

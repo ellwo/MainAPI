@@ -74,6 +74,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 Route::middleware(['auth'])->group(function () {
                     #codeon(){
 
+                        Route::post('/profile.updateimage',[ProfileController::class,'updateimage'])->name('profile.updateimage');
                     Route::post("/profile.update_password",[ProfileController::class,'update_password'])->name("profile.update_password");
                     Route::resource("/profile",ProfileController::class)->only('store','create','index','update')->name("index","profile");
 
