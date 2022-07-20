@@ -19,7 +19,8 @@ class CreateServicesTable extends Migration
             $table->json('note')->nullable();
             $table->float('price')->default(0);
             $table->json("imgs")->nullable();
-            $table->float("min_pyment")->nullable();      $table->text("img")->nullable();
+            $table->float("min_pyment")->nullable(); 
+           $table->text("img")->nullable();
             $table->text("owner_type")->nullable();
             $table->bigInteger("owner_id")->nullable();
             $table->text('discrip')->nullable();

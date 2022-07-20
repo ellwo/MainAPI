@@ -122,12 +122,6 @@ class DatabaseSeeder extends Seeder
         $user->assignRole("admin");
         $user->assignRole("administrator");
 
-
-
-
-
-
-
         $users=User::all();
 
         foreach ($users as $user){

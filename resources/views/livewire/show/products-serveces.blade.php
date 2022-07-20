@@ -4,9 +4,17 @@
     {{$products->links()}}
     <div class="grid gap-2 my-3 sm:grid-cols-3">
 
+        <style>
+            .item-rtl{
+                direction: rtl !important;
+            }
+            .item-rtl *{
+                direction: rtl !important;
+            }
+        </style>
 
     @foreach ($products as $product)
-
+{{--
     <div class="relative border rounded-md border-primary">
         <a class="block w-full h-40 bg-center bg-no-repeat bg-cover rounded-lg" href="{{route($proORserv=='pro'?'product.show':'service.show',[$proORserv=='pro'?'product':'service'=>$product->id])}}"
         style="background-image:url('{{$product->img}}')" ></a>
@@ -15,7 +23,174 @@
 
 
 
+    </div> --}}
+
+    @php
+        $routename=$proORserv=='pro'?'product.show':'service.show';
+    @endphp
+
+
+
+
+
+    <div class="text-center rounded-lg item-rtl dark:bg-m_primary-darker" x-data='{imgtow:0}'>
+        <div x-on:mouseenter='imgtow=!imgtow' x-on:mouseleave='imgtow=!imgtow' class="h-full min-h-full border rounded-lg border-dark hover:border-m_primary product-miniature js-product-miniature item-two first_item" data-id-product="{{ $product->id }}"
+            data-id-product-attribute="60" itemscope="" >
+
+            <div class="mt-2 mb-0 product-cat-content">
+
+                <div class="flex flex-col category-title">
+
+
+                    <a href="{{ route('search',['dept'=>$product->department_id]) }}">
+                        <span class="text-blue-900 dark:text-gray-400"><span class="font-bold text-darker dark:text-light">القسم/</span>{{ $product->department!=null ? $product->department->name:"" }}</span>
+                    </a>
+                </div>
+
+
+                <div class="mb-0 product-title" itemprop="name"><a
+                        href="{{ route($routename,$product) }}">
+                       <span class="dark:text-gray-300"> {{ $product->name }}</span></a></div>
+
+            </div>
+            <div class="relative overflow-hidden thumbnail-container" >
+
+                <a   href="{{ route($routename,$product) }}"
+                    class="flex thumbnail product-thumbnail two-image">
+                    <img x-show='!imgtow' class="h-full bg-white img-fluid image-cover"
+                        src="{{ $product->img }}"
+                        alt=""
+                        data-full-size-image-url="{{ $product->img }}"
+                        >
+                    <img x-show='imgtow' class="img-fluid image-secondary"
+                        src="{{ $product->imgs!=null?$product->imgs[rand(0,(count($product->imgs)-1))]:$product->img }}"
+                        alt=""
+                        data-full-size-image-url="{{ $product->imgs!=null ? $product->imgs[rand(0,(count($product->imgs)-1))]:$product->img }}"
+                        >
+                </a>
+
+
+
+
+                @if (get_class($product)==="App\Models\Product")
+
+                <span class="px-2 absolute top-4 left-2 @if($product->status==0) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php
+                    echo  $product->status==0?"جديد":"مستخدم";
+                @endphp</span>
+                @endif
+
+
+
+
+
+            </div>
+            <div class="relative pb-0 product-description">
+                <div class="product-groups">
+                    <div class="product-group-price">
+
+                        <div class="relative flex flex-wrap justify-between product-price-and-shipping" >
+
+
+
+                            <span itemprop="price" class="p-2 bg-yellow-300 rounded-full price text-dark ">{{ $product->price."/ر.ي" }}</span>
+
+                            @if (get_class($product)==="App\Models\Product")
+
+                            <span class="p-3 font-bold bg-yellow-300 rounded-full text-dark ">
+                                <span class="text-md text-m_primary-onprimary">
+                                سنة الصنع
+                                </span>
+                                {{ $product->year_created }}</span>
+                                @else
+                                <span class="p-3 font-bold bg-yellow-300 rounded-full text-dark ">
+                                    <span class="text-md text-m_primary-onprimary">
+                        المدة
+                                    </span>
+                                    {{ $product->how_long }}</span>
+
+                                @endif
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="product-comments">
+                        <div class="flex star_content">
+                            @php
+                            $count = (int) $product->ratings_value_avg;
+                        @endphp
+                        @for ($i = 1; $i <= $count; $i++)
+                            <x-heroicon-s-star class="inline-flex w-5 h-5 text-m_primary"/>
+                        @endfor
+                        @for ($i = 0; $i < 5 - $count; $i++)
+
+                        <x-heroicon-o-star class="inline-flex w-5 h-5 text-m_primary"/>
+                        @endfor
+
+                        </div>
+                    </div>
+                    <div class="flex justify-between p-2 space-x-2">
+                        <div class="h-10 text-sm font-semibold text-darker dark:text-white">
+                            {{ $product->vzt()->count()."/زيارة" }}</div>
+
+                    <div class="h-10 text-sm font-semibold text-darker dark:text-white">
+                        {{ $product->updated_at}}</div>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div x-show='imgtow'  style="bottom:10rem !important" class="absolute flex justify-start product-buttons " itemprop="offers"
+                    itemscope="" itemtype="http://schema.org/Offer">
+
+                    <div class="flex flex-col justify-center w-10 h-10 p-2 rounded-full dark:bg-white bg-m_primary-dark">
+                        @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
+                    </div>
+
+
+
+                    <a class="m-1">
+
+                        <div  class="flex flex-col justify-center h-full p-2 rounded-full dark:bg-white bg-m_primary-dark " >
+
+                            <x-heroicon-o-heart class="w-6 h-6 mx-auto text-m_primary"/>
+                    </div></a>
+                    <a href="{{ route('search',['dept'=>$product->department_id,'search'=>$product->name]) }}"  class="m-1 " >
+
+                    <div  class="flex flex-col justify-center h-full p-2 rounded-full dark:bg-white bg-m_primary-dark " >
+                        <x-heroicon-o-search class="w-6 h-6 mx-auto text-m_primary"/>
+                </div>
+                    </a>
+                </div>
+
+
+
+
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @endforeach
 

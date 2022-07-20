@@ -63,7 +63,7 @@
 
                                             {{-- هنا االصورة صورة العر --}}
 
-                                            <div class="product-cover rounded-md border">
+                                            <div class="border rounded-md product-cover">
                                                 <img class="" :src="img" alt="" title=""
                                                     style="width:100%;" itemprop="image">
                                                 {{-- <div class="layer hidden-sm-down" data-toggle="modal" data-target="#product-modal">
@@ -80,15 +80,15 @@
 
                                                             {{-- -هنا الصور الي تحت --}}
 
-  <div class="h-32 cursor-pointer rounded-md border mt-2 ml-2">
+  <div class="h-32 mt-2 ml-2 border rounded-md cursor-pointer">
                                                                     <img @click="img='{{ $product->img }}'"
                                                                         class="w-full h-full" src="{{ $product->img }}"
                                                                         alt="" title="">
                                                                 </div>
 
 
-                                                            @foreach ($product->imgs as $img)
-                                                                <div class="h-32 mt-2 cursor-pointer rounded-md border ml-2">
+                                                            @foreach ($product->imgs??[] as $img)
+                                                                <div class="h-32 mt-2 ml-2 border rounded-md cursor-pointer">
                                                                     <img @click="img='{{ $img }}'"
                                                                         class="w-full h-full" src="{{ $img }}"
                                                                         alt="" title="">
@@ -413,16 +413,16 @@
 
                                                     </div>
                                                     </div>
-                                                    <div class=" mr-2 flex cursor-pointer p-4  bg-transparent">
-                                                        <a href="{{ route('serviceorder.create', ['service'=>$product]) }}" class=" ">
+                                                    <div class="flex p-4 mr-2 bg-transparent cursor-pointer ">
+                                                        <a href="{{ route('serviceorder.create', ['service'=>$product]) }}" class="">
 
-                                                            <div class="text-dark flex border rounded-full p-4">
+                                                            <div class="flex p-4 border rounded-full text-dark">
                                                                 <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
                                                             <span class="text-3xl dark:text-white">اطلب الان </span>
                                                             </div>
                                                         </a>
                                                     </div>
-                                                    
+
                                                     <div id="_desktop_productcart_detail">
                                                         <div class="product-add-to-cart in_border">
                                                             {{-- <div class="add">
@@ -435,9 +435,9 @@
                                                                 </button>
                                                             </div> --}}
 
-  <div class=" rounded-full  border text-center items-center mx-2 flex space-x-4">
+  <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
                                                             اضف للسلة
-                                                            <div class="h-24 p-2 rounded-full border w-24 text-center my-auto mx-auto">
+                                                            <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
                                                             @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'service.show'], key(time()))
                                                            </div>
                                                             </div>

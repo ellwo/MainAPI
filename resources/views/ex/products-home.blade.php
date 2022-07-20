@@ -203,7 +203,7 @@
             </div>
 
 
-                    <div class="nov-productlist hidden productlist-rows col-xl-8 col-lg-8 col-md-8 col-xs-12 col-md-12">
+                    <div class="hidden nov-productlist productlist-rows col-xl-8 col-lg-8 col-md-8 col-xs-12 col-md-12">
                         <div class="block clearfix block-product">
                             <h2 class="title_block">
                                 NEW ARRIVALS hh
@@ -382,8 +382,8 @@
                                                                 data-full-size-image-url="{{ $product->img }}"
                                                                 width="600" height="600">
                                                             <img class="img-fluid image-secondary"
-                                                                src="{{ $product->imgs[0] }}" alt=""
-                                                                data-full-size-image-url="{{ $product->imgs[0] }}"
+                                                                src="{{ $product->imgs!=null?$product->imgs[rand(0,(count($product->imgs)-1))]:$product->img  }}" alt=""
+                                                                data-full-size-image-url="{{ $product->imgs!=null?$product->imgs[rand(0,(count($product->imgs)-1))]:$product->img  }}"
                                                                 width="600" height="600">
                                                         </a>
 
@@ -524,8 +524,8 @@
                                                                 data-full-size-image-url="{{ $product->img }}"
                                                                 width="600" height="600">
                                                             <img class="img-fluid image-secondary"
-                                                                src="{{ $product->imgs[0] }}" alt=""
-                                                                data-full-size-image-url="{{ $product->imgs[0] }}"
+                                                                src="{{ $product->imgs!=null?$product->imgs[rand(0,(count($product->imgs)-1))]:$product->img  }}" alt=""
+                                                                data-full-size-image-url="{{ $product->imgs!=null?$product->imgs[rand(0,(count($product->imgs)-1))]:$product->img  }}"
                                                                 width="600" height="600">
                                                         </a>
 
