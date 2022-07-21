@@ -24,7 +24,9 @@ class Bussinse extends Model implements Blocking,Followable
         \Staudenmeir\EloquentHasManyDeep\HasRelationships,
         CanConvristion
         ,Block
-        ,BlockFilterable,Reportable,CanBeFollowed;
+        ,BlockFilterable,Reportable,CanBeFollowed,
+        \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+
     protected $fillable=[
         "name",
         "username",
@@ -48,7 +50,26 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
+    public function owne_product_orders()
+    {
 
+
+
+        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders())->where('product_orders.status','=',0);
+
+        # code...
+    }
+
+
+    public function owne_service_orders()
+    {
+
+
+
+        return  $this->hasManyDeepFromRelations($this->services(), (new Service)->orders())->where('service_orders.status','=',0);
+
+        # code...
+    }
 
 
     public function orders()

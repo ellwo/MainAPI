@@ -1,19 +1,233 @@
 <x-dashe-layout>
 
 
+    <div dir="rtl" class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-darker">
+        مرحبا عزيزنا العميل{{ '  ' . $bussinse->name }}
+    </div>
+
+
+
+
+    <div class="p-6 mt-2 overflow-hidden rounded-md rounded-t-none shadow-md dark:bg-dark" dir="rtl">
+
+        <!-- State cards -->
+        <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+
+
+            <!-- Orders card -->
+            <a href="{{ route('product.create', ['username' => 'me']) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                     الرسائل
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        اذهب للماسنجر الخاص بك
+                    </span>
+                </div>
+                <div>
+
+
+                    <span class="relative">
+                        <x-bi-chat-fill class="w-12 h-12 text-blue-400" />
+
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ $bussinse->unreaded_message_count() }}</span>
+                    </span>
+
+                </div>
+            </a>
+
+
+
+
+
+            <!-- Orders card -->
+
+
+
+
+            @if ($bussinse->department->type==1)
+
+            <a href="{{ route('owne-product-orders', ['type' => 'bussinse','username'=>$bussinse->username]) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                       الطلبات المنتجات الواردة
+                    </h6>
+                    <span class="text-xs font-semibold">
+
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span class="relative">
+                        <x-bi-inbox class="w-12 h-12 text-yellow-700" />
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ $bussinse->owne_product_orders()->get()->count() }}</span>
+
+                    </span>
+
+                </div>
+            </a>
+            @else
+
+            <a href="{{ route('owne-service-orders',['type' => 'bussinse','username'=>$bussinse->username]) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                       طلبات الخدمات الواردة
+                    </h6>
+                    <span class="text-xs font-semibold">
+
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span class="relative">
+                        <x-bi-inbox class="w-12 h-12 text-yellow-700" />
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ $bussinse->owne_service_orders()->get()->count() }}</span>
+
+                    </span>
+
+                </div>
+            </a>
+            @endif
+
+
+
+            <!-- Orders card -->
+            @if ($bussinse->department->type==1)
+
+
+            <a href="{{ route('product.create', ['username' => $bussinse->username]) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        اضافة منتج جديد
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        يمكنك اضافة منتجات بعدد غير محدود
+
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span>
+                        <x-heroicon-o-plus class="w-12 h-12 text-success" />
+                    </span>
+
+                </div>
+            </a>
+            @else
+        <!-- Orders card -->
+        <a href="{{ route('service.create', ['username' => $bussinse->username]) }}"
+            class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+            <div>
+                <h6
+                    class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                    اضافة خدمة جديدة
+                </h6>
+                <span class="text-xs font-semibold">
+                    يمكنك اضافة خدمات بعدد غير محدود
+
+                </span>
+
+            </div>
+            <div>
+
+
+                <span>
+                    <x-heroicon-o-plus class="w-12 h-12 text-success" />
+                </span>
+
+            </div>
+        </a>
+
+            @endif
+
+            @if ($bussinse->department->type==1)
+
+            <a href="{{ route('service.create', ['username' => $bussinse->username]) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        ادارة المنتجات
+                    </h6>
+
+                </div>
+                <div>
+
+
+                    <span class="flex">
+                        <x-bi-bag class="w-6 h-6 " />
+                        <x-bi-wrench-adjustable class="w-6 h-6 " />
+                    </span>
+
+                </div>
+            </a>
+
+
+            @else
+            <a href="{{ route('service.create', ['username' => $bussinse->username]) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        ادارة الخدمات
+                    </h6>
+
+                </div>
+                <div>
+
+
+                    <span class="flex">
+
+        <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <g>
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M14.121 10.48a1 1 0 0 0-1.414 0l-.707.706a2 2 0 1 1-2.828-2.828l5.63-5.632a6.5 6.5 0 0 1 6.377 10.568l-2.108 2.135-4.95-4.95zM3.161 4.468a6.503 6.503 0 0 1 8.009-.938L7.757 6.944a4 4 0 0 0 5.513 5.794l.144-.137 4.243 4.242-4.243 4.243a2 2 0 0 1-2.828 0L3.16 13.66a6.5 6.5 0 0 1 0-9.192z"></path>
+            </g>
+        </svg>
+        <x-bi-wrench-adjustable class="w-6 h-6 text-success" />
+                    </span>
+
+                </div>
+            </a>
+
+            @endif
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="mx-auto mt-4 space-x-2 dark:bg-dark text-darker dark:text-light rounded-xl">
 
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Dashboard') }}
-            </h2>
-        </div>
+
     <div dir="rtl" class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-darker ">
-        مرحبا عزيزنا  {{$bussinse->name}}
+       الاحصائيات
 
     </div>
 
-    <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+    <div dir="rtl" class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
         <!-- Value card -->
         <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
             <div>
@@ -105,13 +319,12 @@
             <div>
                 <h6
                     class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                    Tickets
+                    عدد الطلبات الواردة
                 </h6>
+
+
                 <span class="text-xl font-semibold">20,516</span>
-                <span
-                    class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +3.1%
-                </span>
+
             </div>
             <div>
                 <span>
@@ -126,11 +339,11 @@
         </div>
     </div>
 
-    <div x-data='{showForm:false}'>
-        @if (session()->has("state"))
-        <span>Has State</span>
-    @endif
 
+    {{-- hhhhhhhh --}}
+
+{{--
+    <div x-data='{showForm:false}'>
 
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -166,7 +379,7 @@
             </div>
             <div class="flex flex-wrap space-x-2">
                 <h6 class="mx-1 font-bold text-primary">المدن  : </h6>
-                @foreach ($bussinse->cities as $c)
+                @foreach ($bussinse->cities??[] as $c)
                     <div class="p-1 rounded-lg dark:bg-white bg-dark text-light dark:text-dark">
                         {{$c->name}}
                     </div>
@@ -174,7 +387,7 @@
             </div>
             <div class="flex flex-wrap space-x-2">
                 <h6 class="mx-1 font-bold text-primary">الفئات  : </h6>
-                @foreach ($bussinse->parts as $c)
+                @foreach ($bussinse->parts??[] as $c)
                     <div class="p-1 rounded-lg dark:bg-white bg-dark text-light dark:text-dark">
                         {{$c->name}}
                     </div>
@@ -186,7 +399,7 @@
                 @if ($bussinse->phone_numbers !=null)
 
 
-                @foreach ($bussinse->phone_numbers as $p )
+                @foreach ($bussinse->phone_numbers??[] as $p )
                     <span class="flex w-full p-2 space-x-2 border rounded-lg border-info ">
                         {{$p}}
                         <x-heroicon-o-phone class="w-5 h-5 font-bold text-info" />
@@ -233,12 +446,12 @@
 
             <form onsubmit="ajxaproform(event,this,'{{route('b.savechangeimgs')}}')">
                 <input type="hidden" name="bussinse_username" value="{{$bussinse->username}}"/>
-            <div class="flex  flex-col mx-auto text-dark ">
+            <div class="flex flex-col mx-auto text-dark ">
                 <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
 
                 <div id="avatar" class="rounded-md "></div>
             </div>
-            <div class="flex flex-col  mx-auto ">
+            <div class="flex flex-col mx-auto ">
                 <x-label for="imgs" :value="__('صور عرض اضافية   ')" />
 
                 <div id="imgs" class="rounded-md "></div>
@@ -261,232 +474,7 @@
 
     </div>
 
-
-
-    <div  x-show="showForm" class="flex flex-col p-6 mx-auto mt-4 overflow-hidden bg-white rounded-md shadow-md lg:w-2/3 dark:bg-darker ">
-        <form action="{{route('b.update',['b'=>$bussinse])}}" method="POST">
-            @csrf
-            @method('PUT')
-        <div class="flex flex-col p-8 mx-auto ">
-
-                        <div class="relative inline-flex flex-col items-center mx-auto space-y-4">
-
-                            <x-label for="department_id" :value="__('اختر القسم ')" />
-
-                            <select name="department_id" class="h-10 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-full appearance-none hover:border-gray-400 focus:outline-none">
-                                @foreach( $catgraies as $ca)
-                                <option value="{{$ca->id}}">{{$ca->name}}</option>
-                                @endforeach
-                            </select>
-                          </div>
-
-
-
-
-
-                    </div>
-                    <div class="flex flex-col items-center mx-auto">
-                                @include('components.mulit-select',
-                                ['id'=>'part',
-                                'inputname'=>'parts',
-                                'items'=>$parts,
-                                'lablename'=>'الفئات',
-                                'selected'=>$bussinse->parts?->pluck('id')->toArray()
-
-                                ])
-                    </div>
-
-
-<div class="space-y-2 " dir="auto">
-    <x-label for="name" :value="__('الاسم')" />
-
-        <x-input id="name" class="block w-full" type="text" name="name"
-        value="{{$bussinse->name}}"
-        placeholder="{{ __('الاسم') }}" required autofocus />
-</div>
-
-<div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-    <div class="w-full space-y-2 ">
-        <x-label for="email" :value="__('Email')" />
-
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon">
-
-                <x-heroicon-o-mail aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
-
-
-
-            </x-slot>
-            <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color" type="email" name="email"
-                value="{{$bussinse->email}}" placeholder="{{ __('Email') }}" required autofocus />
-                {{-- @if (auth()->user()->hasVerifiedEmail())
-                <x-slot name="righticon">
-                    <span class="rounded bg-success text-light">
-                        تم التاكيد
-
-                    </span>
-                </x-slot>
-                @endif --}}
-
-            </x-input-with-icon-wrapper>
-    </div>
-    <div class="w-full space-y-2">
-        <x-label for="username" :value="__('اسم المستخدم')" />
-
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon" class="border border-1">
-
-                <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
-
-
-
-            </x-slot>
-            <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="{{$bussinse->username}}" type="text" name="username"
-            placeholder="{{ __('Username') }}" required autofocus />
-        </x-input-with-icon-wrapper>
-    </div>
-
-</div>
-
-
-
-<div class="flex flex-col space-y-4 md:space-y-0 md:flex-row">
-    <div class="w-full space-y-2" x-data='{contact_count:0}'>
-        <x-label for="email" :value="__('ارقام التواصل ')" />
-
-        @foreach ($bussinse->phone_numbers as $p)
-
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon">
-
-                <x-heroicon-o-phone aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
-            </x-slot>
-            <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
-            type="text" value="{{$p}}" name="phone_numbers[]"
-                 placeholder="{{ __('+967') }}"  />
-                {{-- @if (auth()->user()->hasVerifiedEmail())
-                <x-slot name="righticon">
-                    <span class="rounded bg-success text-light">
-                        تم التاكيد
-
-                    </span>
-                </x-slot>
-                @endif --}}
-
-            </x-input-with-icon-wrapper>
-        </template>
-
-        @endforeach
-
-
-        <template x-for="i in contact_count">
-
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon">
-
-                <x-heroicon-o-phone aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
-            </x-slot>
-            <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
-            type="text" value="" name="phone_numbers[]"
-                 placeholder="{{ __('+967') }}"  />
-                {{-- @if (auth()->user()->hasVerifiedEmail())
-                <x-slot name="righticon">
-                    <span class="rounded bg-success text-light">
-                        تم التاكيد
-
-                    </span>
-                </x-slot>
-                @endif --}}
-
-            </x-input-with-icon-wrapper>
-        </template>
-
-        <div class="mx-auto text-center">
-        <x-button x-show="contact_count<4" type="button" x-on:click="contact_count++" class="mx-auto" variant="goset">
-            <x-heroicon-o-plus class="w-4 h-4 text-success"/> اضافة رقم
-
-        </x-button>
-        </div>
-
-
-
-        </div>
-
-
-
-    <div class="w-full space-y-2" >
-        <x-label for="username" :value="__('روابط مواقع التواصل ')" />
-
-
-
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon" class="border border-1">
-
-                <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
-
-
-
-            </x-slot>
-            <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[0]!=null ? $bussinse->contact_links[0]:''}}
-           " type="text" name="contact_links[]"
-            placeholder="{{ __('facebook user or link') }}"  autofocus />
-        </x-input-with-icon-wrapper>
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon" class="border border-1">
-
-                <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
-
-
-
-            </x-slot>
-            <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[1]!=null ? $bussinse->contact_links[1]:''}}
-           " type="text" name="contact_links[]"
-            placeholder="{{ __('twitter username') }}"  autofocus />
-        </x-input-with-icon-wrapper>
-        <x-input-with-icon-wrapper>
-            <x-slot name="icon" class="border border-1">
-
-                <span aria-hidden="true" class="w-5 h-5 text-primary-dark dark:text-primary-light" >@</span>
-
-
-            </x-slot>
-            <x-input withicon id="username" class="block w-full focus:ring-primary_color focus:border-primary_color"
-           value="                    {{$bussinse->contact_links!=null && $bussinse->contact_links[2]!=null ? $bussinse->contact_links[2]:''}}
-           " type="text" name="contact_links[]"
-
-           placeholder="{{ __('whatsApp number') }}"  autofocus />
-
-        </x-input-with-icon-wrapper>
-
-
-    </div>
-
-</div>
-
-       <div class="flex justify-between w-1/2 p-2 mx-auto space-x-4 rounded-xl">
-        <x-button variant="success">
-            حفظ التعديلات
-
-        </x-button>
-        <x-button @click="showForm=false" type="button" class="bg-danger" variant="danger">
-            الغاء
-            <x-heroicon-o-x class="w-4 h-4 text-white" />
-        </x-button>
-
-
-       </div>
-        </form>
-
-
-
-    </div>
-
-
-
-    </div>
+    </div> --}}
 
 
 
