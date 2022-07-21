@@ -3,6 +3,10 @@
 
                <div class="p-8 mx-auto md:w-1/2">
 
+                <h1 class="flex justify-between w-full p-4 mb-4 bg-white shadow-md rounded-xl dark:bg-darker dark:text-white ">
+                    سلة الشراء
+                    <x-bi-cart-fill class="w-16 h-16 text-yellow-400"/>
+                </h1>
                 @foreach ($cart as $c)
 
                 <div class="flex justify-between p-4 bg-white border rounded-xl dark:bg-dark dark:text-white">
