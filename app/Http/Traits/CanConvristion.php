@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 use Alexmg86\LaravelSubQuery\Traits\LaravelSubQueryTrait;
 use App\Models\Bussinse;
 use App\Models\ChatRoom;
+use App\Models\Message;
 use App\Models\User;
 use Str;
 trait CanConvristion{
@@ -76,6 +77,17 @@ trait CanConvristion{
         // $this->convristions()->where("to_id","=",$model->id)
         // ->where("to_type","=",get_class($model))->get();
 
+    }
+
+
+
+
+
+    public function unreaded_message_count()
+    {
+
+        return Message::whereIn("chat_room_id",$this->chatrooms()->pluck('id')->toArray())->where('is_readed','=',0)->where('sender','!=',$this->id)->count();
+        # code...
     }
 
 

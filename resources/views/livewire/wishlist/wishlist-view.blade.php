@@ -11,8 +11,8 @@
             </div>
          --}}
          <a x-on:click="opencart=!opencart"  class="relative p-2" title="My Wishlists">
-            <x-bi-cart3 class="w-16 h-16 text-yellow-400"/>
-            <span class="absolute bottom-0 right-0 p-1 rounded-full text-light bg-danger-lighter">{{ $cart->count() }}</span>
+            <x-bi-heart class="w-16 h-16 text-danger-dark"/>
+            <span class="absolute bottom-0 right-0 p-2 rounded-full text-light bg-danger-lighter">{{ $cart->count() }}</span>
          </a>
          <div class="absolute inset-0 w-full h-full text-center bg-white"
          x-transition:enter="transition duration-300 ease-in-out" x-transition:enter-start="opacity-0"
@@ -53,7 +53,7 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
         </li>
             @endforeach
     <li>
-        <a href="{{ route('cart') }}" class="p-2 font-bold rounded-md cursor-pointer text-darker dark:text-darker border-info">المزيد</a>
+        <a href="{{ route('wishlist') }}" class="p-2 font-bold rounded-md cursor-pointer text-darker dark:text-darker border-info">المزيد</a>
     </li>
 
 

@@ -330,6 +330,12 @@
                                                             @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'product.show'], key(time()))
                                                            </div>
                                                             </div>
+                                                            <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+                                                                اضف للمفضلات
+                                                                <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+                                                                @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'product.show'], key(time()))
+                                                               </div>
+                                                                </div>
 
 
 

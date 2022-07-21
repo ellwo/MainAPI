@@ -12,25 +12,25 @@
                 <div id="_desktop_top_menu">
                     <nav id="nov-megamenu" class="clearfix">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <div id="megamenu" class="nov-megamenu clearfix">
+                        <div id="megamenu" class="clearfix nov-megamenu">
                             <ul class="menu level1">
-                                <li class="item home-page  active">
+                                <li class="item home-page active">
                                     <a href="{{ route('home') }}"
                                         title="Home" >
-                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="text-m_primary h-5 w-5 mx-2"/>الرئيسية</div></a>
+                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="w-5 h-5 mx-2 text-m_primary"/>الرئيسية</div></a>
 
                                 </li>
 
-                                <li class="item home-page  active">
+                                <li class="item home-page active">
                                     <a href="{{ route('home') }}"
                                         title="Home" >
-                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="text-m_primary h-5 w-5 mx-2"/>الرئيسية</div></a>
+                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="w-5 h-5 mx-2 text-m_primary"/>الرئيسية</div></a>
 
                                 </li>
-                                <li class="item home-page  active">
+                                <li class="item home-page active">
                                     <a href="{{ route('home') }}"
                                         title="Home" >
-                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="text-m_primary h-5 w-5 mx-2"/>الرئيسية</div></a>
+                                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="w-5 h-5 mx-2 text-m_primary"/>الرئيسية</div></a>
 
                                 </li>
                             </ul>
@@ -42,13 +42,13 @@
             <div class="contentsticky_group col-lg-3 col-md-3 d-flex justify-content-end align-items-center">
                 <div class="header_link_myaccount">
                     <a href="{{ route('profile') }}" title="My Wishlists">
-                        <x-bi-person-fill class="text-m_primary-100 dark:text-m_primary h-16 w-16"/>
+                        <x-bi-person-fill class="w-16 h-16 text-m_primary-100 dark:text-m_primary"/>
                      </a>
                 </div>
                 <div class="header_link_wishlist">
-                    <a href="{{ route('profile') }}" title="My Wishlists">
-                        <x-heroicon-o-heart class="text-danger-light h-16 w-16"/>
-                     </a>
+
+                    @livewire('wishlist.wishlist-view', key(time()))
+
                 </div>
                 <div id="_desktop_cart">
                     @livewire('cart.cart-view', key(time()))
@@ -138,18 +138,18 @@
 
                     <div class="header_link_wishlist">
                         <a href="{{ route('profile') }}" class="relative" title="My Wishlists">
-                           <x-bi-cart2 class="text-primary-50 h-16 w-16"/>
-                           <span class="text-sm absolute p-1 text-light bg-danger-lighter top-0 right-0 rounded-full">45</span>
+                           <x-bi-cart2 class="w-16 h-16 text-primary-50"/>
+                           <span class="absolute top-0 right-0 p-1 text-sm rounded-full text-light bg-danger-lighter">45</span>
                         </a>
                     </div>
                     <div class="header_link_wishlist">
                         <a href="{{ route('profile') }}" title="My Wishlists">
-                           <x-heroicon-o-heart class="text-danger-light h-16 w-16"/>
+                           <x-heroicon-o-heart class="w-16 h-16 text-danger-light"/>
                         </a>
                     </div>
                     <div class="header_link_wishlist">
                         <a href="{{ route('profile') }}" title="My Wishlists">
-                           <x-bi-person-fill class="text-m_primary-100 h-16 w-16"/>
+                           <x-bi-person-fill class="w-16 h-16 text-m_primary-100"/>
                         </a>
                     </div>
 

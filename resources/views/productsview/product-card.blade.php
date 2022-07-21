@@ -136,21 +136,17 @@
                 <div style="bottom:10rem !important" class="product-buttons d-flex justify-content-start " itemprop="offers"
                     itemscope="" itemtype="http://schema.org/Offer">
 
-                    <div class="h-14 w-14 p-2 flex flex-col justify-center   rounded-full dark:bg-white bg-m_primary-dark">
+                    <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
                         @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
                     </div>
 
+                    <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
+                        @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
+                    </div>
 
-
-                    <a class="m-1">
-
-                        <div  class="flex flex-col justify-center h-full p-2 rounded-full dark:bg-white bg-m_primary-dark " >
-
-                            <x-heroicon-o-heart class="w-8 h-8 mx-auto text-m_primary"/>
-                    </div></a>
                     <a href="{{ route('search',['dept'=>$product->department_id,'search'=>$product->name]) }}"  class="m-1 " >
 
-                    <div  class="flex flex-col justify-center p-2 h-full rounded-full dark:bg-white bg-m_primary-dark " >
+                    <div  class="flex flex-col justify-center h-full p-2 rounded-full dark:bg-white bg-m_primary-dark " >
                         <x-heroicon-o-search class="w-8 h-8 mx-auto text-m_primary"/>
                 </div>
                     </a>

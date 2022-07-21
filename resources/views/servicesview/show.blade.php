@@ -441,6 +441,14 @@
                                                             @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'service.show'], key(time()))
                                                            </div>
                                                             </div>
+
+
+  <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+    اضف للمفضلة
+    <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+    @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'service.show'], key(time()))
+   </div>
+    </div>
                                                             <a class="addToWishlist wishlistProd_6" href="#"
                                                                 data-rel="6"
                                                                 onclick="WishlistCart('wishlist_block_list', 'add', '6', false, 1); return false;">

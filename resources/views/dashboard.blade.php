@@ -16,19 +16,19 @@
         You're logged in!
     </div>
 </x-app-layout> --}}
-       <!-- Content header -->
-                    <!-- Content -->
+<!-- Content header -->
+<!-- Content -->
 
-                <!-- Main footer -->
+<!-- Main footer -->
 
-            <!-- Panels -->
-
-
-            <x-dashe-layout>
+<!-- Panels -->
 
 
-             @role('administrator')
-            <div>
+<x-dashe-layout>
+
+
+    @role('administrator')
+        <div>
             <div class="mt-2">
                 <!-- State cards -->
                 <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
@@ -42,16 +42,14 @@
                                 عدد المنتجات المعروضة
                             </h6>
                             <span class="text-xl font-semibold">45,021</span>
-                            <span
-                                class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+                            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة المنتجات
                             </span>
                         </div>
                         <div>
                             <span>
-                                <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
+                                <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                 </svg>
@@ -66,8 +64,7 @@
                                 عدد الخدمات المعروضة
                             </h6>
                             <span class="text-xl font-semibold">$30,000</span>
-                            <span
-                                class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+                            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة الخدمات
                             </span>
 
@@ -92,16 +89,14 @@
                                 عدد المستخدمين
                             </h6>
                             <span class="text-xl font-semibold">50,021</span>
-                            <span
-                                class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+                            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة المستخدمين
                             </span>
                         </div>
                         <div>
                             <span>
-                                <svg class="w-12 h-12 text-blue-500 dark:text-primary"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
+                                <svg class="w-12 h-12 text-blue-500 dark:text-primary" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
@@ -118,14 +113,13 @@
                                 عدد الحسابات التسويقية
                             </h6>
                             <span class="text-xl font-semibold">20,516</span>
-                            <span
-                                class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+                            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة الحسابات التسويقية
                             </span>
                         </div>
                         <div>
                             <span class="flex ">
-                                <x-bi-shop class="w-12 h-12 text-primary"/>
+                                <x-bi-shop class="w-12 h-12 text-primary" />
 
                             </span>
                         </div>
@@ -162,7 +156,7 @@
                         </div>
                         <div>
                             <span>
-                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark"/>
+                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark" />
 
                             </span>
                         </div>
@@ -178,7 +172,7 @@
                         </div>
                         <div>
                             <span>
-                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark"/>
+                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark" />
 
                             </span>
                         </div>
@@ -194,7 +188,7 @@
                         </div>
                         <div>
                             <span>
-                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark"/>
+                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark" />
 
                             </span>
                         </div>
@@ -210,7 +204,7 @@
                         </div>
                         <div>
                             <span>
-                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark"/>
+                                <x-heroicon-s-view-grid class="w-12 h-12 text-gray-300 dark:text-primary-dark" />
 
                             </span>
                         </div>
@@ -220,8 +214,7 @@
 
 
 
-{{--
-                <!-- Charts -->
+                {{-- <!-- Charts -->
                 <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
                     <!-- Bar chart card -->
                     <div class="col-span-2 bg-white rounded-md dark:bg-darker" x-data="{ isOn: false }">
@@ -371,61 +364,219 @@
 
                     <li></li>
                     <li></li>
-                </ul>
-
-                 --}}
+                </ul> --}}
             </div>
 
 
         </div>
+    @endrole
+
+
+    <div dir="rtl" class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-darker">
+        مرحبا عزيزنا العميل{{ '  ' . auth()->user()->name }}
+    </div>
+
+
+
+
+    <div class="p-6 mt-2 overflow-hidden rounded-md rounded-t-none shadow-md dark:bg-dark" dir="rtl">
+
+        <h1 class="">العمليات المتاحة</h1>
+        <!-- State cards -->
+        <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+
+
+            <!-- Orders card -->
+            <a href="{{ route('product.create', ['username' => 'me']) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                     الرسائل
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        اذهب للماسنجر الخاص بك
+                    </span>
+                </div>
+                <div>
+
+
+                    <span class="relative">
+                        <x-bi-chat-fill class="w-12 h-12 text-blue-400" />
+
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ auth()->user()->unreaded_message_count() }}</span>
+                    </span>
+
+                </div>
+            </a>
 
 
 
 
 
+            <!-- Orders card -->
+            <a href="{{ route('owne-product-orders', ['username' => 'me']) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                       الطلبات المنتجات الواردة
+                    </h6>
+                    <span class="text-xs font-semibold">
+
+                    </span>
+
+                </div>
+                <div>
 
 
+                    <span class="relative">
+                        <x-bi-inbox class="w-12 h-12 text-yellow-700" />
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ auth()->user()->owne_product_orders()->get()->count() }}</span>
+
+                    </span>
+
+                </div>
+            </a>
 
 
+            <a href="{{ route('owne-service-orders') }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                       طلبات الخدمات الواردة
+                    </h6>
+                    <span class="text-xs font-semibold">
+
+                    </span>
+
+                </div>
+                <div>
 
 
-        @endrole
+                    <span class="relative">
+                        <x-bi-inbox class="w-12 h-12 text-yellow-700" />
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ auth()->user()->owne_service_orders()->get()->count() }}</span>
 
+                    </span>
 
-        <div dir="rtl" class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-darker">
-            مرحبا عزيزنا العميل{{ "  ".auth()->user()->name }}
-        </div>
-        <div class="mt-2" dir="rtl">
-            <!-- State cards -->
-            <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+                </div>
+            </a>
 
+            <!-- Orders card -->
+            <div
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
 
-                <!-- Orders card -->
-                <div class="flex items-center justify-between p-4 bg-white rounded-md dark:bg-darker">
-                    <div>
-                        <h6
-                            class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
-                            عدد المنتجات المعروضة
-                        </h6>
-                        <span class="text-xl font-semibold">45,021</span>
-                        <span
-                            class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                            ادارة المنتجات
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                            </svg>
-                        </span>
-                    </div>
+                <div>
+
+                    السلة
+
+                 @livewire('cart.cart-view', key(time()))
+
+                </div>
+
+                <div>
+
+                    المفضلات
+
+                 @livewire('wishlist.wishlist-view', key(time()))
+
                 </div>
             </div>
+
+
+
+
+
         </div>
+    </div>
+
+
+    <div class="p-6 mt-2 overflow-hidden rounded-md rounded-t-none shadow-md dark:bg-dark" dir="rtl">
+
+        <h1 class="">العمليات المتاحة</h1>
+        <!-- State cards -->
+        <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-3">
+
+
+            <!-- Orders card -->
+            <a href="{{ route('product.create', ['username' => 'me']) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        اضافة منتج جديد
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        يمكنك اضافة منتجات بعدد غير محدود
+
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span>
+                        <x-heroicon-o-plus class="w-12 h-12 text-success" />
+                    </span>
+
+                </div>
+            </a>
+            <!-- Orders card -->
+            <a href="{{ route('service.create', ['username' => 'me']) }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        اضافة خدمة جديدة
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        يمكنك اضافة خدمات بعدد غير محدود
+
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span>
+                        <x-heroicon-o-plus class="w-12 h-12 text-success" />
+                    </span>
+
+                </div>
+            </a>
+
+            <!-- Orders card -->
+            <a href="{{ route('b.create') }}"
+                class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+                <div>
+                    <h6
+                        class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                        انشاء حساب تسويقي تجاري/خدمي جديد
+                    </h6>
+                    <span class="text-xs font-semibold">
+                        انشئ متجرك /مكتب الخدمة الخاص بك الان
+                    </span>
+
+                </div>
+                <div>
+
+
+                    <span>
+                        <x-bi-shop class="w-12 h-12 text-m_primary" />
+                        <span class="mx-2 my-2 text-sm font-bold bg-white border rounded text-success">مجانا</span>
+                    </span>
+
+                </div>
+            </a>
+
+
+
+
+
+        </div>
+    </div>
 
 
 
@@ -441,227 +592,225 @@
 
 
 
-        <x-slot name="script">
-            <script>
-
-                const random = (max = 100) => {
-                    return Math.round(Math.random() * max) + 20
-                }
-
+    <x-slot name="script">
+        <script>
+            const random = (max = 100) => {
+                return Math.round(Math.random() * max) + 20
+            }
 
 
-                const randomData = () => {
-                    return [
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                        random(),
-                    ]
-                }
 
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            const randomData = () => {
+                return [
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                    random(),
+                ]
+            }
 
-                const cssColors = (color) => {
-                    return getComputedStyle(document.documentElement).getPropertyValue(color)
-                }
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-                const getColor = () => {
-                    return window.localStorage.getItem('color') ? window.localStorage.getItem('color') : 'cyan';
-                }
+            const cssColors = (color) => {
+                return getComputedStyle(document.documentElement).getPropertyValue(color)
+            }
 
-                const colors = {
-                    primary: cssColors(`--color-${getColor()}`),
-                    primaryLight: cssColors(`--color-${getColor()}-light`),
-                    primaryLighter: cssColors(`--color-${getColor()}-lighter`),
-                    primaryDark: cssColors(`--color-${getColor()}-dark`),
-                    primaryDarker: cssColors(`--color-${getColor()}-darker`),
-                }
+            const getColor = () => {
+                return window.localStorage.getItem('color') ? window.localStorage.getItem('color') : 'cyan';
+            }
 
-                const barChart = new Chart(document.getElementById('barChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: months,
-                        datasets: [{
-                            data: randomData(),
-                            backgroundColor: colors.primary,
-                            hoverBackgroundColor: colors.primaryDark,
-                        }, ],
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                gridLines: false,
-                                ticks: {
-                                    beginAtZero: true,
-                                    stepSize: 50,
-                                    fontSize: 12,
-                                    fontColor: '#97a4af',
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    padding: 10,
-                                },
-                            }, ],
-                            xAxes: [{
-                                gridLines: false,
-                                ticks: {
-                                    fontSize: 12,
-                                    fontColor: '#97a4af',
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    padding: 5,
-                                },
-                                categoryPercentage: 0.5,
-                                maxBarThickness: '10',
-                            }, ],
-                        },
-                        cornerRadius: 2,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false,
-                        },
-                    },
-                })
+            const colors = {
+                primary: cssColors(`--color-${getColor()}`),
+                primaryLight: cssColors(`--color-${getColor()}-light`),
+                primaryLighter: cssColors(`--color-${getColor()}-lighter`),
+                primaryDark: cssColors(`--color-${getColor()}-dark`),
+                primaryDarker: cssColors(`--color-${getColor()}-darker`),
+            }
 
-                const doughnutChart = new Chart(document.getElementById('doughnutChart'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Oct', 'Nov', 'Dec'],
-                        datasets: [{
-                            data: [random(), random(), random()],
-                            backgroundColor: [colors.primary, colors.primaryLighter, colors.primaryLight],
-                            hoverBackgroundColor: colors.primaryDark,
-                            borderWidth: 0,
-                            weight: 0.5,
-                        }, ],
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        legend: {
-                            position: 'bottom',
-                        },
-
-                        title: {
-                            display: false,
-                        },
-                        animation: {
-                            animateScale: true,
-                            animateRotate: true,
-                        },
-                    },
-                })
-
-                const activeUsersChart = new Chart(document.getElementById('activeUsersChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: [...randomData(), ...randomData()],
-                        datasets: [{
-                            data: [...randomData(), ...randomData()],
-                            backgroundColor: colors.primary,
-                            borderWidth: 0,
-                            categoryPercentage: 1,
-                        }, ],
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                display: false,
-                                gridLines: false,
-                            }, ],
-                            xAxes: [{
-                                display: false,
-                                gridLines: false,
-                            }, ],
+            const barChart = new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        data: randomData(),
+                        backgroundColor: colors.primary,
+                        hoverBackgroundColor: colors.primaryDark,
+                    }, ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            gridLines: false,
                             ticks: {
+                                beginAtZero: true,
+                                stepSize: 50,
+                                fontSize: 12,
+                                fontColor: '#97a4af',
+                                fontFamily: 'Open Sans, sans-serif',
                                 padding: 10,
                             },
-                        },
-                        cornerRadius: 2,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false,
-                        },
-                        tooltips: {
-                            prefix: 'Users',
-                            bodySpacing: 4,
-                            footerSpacing: 4,
-                            hasIndicator: true,
-                            mode: 'index',
-                            intersect: true,
-                        },
-                        hover: {
-                            mode: 'nearest',
-                            intersect: true,
-                        },
-                    },
-                })
-
-                const lineChart = new Chart(document.getElementById('lineChart'), {
-                    type: 'line',
-                    data: {
-                        labels: months,
-                        datasets: [{
-                            data: randomData(),
-                            fill: false,
-                            borderColor: colors.primary,
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            pointHoverRadius: 0,
+                        }, ],
+                        xAxes: [{
+                            gridLines: false,
+                            ticks: {
+                                fontSize: 12,
+                                fontColor: '#97a4af',
+                                fontFamily: 'Open Sans, sans-serif',
+                                padding: 5,
+                            },
+                            categoryPercentage: 0.5,
+                            maxBarThickness: '10',
                         }, ],
                     },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            yAxes: [{
-                                gridLines: false,
-                                ticks: {
-                                    beginAtZero: false,
-                                    stepSize: 50,
-                                    fontSize: 12,
-                                    fontColor: '#97a4af',
-                                    fontFamily: 'Open Sans, sans-serif',
-                                    padding: 20,
-                                },
-                            }, ],
-                            xAxes: [{
-                                gridLines: false,
-                            }, ],
-                        },
-                        maintainAspectRatio: false,
-                        legend: {
+                    cornerRadius: 2,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                },
+            })
+
+            const doughnutChart = new Chart(document.getElementById('doughnutChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        data: [random(), random(), random()],
+                        backgroundColor: [colors.primary, colors.primaryLighter, colors.primaryLight],
+                        hoverBackgroundColor: colors.primaryDark,
+                        borderWidth: 0,
+                        weight: 0.5,
+                    }, ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+
+                    title: {
+                        display: false,
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                    },
+                },
+            })
+
+            const activeUsersChart = new Chart(document.getElementById('activeUsersChart'), {
+                type: 'bar',
+                data: {
+                    labels: [...randomData(), ...randomData()],
+                    datasets: [{
+                        data: [...randomData(), ...randomData()],
+                        backgroundColor: colors.primary,
+                        borderWidth: 0,
+                        categoryPercentage: 1,
+                    }, ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
                             display: false,
-                        },
-                        tooltips: {
-                            hasIndicator: true,
-                            intersect: false,
+                            gridLines: false,
+                        }, ],
+                        xAxes: [{
+                            display: false,
+                            gridLines: false,
+                        }, ],
+                        ticks: {
+                            padding: 10,
                         },
                     },
-                })
+                    cornerRadius: 2,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        prefix: 'Users',
+                        bodySpacing: 4,
+                        footerSpacing: 4,
+                        hasIndicator: true,
+                        mode: 'index',
+                        intersect: true,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true,
+                    },
+                },
+            })
 
-                let randomUserCount = 0
+            const lineChart = new Chart(document.getElementById('lineChart'), {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        data: randomData(),
+                        fill: false,
+                        borderColor: colors.primary,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
+                    }, ],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            gridLines: false,
+                            ticks: {
+                                beginAtZero: false,
+                                stepSize: 50,
+                                fontSize: 12,
+                                fontColor: '#97a4af',
+                                fontFamily: 'Open Sans, sans-serif',
+                                padding: 20,
+                            },
+                        }, ],
+                        xAxes: [{
+                            gridLines: false,
+                        }, ],
+                    },
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        hasIndicator: true,
+                        intersect: false,
+                    },
+                },
+            })
 
-                const usersCount = document.getElementById('usersCount')
+            let randomUserCount = 0
 
-                const fakeUsersCount = () => {
-                    randomUserCount = random()
-                    activeUsersChart.data.datasets[0].data.push(randomUserCount)
-                    activeUsersChart.data.datasets[0].data.splice(0, 1)
-                    activeUsersChart.update()
-                    usersCount.innerText = randomUserCount
+            const usersCount = document.getElementById('usersCount')
 
-                }
+            const fakeUsersCount = () => {
+                randomUserCount = random()
+                activeUsersChart.data.datasets[0].data.push(randomUserCount)
+                activeUsersChart.data.datasets[0].data.splice(0, 1)
+                activeUsersChart.update()
+                usersCount.innerText = randomUserCount
 
-                setInterval(() => {
-                    fakeUsersCount()
-                }, 1000)
+            }
 
-                </script>
+            setInterval(() => {
+                fakeUsersCount()
+            }, 1000)
+        </script>
 
-        </x-slot>
-            </x-dashe-layout>
+    </x-slot>
+</x-dashe-layout>

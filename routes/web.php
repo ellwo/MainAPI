@@ -85,6 +85,7 @@ Route::view('/aboutUs','AboutUs');
 
 
 Route::view('/cart', 'cart')->name('cart');
+Route::view('/wishlist', 'wishlist')->name('wishlist');
 
 Route::view("/vuetry","layoutvue");
 

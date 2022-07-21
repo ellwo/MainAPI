@@ -23,7 +23,10 @@ class User extends Authenticatable implements Blocking,Follower, BannableContrac
     CanConvristion,
     Block
     ,HasRoles, Bannable,
-    CanFollow;
+    CanFollow,
+    \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -70,9 +73,24 @@ class User extends Authenticatable implements Blocking,Follower, BannableContrac
     {
         return $this->hasMany(ProductOrder::class);   # code...
     }
-    public function owne_orders()
+    public function owne_product_orders()
     {
-        return $this->hasManyThrough(ProductOrder::class,$this->products());
+
+
+
+        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders())->where('product_orders.status','=',0);
+
+        # code...
+    }
+
+
+    public function owne_service_orders()
+    {
+
+
+
+        return  $this->hasManyDeepFromRelations($this->services(), (new Service)->orders())->where('service_orders.status','=',0);
+
         # code...
     }
 

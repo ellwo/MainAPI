@@ -77,11 +77,11 @@ href="@if ($product->owner_type=="App\Models\Bussinse")
                 <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
                     @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
                 </div>
+                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
+                    @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
+                </div>
 
-<a class="addToWishlist wishlistProd_3" href="#" data-rel="3" onclick="WishlistCart('wishlist_block_list', 'add', '3', false, 1); return false;">
-<i class="fa fa-heart"></i>
-<span>Add to Wishlist</span>
-</a>
+
                                         <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
                     <i class="fa fa-search"></i><span> نظرة سريعة</span>
                 </a>
