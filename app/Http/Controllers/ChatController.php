@@ -24,6 +24,13 @@ class ChatController extends Controller
         $chattings=$request['chattings']!=null?$request['chattings']:$userid;
         $chat_room_id=$request['chat_room_id']!=null?$request['chat_room_id']:'all';
 
+
+
+
+
+
+
+
         return view('chat.chat',['userid'=>$userid,'type'=>$type,'chat_room_id'=>$chat_room_id,'chattings'=>$chattings]);
 
 

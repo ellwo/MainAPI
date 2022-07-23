@@ -101,7 +101,7 @@ class BussinseController extends Controller
             'markt_id'=>$markts[0],
             'address'=>$address,
             'phone'=>$phone,
-            'bussinse_id'=>38
+            'bussinse_id'=>$buss->id
         ]);
 
 
