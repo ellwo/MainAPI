@@ -87,14 +87,120 @@
 
   @include('ex.header')
 
+
+
+<div class="sticky top-0 z-10 text-white transition-transform duration-500 bg-black sm:hidden sm:mb-0"
+:class="{
+    '-translate-y-full': scrollingDown,
+    'translate-y-0 ': scrollingUp,
+}"
+>
+<div class="grid items-center justify-between grid-cols-3 gap-12 p-2 bg-white border-b dark:bg-darker dark:border-primary-darker">
+
+
+
+    @auth
+
+    <div class="flex justify-between">
+        <div class="mx-4">
+            <div class="relative w-16 h-16 " x-data="{ open: false }">
+                <button @click="open = !open;"
+                    type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
+                    class="transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
+                    <span class="sr-only">User menu</span>
+                    <img class="rounded-full " src="{{auth()->user()->avatar}}"
+                        alt="Img" />
+                </button>
+
+                <!-- User dropdown menu -->
+
+                <div class="z-50 bg-white">
+
+                    <div x-show="open" x-ref="userMenu"
+                    x-transition:enter="transition-all transform ease-out"
+                    x-transition:enter-start="translate-y-1/2 opacity-0"
+                    x-transition:enter-end="translate-y-0 opacity-100"
+                    x-transition:leave="transition-all transform ease-in"
+                    x-transition:leave-start="translate-y-0 opacity-100"
+                    x-transition:leave-end="translate-y-1/2 opacity-0"
+                     @click.away="open = false"
+                    @keydown.escape="open = false"
+                    {{-- @class(['bottom-12 absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg  ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none', 'totop' => false])
+                    @class(['top-12 ', 'totop' => true]) --}}
+
+                   class="absolute right-0 z-50 w-48 py-1 bg-white rounded-md shadow-lg top-16 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
+                    tabindex="-1" role="menu" aria-orientation="vertical" aria-label="User menu">
+
+                    <a  href="{{ route('profile') }}" role="menuitem"
+                    class="block px-1 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                    حسابي الشخصي
+                </a>
+                    <a @click="isSettingsPanelOpen=!isSettingsPanelOpen" href="#" role="menuitem"
+                        class="block px-1 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        لوحة التحكم
+                    </a>
+                    <a href="#" role="menuitem"
+                        class="block px-1 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full">
+                                {{ __('تسجيل الخروج') }}
+                            </button>
+                        </form>
+                    </a>
+                </div>
+                        </div>
+            </div>
+
+        </div>
+        </div>
+
+    @endauth
+        <div class="flex justify-between space-x-4">
+            @livewire('cart.cart-view', key(time()))
+            @livewire('wishlist.wishlist-view', key(time()))
+
+        </div>
+
+       @auth
+            <div>  <span class="relative">
+            <x-bi-chat-fill class="w-16 h-16 text-blue-400" />
+
+            <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ auth()->user()->unreaded_message_count() }}</span>
+        </span>
+        </div>
+
+       @endauth
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div id="header-sticky">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                <div class="d-flex align-items-center col-xl-3 col-md-3">
+                <div class="d-flex align-items-center col-xl-4 col-md-4">
                     <div class="contentstickynew_verticalmenu"></div>
                     <div class="contentstickynew_logo"></div>
                 </div>
-                <div class="contentstickynew_search col-xl-7 col-md-6"></div>
+                <div class="contentstickynew_search col-xl-6 col-md-5"></div>
                 <div class="contentstickynew_group d-flex justify-content-end col-xl-2 col-md-3"></div>
             </div>
         </div>
@@ -129,8 +235,31 @@
 
 <div id="mobile_top_menu_wrapper" class="hidden-md-up">
     <div class="content">
-        <div id="_mobile_verticalmenu"></div>
-    </div>
+
+        <div  class="w-full m-8 text-4xl font-bold text-center">
+            <ul class="flex flex-col justify-center space-y-6">
+                <li class="">
+                    <a href="{{ route('home') }}"
+                        title="Home" >
+                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-home class="w-16 h-16 mx-2 text-m_primary"/>الرئيسية</div></a>
+
+                </li>
+
+                <li class="">
+                    <a href="{{ route('contact') }}"
+                        title="Home" >
+                        <div class="flex space-x-2 dark:text-white"><x-heroicon-o-phone class="w-16 h-16 mx-2 text-m_primary"/>تواصل معنا</div></a>
+
+
+                </li>
+                <li class="">
+                    <a href="{{ route('aboutus') }}"
+                        title="Home" >
+                        <div class="flex space-x-2 dark:text-white">من نحن</div></a>
+
+                </li>
+            </ul>
+        </div></div>
 </div>
 
 
@@ -138,14 +267,43 @@
     <div class="content-boxpage col">
         <div class="box-header d-flex justify-content-between align-items-center">
             <div class="title-box">Menu</div>
-            <div class="close-box">Close</div>
+            <div class="text-4xl font-bold close-box text-danger-dark">X</div>
         </div>
         <div class="box-content">
-            <div id="_mobile_top_menu" class="js-top-menu"></div>
+            <div id="desktop_search_content" >
+                <form method="get"
+                    action="{{ route('search') }}"
+                    id="searchbox" class="form-novadvancedsearch">
+                    <div class="input-group">
+                        <input type="text" id="search_query_top"
+                            class="search_query ui-autocomplete-input form-control ac_input"
+                            name="search" value="" placeholder="بحث" >
+
+                        {{-- <div class="input-group-btn nov_category_tree hidden-sm-down">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" value="" aria-expanded="false">
+                                CATEGORIES
+                            </button>
+
+                        </div> --}}
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit" name="submit_search">
+                                <i
+                                    class="material-icons">search</i></button>
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+            <div id="_mobile_verticalmenu"></div>
+
+
         </div>
     </div>
 </div>
-<div id="mobile-blockcart" class="mobile-boxpage d-flex hidden-md-up">
+
+{{-- <div id="mobile-blockcart" class="mobile-boxpage d-flex hidden-md-up">
     <div class="content-boxpage col">
         <div class="box-header d-flex justify-content-between align-items-center">
             <div class="title-box">Cart</div>
@@ -153,11 +311,11 @@
         </div>
         <div id="_mobile_cart" class="box-content"></div>
     </div>
-</div>
+</div> --}}
 
 
 
-<div id="mobile-pageaccount" class="mobile-boxpage d-flex hidden-md-up" data-titlebox-parent="Account">
+{{-- <div id="mobile-pageaccount" class="mobile-boxpage d-flex hidden-md-up" data-titlebox-parent="Account">
     <div class="content-boxpage col">
         <div class="box-header d-flex justify-content-between align-items-center">
             <div class="back-box">Back</div>
@@ -223,12 +381,12 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 
 
 <div id="stickymenu_bottom_mobile" class="flex justify-between px-16 text-center bg-m_primary-100 d-flex hidden-md-up">
     <div class="flex flex-col text-xl stickymenu-ite"><a href="{{ route('home') }}"><x-heroicon-o-home class="w-12 h-12 text-m_primary"/><span>الرئيسية</span></a></div>
-    <div class="flex flex-col text-xl stickymenu-ite"><a href="#" class="js-btn-search"><x-heroicon-o-search class="w-12 h-12 text-m_primary"/><span>بحث</span></a></div>
+    <div class="flex flex-col text-xl stickymenu-ite"><a id="_mobile_menutop" class="item-mobile-top nov-toggle-page align-items-center justify-content-center" data-target="#mobile-pagemenu" ><x-heroicon-o-search class="w-12 h-12 text-m_primary"/><span>بحث</span></a></div>
     <div class="flex flex-col text-xl stickymenu-ite"><a href="#"><x-heroicon-o-heart class="w-12 h-12 text-m_primary"/><span>المفضلة</span></a></div>
     <div class="flex flex-col text-xl stickymenu-ite"><a href="#" class="nov-toggle-page" data-target="#mobile-pageaccount"><x-heroicon-o-user class="w-12 h-12 text-m_primary"/><span>حسابي </span></a></div>
 </div>

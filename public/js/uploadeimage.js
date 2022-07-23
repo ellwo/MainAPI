@@ -434,9 +434,10 @@ class ImagetoServer {
     inputimg;
     color;
     with_w_h;
+    mx_h;
+    mx_w;
 
-
-    constructor({ url, id, src = "no", shep = "no", multi = false, w = 0, h = 0, color = "#fff", with_w_h = false }) {
+    constructor({ url, id, src = "no", shep = "no", multi = false, mx_h = -1, mx_w = -1, w = 0, h = 0, color = "#fff", with_w_h = false }) {
         this.id = id;
         this.url = url;
         this.src = src;
@@ -446,6 +447,8 @@ class ImagetoServer {
         this.h = h;
         this.color = color;
         this.with_w_h = with_w_h;
+        this.mx_h = mx_h;
+        this.mx_w = mx_w;
         this.create();
 
 
@@ -535,6 +538,8 @@ class ImagetoServer {
         var url = this.url;
         var h = this.h;
         var w = this.w;
+        var mx_h = this.mx_h;
+        var mx_w = this.mx_w;
         var with_w_h = this.with_w_h
         var lcolor = this.color;
         this.inputimg.change(function(e) {
@@ -545,7 +550,11 @@ class ImagetoServer {
 
             for (var i = 0; i < e.target.files.length; i++) {
 
-                if ((w === 0 && h === w) || with_w_h == true)
+
+                if (mx_h != -1 && mx_w != -1) {
+                    convert_tobase(e.target.files[i], lcolor, this, id_d, url, input_id, w, mx_h, mx_w);
+
+                } else if ((w === 0 && h === w) || with_w_h == true)
                     convert_tobase_with_orginal_wh(e.target.files[i], lcolor, this, id_d, url, input_id, w, h);
                 else
                     convert_tobase(e.target.files[i], lcolor, this, id_d, url, input_id, w);
@@ -594,10 +603,15 @@ function upLoad(data, url, id_input, th, inputname) {
     });
 
 
-    var loadbtn = '<div id="lodbtn' + th.id + '" class="text-center  "> <span class="btn text-xl loading mx-auto my-auto bg-white text-blue-500 p-1 btn-circle "></span> </div>';
+
+    var loadicon = $("#loadicon").html();
+
+    var loadbtn = '<div id="lodbtn' + th.id + '" class="text-center  "> <span  id="lodbtn' + th.id + 'icon"  class="btn text-xl loading mx-auto my-auto bg-white text-blue-500 p-1 btn-circle "></span> </div>';
     var errorbtn = '<div id="errorbtn' + th.id + '" class=" text-cente "> <button type="button" class=" mx-auto my-auto  border-danger-darker border-2 text-danger  m-4 p-2 rounded-xl">اعادة المحاولة</button> </div>';
     //th.parent().append(loadbtn);
     th.slideUp(400).parent().append(loadbtn);
+
+    $("#lodbtn" + th.id + "icon").append(loadicon);
     th.attr("disabled", "disabled");
 
 
@@ -686,7 +700,11 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname,
             var image = new Image();
             image.onload = function(imageEvent) {
 
-                // var w = image.width;
+                var ww = image.width;
+
+                if (ww < w) {
+                    w = ww;
+                }
                 // var h = image.height;
                 console.log(w);
                 console.log(h);
@@ -735,6 +753,7 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname,
 
 
                 // $("#"+divid+"imgv").html(convasimg);
+                convasimg.classList.add('h-64');
 
                 var dataUrl = '"' + dataURL + '"';
                 var url = '"' + urll + '"';
@@ -742,13 +761,15 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname,
                 var inputnamee = '"' + inputname + '"';
 
                 // <div class="">
-                var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn rounded-xl text-darker ' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+                var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn rounded-xl border text-darker ' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
                 //                var im = "";
 
 
                 // $("#" + id).parent().parent()
 
                 console.log(inputimg.id);
+
+
                 if ($("#" + inputimg.id).attr('multiple') === undefined) {
                     //              $("#" + id).parent().html(convasimg).append(im);
                     $("#" + id).html(imageshow);
@@ -800,7 +821,7 @@ function convert_tobase_with_orginal_wh(e, color, inputimg, id, urll, inputname,
 
 
 
-function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize) {
+function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize, mx_h = 800, mx_w = 800) {
 
 
 
@@ -842,22 +863,21 @@ function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize) {
                 var canvas = document.createElement('canvas');
                 canvas.width = w;
                 canvas.height = h;
-                var chim = max_size - h;
-                var chwi = max_size - w;
+                var chim = mx_h - h;
+                var chwi = mx_w - w;
                 var ctx = canvas.getContext('2d');
                 ctx.drawImage(image, 0, 0, w, h);
                 ctx.fillStyle = color;
                 canvas.id = 'red';
                 var convasimg = document.createElement('canvas');
-                convasimg.width = max_size + 5;
-                convasimg.height = max_size + 5;
+                convasimg.width = mx_w + 5;
+                convasimg.height = mx_h + 5;
                 // convasimg.id = 'con' + divid;
                 var ctximg = convasimg.getContext('2d');
                 ctximg.fillStyle = color;
-                ctximg.fillRect(0, 0, max_size + 5, max_size + 5);
-                ctximg.putImageData(ctx.getImageData(0, 0, max_size, max_size), chwi / 2, chim / 2, 0, 0, w, h);
-
-                convasimg.classList.add("h-40")
+                ctximg.fillRect(0, 0, mx_w + 5, mx_h + 5);
+                ctximg.putImageData(ctx.getImageData(0, 0, w, h), chwi / 2, chim / 2, 0, 0, w, h);
+                convasimg.classList.add("h-64");
                 if (file.type == "image/jpeg" || file.type == "image/JPG") {
                     var dataURL = convasimg.toDataURL("image/jpeg", 1);
                 } else {
@@ -917,7 +937,7 @@ function convert_tobase(e, color, inputimg, id, urll, inputname, maxsize) {
                 var inputnamee = '"' + inputname + '"';
 
                 // <div class="">
-                var imageshow = "<div id='imgview" + count + "' class='mx-auto rounded-lg border-info-darker border-2 m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+                var imageshow = "<div id='imgview" + count + "' class='mx-auto rounded-lg border-info-darker border-2 m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn text-darker bg-info p-4 text-2xl rounded-md border font-bold ' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
                 //                var im = "";
 
 

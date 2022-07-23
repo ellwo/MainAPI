@@ -1,12 +1,93 @@
+
+
+
 <div class="header-center hidden-sm-down">
     <div class="container">
         <div class="row d-flex align-items-center">
+
+
             <div  id="_desktop_logo"
-                class="contentsticky_logo d-flex align-items-center justify-content-start col-lg-3 col-md-3"><a
+                class="contentsticky_logo d-flex align-items-center justify-content-start col-lg-3 col-md-3">
+
+
+
+
+
+
+
+
+
+
+
+                <div class="flex justify-between">
+
+                    @auth
+
+                    <div class="mx-4">
+                    <div class="relative w-16 h-16 mt-2" x-data="{ open: false }">
+                        <button @click="open = !open;"
+                            type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
+                            class="mt-4 transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
+                            <span class="sr-only">User menu</span>
+                            <img class="mt-4 rounded-full" src="{{auth()->user()->avatar}}"
+                                alt="Img" />
+                        </button>
+
+                        <!-- User dropdown menu -->
+
+                        <div class="z-50 bg-white">
+
+                            <div x-show="open" x-ref="userMenu"
+                            x-transition:enter="transition-all transform ease-out"
+                            x-transition:enter-start="translate-y-1/2 opacity-0"
+                            x-transition:enter-end="translate-y-0 opacity-100"
+                            x-transition:leave="transition-all transform ease-in"
+                            x-transition:leave-start="translate-y-0 opacity-100"
+                            x-transition:leave-end="translate-y-1/2 opacity-0"
+                             @click.away="open = false"
+                            @keydown.escape="open = false"
+                            {{-- @class(['bottom-12 absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg  ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none', 'totop' => false])
+                            @class(['top-12 ', 'totop' => true]) --}}
+
+                           class="absolute right-0 z-50 w-48 py-1 bg-white rounded-md shadow-lg top-16 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
+                            tabindex="-1" role="menu" aria-orientation="vertical" aria-label="User menu">
+
+                            <x-dropdown-link    class="block px-4 py-2 text-sm text-gray-700 transition-colors bg-primary text-primary-darker hover:bg-primary-darker hover:text-primary-light dark:text-light dark:hover:bg-primary" href="{{route('profile')}}" role="menuitem">
+
+                                Your Profile
+                            </x-dropdown-link>
+                            <a @click="isSettingsPanelOpen=!isSettingsPanelOpen" href="#" role="menuitem"
+                                class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                                Settings
+                            </a>
+                            <a href="#" role="menuitem"
+                                class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            </a>
+                        </div>
+                                </div>
+                    </div>
+
+                </div>
+
+                @endauth
+
+
+                <a
                     href="{{ route('home') }}">
                     <img class="h-24" src="{{ asset('build/images/logoezoom.png') }}"
                         alt="Prestashop_Savemart">
-                </a></div>
+                </a>
+                </div>
+            </div>
+
             <div class="col-lg-6 col-md-9 header-menu d-flex ">
 
                 <div id="_desktop_top_menu">
@@ -41,10 +122,12 @@
             </div>
             <div class="contentsticky_group col-lg-3 col-md-3 d-flex justify-content-end align-items-center">
                 <div class="header_link_myaccount">
-                    <a href="{{ route('profile') }}" title="My Wishlists">
+                    {{-- <a href="{{ route('profile') }}" title="My Wishlists">
                         <x-bi-person-fill class="w-16 h-16 text-m_primary-100 dark:text-m_primary"/>
-                     </a>
-                </div>
+                     </a> --}}
+
+
+            </div>
                 <div class="header_link_wishlist">
 
                     @livewire('wishlist.wishlist-view', key(time()))
@@ -57,7 +140,6 @@
         </div>
     </div>
 </div>
-
 
 
 

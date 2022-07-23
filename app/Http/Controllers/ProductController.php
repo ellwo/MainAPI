@@ -103,7 +103,7 @@ class ProductController extends Controller
          $product->parts()->attach($parts);
 
 
-         return redirect()->route('mange.products')->with('status','تمت اضافة المنتج بنجاح');
+         return redirect()->route('mange.products',['username'=>$product->owner->username])->with('status','تمت اضافة المنتج بنجاح');
 
 
     }

@@ -1,4 +1,4 @@
-<div x-data="{step:1}"   class="md:max-w-2xl items-center p-4 mx-auto">
+<div x-data="{step:1}"   class=" items-center p-4 mx-auto">
 
     <form action="{{ route('product.store') }}" method="POST" class="rounded-lg bg-white dark:bg-darker" >
 
@@ -37,7 +37,8 @@
                     'inputname'=>'parts',
                     'items'=>$b_parts,
                     'id'=>'parts',
-                    'lablename'=>'الفئات' ,
+                    'lablename'=>'الفئات',
+                    'selected'=>$bussinse->parts->pluck('id')->toArray()
                                    ])
                 </div>
 
@@ -179,15 +180,15 @@
                 {
                     url:"{{route('uploade')}}",
                     id:"img",
-                    w:850,h:850,
-                     src:"no"
+                    w:1000,h:1000,
+                     src:"{{ old('img') }}"
         });
           newimage=new ImagetoServer(
                 {
                     url:"{{route('uploade')}}",
                     id:"imgs",
                     w:850,h:850,
-                     src:"no",
+                     src:"{{ old('imgs') }}",
                      multi:true
         });
         </script>

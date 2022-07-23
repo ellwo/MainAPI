@@ -61,7 +61,7 @@
                             </h2>
                             <div class="block_content">
                                 <div id="productlist1693764381"
-                                    class="grid sm:grid-cols-2 ">
+                                    class="sm:grid sm:grid-cols-2 ">
                     @foreach ($l_products as $product)
                     {{-- <div class="text-center item">
 

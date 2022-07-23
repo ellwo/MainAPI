@@ -65,8 +65,8 @@
 
 
                     <span class="relative">
-                        <x-bi-inbox class="w-12 h-12 text-yellow-700" />
-                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ $bussinse->owne_product_orders()->get()->count() }}</span>
+                        <x-bi-inbox-fill class="w-12 h-12 text-yellow-700 mr-2" />
+                        <span class="absolute top-0 right-0 bg-white border border-danger rounded-full text-danger text-center text-xs w-6 h-6">{{ $bussinse->owne_product_orders()->where('product_orders.status','=',0)->count() }}</span>
 
                     </span>
 
@@ -91,7 +91,7 @@
 
                     <span class="relative">
                         <x-bi-inbox class="w-12 h-12 text-yellow-700" />
-                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger ">{{ $bussinse->owne_service_orders()->get()->count() }}</span>
+                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger w-4 h-4">{{ $bussinse->owne_service_orders()->get()->count() }}</span>
 
                     </span>
 

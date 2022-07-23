@@ -82,26 +82,27 @@ class BussinseController extends Controller
             'address'=>$request["address"],
         ]);
 
-  //      $cities=explode(',',$request->cities);
-        // $cities=$request["cities"];
-//         $buss->cities()->attach($cities);
+       $cities=explode(',',$request->cities);
+        $cities=$request["cities"];
+        $buss->cities()->attach($cities);
 
         $parts=explode(',',$request->parts);
         // $cities=$request["cities"];
          $buss->parts()->attach($parts);
 
-         $address=$request->address;
-         $phone=$request->phone;
+         $address=$request->locs_address;
+         $phone=$request->locs_phone;
          $markts=$request->markt_id;
 
-         for($i=0; $i<count($markts); $i++){
-            Location::create([
-                'markt_id'=>$markts[$i],
-                'address'=>$address[$i],
-                'phone'=>$phone[$i],
-                'bussinse_id'=>$buss->id
-            ]);
-         }
+
+
+         if($address!=null)
+         Location::create([
+            'markt_id'=>$markts[0],
+            'address'=>$address,
+            'phone'=>$phone,
+            'bussinse_id'=>38
+        ]);
 
 
 

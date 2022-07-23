@@ -20,6 +20,11 @@ class Markt extends Model
         return $this->belongsTo(City::class);
         # code...
     }
+    public function bussinses()
+    {
+        $this->hasManyThrough(Bussinse::class,Location::class);
+        # code...
+    }
 
 
 }

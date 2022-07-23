@@ -18,7 +18,7 @@
 
                         <h1 class="text-3xl font-bold dark:text-white text-darker">
                             تحديد نوع الحساب التسويقي
-                            
+
                         </h1>
                         <hr>
 
@@ -43,8 +43,7 @@
                     المعلومات الاساسية
                 </h1>
                 <hr>
-                <br>
-                <div class="flex flex-col p-8 mx-auto ">
+                <div class="flex flex-col text-center mx-auto ">
                     <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
 
                     <div id="avatar" class="border rounded-full "></div>
@@ -81,7 +80,7 @@
                      @enderror
                 </div>
                 <div class="w-full space-y-2">
-                    <x-label for="username" :value="__('اسم المستخدم')" />
+                    <x-label dir="rtl" for="username" :value="__('اسم المستخدم')" />
 
                     <x-input-with-icon-wrapper>
                         <x-slot name="icon" class="border border-1">
@@ -108,6 +107,9 @@
 
 
            </div>
+
+
+
            <div x-show="step==2">
             <h1 dir="rtl" class="text-3xl font-bold dark:text-white text-darker">
                 معلومات التواصل
@@ -132,14 +134,7 @@
                         <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
                         type="text" name="phone_numbers[]"
                              placeholder="{{ __('+967') }}"  autofocus />
-                            {{-- @if (auth()->user()->hasVerifiedEmail())
-                            <x-slot name="righticon">
-                                <span class="rounded bg-success text-light">
-                                    تم التاكيد
 
-                                </span>
-                            </x-slot>
-                            @endif --}}
 
                         </x-input-with-icon-wrapper>
                     </template>
@@ -228,12 +223,40 @@
                      <div class="space-y-4">
                         <x-label for="department_id" :value="__('العنوان')" />
 
-                        <input   name="address[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                        <input   name="locs_address" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
                     </div>
-                    <div class="space-y-4">
-                        <x-label for="department_id" :value="__('رقم الهاتف')" />
+                    <div class="space-y-4" dir="ltr" x-data='{locscontact_count:1}'>
+                        <x-label for="department_id" :value="__('ارقام الهاتف الخاصة بالفرع')" />
 
-                        <input   name="phone[]" class="py-2 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-md appearance-none hover:border-gray-400 focus:outline-none"/>
+                        <div class="flex flex-col space-y-2">
+
+
+                    <template x-for="i in locscontact_count">
+
+                        <x-input-with-icon-wrapper>
+                            <x-slot name="icon">
+
+                                <x-heroicon-o-phone aria-hidden="true" class="w-5 h-5 text-primary-darker dark:text-primary-light" />
+
+
+
+                            </x-slot>
+                            <x-input withicon id="email" class="block w-full focus:ring-primary_color focus:border-primary_color"
+                            type="text" name="locs_phone[]"
+                                 placeholder="{{ __('+967') }}"   />
+
+
+                            </x-input-with-icon-wrapper>
+                        </template>
+
+
+                        <div class="mx-auto text-center">
+                            <x-button x-show="locscontact_count<3" type="button" x-on:click="locscontact_count++" class="mx-auto" variant="goset">
+                                <x-heroicon-o-plus class="w-4 h-4 text-success"/> اضافة رقم
+
+                            </x-button>
+                            </div>
+                                            </div>
                     </div>
 
                   </div>
@@ -242,7 +265,7 @@
                 </div>
 
 
-
+{{--
                     @for ($i=1; $i<=3; $i++)
 
                     <div x-show="loc_count>={{ $i }}" class="p-4 border border-blue-600 rounded-xl" dir="rtl" >
@@ -270,7 +293,7 @@
 
                     </div>
 
-                    @endfor
+                    @endfor --}}
 
 
                 <div x-show="loc_count<4" class="flex mx-auto text-center">
@@ -364,6 +387,7 @@
                     id:"avatar",
                     shep:"rect",
                     w:850,h:850,
+                    mx_w:1400,mx_h:800,
                      src:"{{ old('avatar') }}"
         });
          imgs=new ImagetoServer(

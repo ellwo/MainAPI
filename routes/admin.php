@@ -11,6 +11,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MarktsController;
 use App\Http\Controllers\PartController;
+use App\Http\Livewire\Admin\ManageProduct;
+use App\Http\Livewire\Admin\ManageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +57,10 @@ Route::post("/Parts_show/update{id}",[PartController::class,'update'])->name("up
 Route::get("/show_contact",[ContactUsController::class,'show_con'])->name('post.show_con');
 Route::get("/messegeRep",[ContactUsController::class,'replay_con'])->name('post.messegeRep');
 Route::post("/update_con",[ContactUsController::class,'update_con'])->name('post.update_con');
+
+Route::get('/admin.manage.products',ManageProduct::class)->name('admin.manage.products');
+
+Route::get('/admin.manage.services',ManageService::class)->name('admin.manage.services');
 
 
 

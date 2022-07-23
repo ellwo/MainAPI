@@ -42,9 +42,11 @@
                                 عدد المنتجات المعروضة
                             </h6>
                             <span class="text-xl font-semibold">45,021</span>
+                            <a target="_blank" href="{{ route('admin.manage.products', ['type'=>'all']) }}">
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة المنتجات
                             </span>
+                            </a>
                         </div>
                         <div>
                             <span>
@@ -63,10 +65,13 @@
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الخدمات المعروضة
                             </h6>
-                            <span class="text-xl font-semibold">$30,000</span>
+                            <span class="text-xl font-semibold">30,000</span>
+                            <a target="_blank" href="{{ route('admin.manage.services', ['type'=>'all']) }}">
+
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة الخدمات
                             </span>
+                            </a>
 
                         </div>
                         <div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Manage\Service;
 
+use App\Http\Controllers\UploadeController;
 use App\Models\Bussinse;
 use App\Models\Service;
 use App\Models\User;
@@ -103,7 +104,20 @@ class ServicesManageTable extends Component
         $pro=Service::find($id);
 
         if($pro!=null){
+
+            $uplode=new UploadeController();
+
+            $uplode->delete_file($pro->img);
+
+            foreach($pro->imgs as $img){
+                $uplode->delete_file($img);
+
+            }
+
             $pro->delete();
-    }
+
+            session()->flash('status','تم الحذف بنجاح');
+            session()->flash('tital','عملية الحذف ');
+}
 }
 }

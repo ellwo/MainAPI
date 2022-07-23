@@ -204,7 +204,7 @@
         </nav>
     </div>
     <!-- Mobile main manu -->
-    <div class="border-b md:hidden dark:bg-darker dark:border-primary-darker" x-show="isMobileMainMenuOpen"
+    <div class="border-b dark:bg-darker dark:border-primary-darker" x-show="isMobileMainMenuOpen"
         @click.away="isMobileMainMenuOpen = false">
         <nav aria-label="Main" class="px-2 py-4 space-y-2">
             <!-- Dashboards links -->

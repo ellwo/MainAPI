@@ -71,7 +71,7 @@ Route::post("/create_contact",[ContactUsController::class,'create_contact'])->na
 
 
 //about us
-Route::view('/aboutUs','AboutUs');
+Route::view('/aboutUs','AboutUs')->name('aboutus');
 
 
 
@@ -158,6 +158,7 @@ Route::get('/product/edit{product}',[ProductController::class,'edit'])->name('pr
 Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
 Route::post('/product.store',[ProductController::class,'store'])->name('product.store')->middleware('auth');
 Route::get('/manage/products',[ProductsManagerController::class,'manage'])->name('mange.products');
+
 Route::get('/product.add{step?}|{username?}',ProductForm::class)->name('product.add.livewire');
 //Product Manager
 Route::post('/product.rate',[ProductController::class,'rate'])->name('product.rate');

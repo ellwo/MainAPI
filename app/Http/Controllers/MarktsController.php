@@ -41,12 +41,6 @@ class MarktsController extends Controller
         $this->validate($request,[
             'name'=>'required|unique:markts,name|string',
         ]);
-        $this->validate($request,[
-            'land'=>'required|unique:markts,land_map|string',
-        ]);
-        $this->validate($request,[
-            'long'=>'required|unique:markts,long_map|string',
-        ]);
         $co = City::find($request->city_id);
         $markt = new Markt();
         $markt->name = $request->name;
