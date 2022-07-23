@@ -136,6 +136,22 @@ class ChatRoom extends Model
     }
 
 
+    public function isitBlocking($id)
+    {
+        # code...
+        if($this->to_id==$id){
+
+            return  $this->from->blocks($this->to);
+
+
+         }
+         else if($this->from_id==$id){
+
+             return  $this->to->blocks($this->from);
+
+         }
+    }
+
     public function isitBlocked($id)
     {
         if($this->to_id==$id){

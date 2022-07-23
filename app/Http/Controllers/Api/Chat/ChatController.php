@@ -169,6 +169,9 @@ class ChatController extends Controller
                 'messages'=>$messages,
                 'chatable'=>$chatroom->chatable($request["chattings_id"]),
                 'isitBlocked'=>$chatroom->isitBlocked($request["chattings_id"]),
+                'isitBlocking'=>$chatroom->isitBlocking($request["chattings_id"]),
+
+
 
 
             ];

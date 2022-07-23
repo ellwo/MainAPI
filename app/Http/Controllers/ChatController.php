@@ -26,6 +26,17 @@ class ChatController extends Controller
 
 
 
+        if($type=='bus' && $chattings!='all'){
+
+            $b=Bussinse::find($chattings);
+
+            if($b->user_id!=$userid)
+
+            return redirect('/inbox');
+
+
+        }
+
 
 
 

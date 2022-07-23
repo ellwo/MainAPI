@@ -35,7 +35,7 @@
                 <div>
                 @include('components.mulit-select',[
                     'inputname'=>'parts',
-                    'items'=>$b_parts,
+                    'items'=>$bussinse->department->parts,
                     'id'=>'parts',
                     'lablename'=>'الفئات',
                     'selected'=>$bussinse->parts->pluck('id')->toArray()
