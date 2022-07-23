@@ -3,56 +3,195 @@
 
       <div class="relative flex flex-row min-h-full mt-4 md:flex h-3/4 lg:flex-row">
 
-          <div class="hidden w-2/5 mb-4 overflow-y-hidden sm:flex sm:flex-col lg:w-2/5 ">
-        <div x-data="perfectScroll" class="relative " @mousemove="update">
+          <div class=""
+          :class="[
+            ' relative  mb-4 overflow-y-hidden sm:flex sm:flex-col',
+            {
+                'lg:w-2/5':
+                    sidebarState.isOpen ,
 
-              <chat-profile-vue :type="type" :chattings="chattings" :userid="chattings" :chat_room_id="chat_room_id"/>
-              </div>
+                'lg:w-1/5':
+                    !sidebarState.isOpen,
+            },
+        ]"
+          >
+
+
+              <transition
+        enter-active-class="transition"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+    >
+        <div
+            v-show="sidebarState.isOpen"
+            @click="sidebarState.isOpen = false"
+            class="fixed inset-0 z-20 bg-black/50 lg:hidden"
+        ></div>
+    </transition>
+
+    <aside
+        style="
+            transition-property: width, transform;
+            transition-duration: 150ms;
+        "
+        :class="[
+            'lg:absolute fixed inset-y-0 sm:inset-x-20 lg:inset-0  lg:top-0 top-28 right-0 left-0 w-full z-20 py-4 flex flex-col space-y-6 bg-white shadow-lg dark:bg-darker',
+            {
+                'translate-x-0 w-64 lg:w-full':
+                    sidebarState.isOpen || sidebarState.isHovered,
+                '-translate-x-full w-64 lg:w-full':
+                    !sidebarState.isOpen && !sidebarState.isHovered,
+            },
+        ]"
+        @mouseenter="sidebarState.handleHover(true)"
+        @mouseleave="sidebarState.handleHover(false)"
+    >
+
+<div class="flex items-center justify-between flex-shrink-0 px-3">
+
+        <button class="text-darker border rounded "
+            type="button"
+            @click="sidebarState.isOpen = !sidebarState.isOpen"
+            :srText="sidebarState.isOpen ? 'Close sidebar' : 'Open sidebar'">
+            open chat</button>
+        </div>
+
+  <div x-data="perfectScroll" class="relative h-full overflow-y-scroll" @mousemove="update">
+
+     <chat-profile-vue :type="type" :chattings="chattings" :userid="chattings" :chat_room_id="chat_room_id"/>
+</div>
+    </aside>
+
+
+
+
           </div>
 
 
-          <div class=" lg:w-3/5">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class=" "
+          :class="[
+            ' ',
+            {
+                'lg:w-3/5':
+                    sidebarState.isOpen ,
+
+                'lg:w-4/5':
+                    !sidebarState.isOpen,
+            },
+        ]"
+          >
 
         <!--  here is the chatrooms-->
-       <div  class="h-full " >
+       <div  class="h-full" >
 
-     <div class="border h-1/4 rounded-xl ">
-        <h5 class="p-2 text-center border-b-2 border-gray-200 ">
-            <div class="relative mx-auto">
+
+
+
+
+
+
+     <div class="border  rounded-xl ">
+        <div class="flex justify-between space-y-2">
+
+<div class="relative  m-2">
+        <button class="text-darker dark:bg-dark dark:text-primary border rounded "
+            type="button"
+            @click="sidebarState.isOpen = !sidebarState.isOpen"
+            :srText="sidebarState.isOpen ? 'Close sidebar' : 'Open sidebar'">
+
+       <svg v-if="!sidebarState.isOpen" class="h-8 w-8" viewBox="0 0 24 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 6H20M12 12H20M4 18H20M4 6L8 9L4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+
+<svg v-if="sidebarState.isOpen" class="h-8 w-8" viewBox="0 0 24 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 6H20M12 12H20M4 18H20M8 6L4 9L8 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+</button>
+            </div>
+
+            <div class="flex flex-col text-center">
+
+<div class="relative mx-auto">
                     <img class="w-20 h-20 mx-auto rounded-full bg-primary " :src="chatable.avatar" alt="U" />
                 </div>
+
                 <b>{{chatable.name}} </b>
-                <hr/>
-                <span>{{ chatable.username }}</span>
+                <span>@{{ chatable.username }}</span>
+
+            </div>
 
 
-                  <div x-data="{ dropdownOpen: false }" class="relative flex items-end">
+<div x-data="{ dropdownOpen: false }" class="relative  flex items-end">
 
-    <button class="absolute right-0 " x-on:click="dropdownOpen = !dropdownOpen"  >
-    <span>
-        <svg id="icon_navigation_more_vert_24px" data-name="icon/navigation/more_vert_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <rect id="Boundary" width="24" height="24" fill="none"/>
-  <path id="_Color" data-name=" ↳Color" d="M2,16a2,2,0,1,1,2-2A2,2,0,0,1,2,16Zm0-6A2,2,0,1,1,4,8,2,2,0,0,1,2,10ZM2,4A2,2,0,1,1,4,2,2,2,0,0,1,2,4Z" transform="translate(10 4)"/>
-</svg>
+    <button class="absolute dark:text-primary right-0 top-0 " x-on:click="dropdownOpen = !dropdownOpen"  >
+    <span class="dark:text-white">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                </svg>
+
 
     </span>
     </button>
 
     <div x-show="dropdownOpen" x-on:click="dropdownOpen = false" class="fixed inset-0 z-20 w-full h-full "></div>
 
-    <div x-show="dropdownOpen" class="absolute top-0 right-0 z-50 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl">
+    <div x-show="dropdownOpen" class="absolute top-10 right-0 z-50 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl">
 
 
-<form @submit.prevent="blockV">
+<form v-if="isitBlocking==false && louding==false" @submit.prevent="blockV">
 <button type="submit" class="block w-full px-4 py-2 text-sm border-b text-danger-darker hover:bg-gray-200">حظر </button>
 </form>
 
+<form v-if="isitBlocking==true && louding==false" @submit.prevent="unblockV">
+<button type="submit" class="block w-full px-4 py-2 text-sm border-b text-danger-darker hover:bg-gray-200">الغاء الحظر</button>
+</form>
 
-<a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">medium <span class="text-gray-600">(1920x1280)</span></a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">large <span class="text-gray-600">(2400x1600)</span></a>
+
+<a  class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">medium <span class="text-gray-600">(1920x1280)</span></a>
+      <a  class="block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200">large <span class="text-gray-600">(2400x1600)</span></a>
     </div>
   </div>
-                </h5>
+
+
+
+
+
+        </div>
+
 
 
                 </div>
@@ -173,7 +312,7 @@
                                             </template>
 
                                             <template v-if="message.type_message=='text'">
-                                                  <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
+                                                  <div class="inline-block p-2 px-6 text-white dark:text-gray-200  dark:bg-primary-darker bg-info rounded-full">
             <span >
 
                                           {{message.content}}
@@ -181,7 +320,7 @@
                                           </div>
                                             </template>
 
-                                    <div class="pl-4"><small  class="text-gray-500" ></small></div>
+                                    <div class="pl-4"><small  class="text-gray-500" >{{ message.created_at }}</small></div>
                                 </div>
                             </div>
                     </template>
@@ -288,7 +427,7 @@
                                             </template>
 
                                             <template v-if="message.type_message=='text'">
-                                                  <div class="inline-block p-2 px-6 text-white bg-blue-600 rounded-full">
+                                                  <div class="inline-block p-2 px-6 text-white dark:text-gray-200  dark:bg-m_primary-darker bg-blue-600 rounded-full">
             <span >
 
                                           {{message.content}}
@@ -323,7 +462,7 @@
 
         <!-- her is the Form-->
 
-<form v-if="isitBlocked==false" class="text-xs h-1/4 sm:text-sm" @submit.prevent="sendMessageForm" dir="rtl" >
+<form v-if="isitBlocked==false && isitBlocking==false && louding==false" class="text-xs h-1/4 sm:text-sm" @submit.prevent="sendMessageForm" dir="rtl" >
 
     <div class="">
 
@@ -370,6 +509,17 @@
 
 
 </div>
+<div v-if="isitBlocking==true" class="text-xs text-white bg-info rounded-xl sm:text-sm" >
+
+    <h4 dir="auto" class="p-4 mx-auto ">
+        عذرا لايمكنك ارسال رسائل لهذا المستخدم !
+        يجب عليك رفع الحظر اولا عن هذا الحساب
+
+    </h4>
+
+
+
+</div>
 
 
 
@@ -403,6 +553,7 @@
 import useCompanies from "../../composables/companies.js";
 import App from '../../components/App.vue';
 import ChatProfileVue from "./ChatProfile.vue";
+import {sidebarState} from "../../composables/companies.js";
 import { defineComponent, onMounted, onUpdated, reactive, ref } from "vue";
 
 export default defineComponent({
@@ -460,7 +611,7 @@ export default defineComponent({
 
 
     setup(props)  {
-        const {chatroom, getChatroom,messages,isitBlocked,block,chatable,errors,sendMessage} = useCompanies()
+        const {chatroom, getChatroom,messages,isitBlocked,isitBlocking,block,chatable,errors,sendMessage} = useCompanies()
 //         var chats=ref([])
            let openchatrooms=ref(false)
            let chtroom=ref([])
@@ -513,9 +664,29 @@ export default defineComponent({
                 "me":props.chattings
             }
 
-
+            louding.value=true;
             await block({...blockdata});
 
+
+            isitBlocking.value=true;
+            louding.value=false;
+
+        }
+
+
+        const unblockV=async ()=>{
+
+            const blockdata={
+                "chat_room_id":props.chat_room_id,
+                "me":props.chattings,
+                "type":"unblock"
+            }
+
+            louding.value=true;
+            await block({...blockdata});
+
+            isitBlocking.value=false;
+            louding.value=false;
 
         }
 
@@ -739,11 +910,14 @@ console.log("loded");
             chat_room_id:props.chat_room_id,
             chattings:props.chattings,
             blockV,
+            unblockV,
             block,
             isitBlocked,
+            isitBlocking,
             louding,
             loadmore,
-            messages
+            messages,
+            sidebarState
 
         }
     },

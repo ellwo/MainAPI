@@ -252,6 +252,15 @@ class BussinseController extends Controller
     public function show($username)
     {
 
+
+        $bussinse=Bussinse::where('username','=',$username)->first();
+
+
+        if($bussinse!=null)
+        return view('bussinsess.show',['bussinse'=>$bussinse]);
+        else
+        abort(404,'لايوجد حساب بهذا الاسم');
+
     }
 
     /**

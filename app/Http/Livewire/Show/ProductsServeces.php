@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Show;
 
+use App\Models\Bussinse;
 use App\Models\Product;
 use App\Models\User;
 use Livewire\Component;
@@ -20,20 +21,32 @@ class ProductsServeces extends Component
     public $username;
     public $procount=5;
     public $servcount=5;
-
+    public $type='user';
     public $servtotal=0;
     public $prototal=0;
 
 
-    public function mount($username,$proORserv="pro"){
+    public function mount($username,$proORserv="pro",$type='user'){
         $this->username=$username;
         $this->proORserv=$proORserv;
+        $this->type=$type;
     }
 
     public function render()
     {
 
+
+        if($this->type=='user')
         $user=User::where("username","=",$this->username)->first();
+        else
+        $user=Bussinse::where('username','=',$this->username)->first();
+
+
+
+
+
+
+
         if($user!=null){
 
 

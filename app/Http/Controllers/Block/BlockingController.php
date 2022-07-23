@@ -19,6 +19,35 @@ class BlockingController extends Controller
 
 
 
+        if(isset($request["type"]) && $request["type"]=="unblock")
+        {
+
+            $chatroom=ChatRoom::where("id","=",$request["chat_room_id"])->first();
+
+            if($chatroom->to_id==$request["me"]){
+                $chatroom->to->unblock($chatroom->from);
+
+            }
+            else if($chatroom->from_id==$request["me"]){
+
+                $chatroom->from->unblock($chatroom->to);
+            }
+
+
+
+
+
+
+
+            return [
+                "chatroomid"=>$request["chat_room_id"],
+                "me"=>$request["me"],
+                "from"=>get_class( $chatroom->from),
+                "to"=>get_class($chatroom->to)
+            ];
+
+
+        }
 
         $chatroom=ChatRoom::where("id","=",$request["chat_room_id"])->first();
 

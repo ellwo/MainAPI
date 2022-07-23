@@ -29,11 +29,55 @@
         $routename=$proORserv=='pro'?'product.show':'service.show';
     @endphp
 
+    <div class="m-4 bg-white shadow-md rounded-xl item-rtl dark:bg-m_primary-darker"x-data='{imgtow:0}'>
+
+
+        <div x-on:mouseenter='imgtow=!imgtow' x-on:mouseleave='imgtow=!imgtow'
+        class="flex justify-between py-2 space-x-4">
+        <div class="w-1/3 ml-2 border-l" >
+        <img @click=" product=@js($product) ; img='{{ $product->img }}'; openmodel=true;console.log(product) " src="{{ $product->img }}" class="w-32 rounded-2xl" alt="" srcset="">
+    <span class="text-xs">{{ $product->updated_at }}</span>
+    </div>
+        <div class="flex flex-col justify-start w-2/3 space-y-2">
+
+
+            <a href="{{ route('search',['dept'=>$product->department_id]) }}">
+                <span class="text-xs text-blue-900 dark:text-gray-400">{{ $product->department!=null ? $product->department->name:"" }}</span>
+            </a>
+            <h2 class="text-sm font-bold hover:text-blue-400"><a href="{{ route($routename,$product) }}">{{ $product->name }}</a></h2>
+            <hr>
+            <div class="flex star_content">
+                @php
+                $count = (int) $product->ratings_value_avg;
+            @endphp
+            @for ($i = 1; $i <= $count; $i++)
+                <x-heroicon-s-star class="inline-flex w-3 h-3 text-m_primary"/>
+            @endfor
+            @for ($i = 0; $i < 5 - $count; $i++)
+
+            <x-heroicon-o-star class="inline-flex w-3 h-3 text-m_primary"/>
+            @endfor
+
+            </div>
+
+            <div class="flex justify-between">
+                <span class="p-2 bg-yellow-400 rounded-full text-dark">{{ $product->price."/ر.ي" }}</span>
+
+            </div>
+
+
+        </div>
+
+        </div>
+
+
+    </div>
 
 
 
 
-    <div class="text-center rounded-lg item-rtl dark:bg-m_primary-darker" x-data='{imgtow:0}'>
+
+    {{-- <div class="text-center rounded-lg item-rtl dark:bg-m_primary-darker" x-data='{imgtow:0}'>
         <div x-on:mouseenter='imgtow=!imgtow' x-on:mouseleave='imgtow=!imgtow' class="h-full min-h-full border rounded-lg border-dark hover:border-m_primary product-miniature js-product-miniature item-two first_item" data-id-product="{{ $product->id }}"
             data-id-product-attribute="60" itemscope="" >
 
@@ -74,8 +118,8 @@
 
                 @if (get_class($product)==="App\Models\Product")
 
-                <span class="px-2 absolute top-4 left-2 @if($product->status==0) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php
-                    echo  $product->status==0?"جديد":"مستخدم";
+                <span class="px-2 absolute top-4 left-2 @if($product->status==1) bg-green-400 @else bg-m_primary-lighter  @endif rounded-md text-darker">@php
+                    echo  $product->status==1?"جديد":"مستخدم";
                 @endphp</span>
                 @endif
 
@@ -178,7 +222,7 @@
     </div>
 
 
-
+ --}}
 
 
 

@@ -11,6 +11,7 @@ export default function useCompanies() {
     const userd = ref([])
     const chatable = ref([])
     const isitBlocked = ref(false)
+    const isitBlocking = ref(false)
     const messages = ref([])
 
 
@@ -34,8 +35,10 @@ export default function useCompanies() {
         messages.value = response.data.messages
         chatable.value = response.data.chatable
         isitBlocked.value = response.data.isitBlocked;
+        isitBlocking.value = response.data.isitBlocking;
 
 
+        console.log("Is Blocking " + response.data.isitBlocking)
 
 
 
@@ -128,7 +131,8 @@ export default function useCompanies() {
         chatable,
         block,
         isitBlocked,
-        messages
+        messages,
+        isitBlocking
 
 
         // getCompany,
@@ -137,3 +141,20 @@ export default function useCompanies() {
         // destroyCompany
     }
 }
+export const sidebarState = reactive({
+    isOpen: window.innerWidth > 1024,
+    isHovered: false,
+    handleHover(value) {
+        if (window.innerWidth < 1024) {
+            return
+        }
+        sidebarState.isHovered = value
+    },
+    handleWindowResize() {
+        if (window.innerWidth <= 1024) {
+            sidebarState.isOpen = false
+        } else {
+            sidebarState.isOpen = true
+        }
+    },
+})

@@ -2,10 +2,6 @@
 
 
  <div class="px-1 mt-1 ">
-            <button v-on:click="pushnew">
-                <!-- ad new {{id}} -->
-                add new
-            </button>
         <!--  here is the chat rooms list items -->
 
 
