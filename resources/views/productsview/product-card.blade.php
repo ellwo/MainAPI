@@ -5,21 +5,21 @@
                 <div class="flex ">
                     <div class="mx-1 rounded-full ">
                         <img class="w-16 h-16 rounded-full"
-                            src="{{ $product->owner->avatar }}">
+                            src="{{ $product->owner?->avatar }}">
                     </div>
                     <div class="text-right">
                         <a href=" @if ($product->owner_type==="App\Models\Bussinse")
-                            {{ route('b.show',$product->owner->username) }}
+                            {{ route('b.show',$product->owner?->username) }}
 
                             @else
-                            {{ route('profile.show',$product->owner->username) }}
+                            {{ route('profile.show',$product->owner?->username) }}
 
                             @endif" class="flex flex-col">
                             <span
                                 class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
 
                             <span class="font-bold text-blue-900">
-                                {{ '@' . $product->owner->username }}
+                                {{ '@' . $product->owner?->username }}
                             </span>
                         </a>
                     </div>

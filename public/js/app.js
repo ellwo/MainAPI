@@ -25449,7 +25449,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       'type_message': 'text',
       'is_readed': 0
     });
-    console.log("her is Set Up " + chatroom.value.id);
+    console.log("her is Set Up " + props.chat_room_id);
     console.log("chattings " + props.chattings);
     console.log("userid " + props.userid);
     Echo["private"]("chatroom." + props.chat_room_id).listen("MessageSent", function (e) {
@@ -25612,10 +25612,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                chatroomid_ref.value = id; //console.log("messages")
-                // console.log(messages)
+                chatroomid_ref.value = id;
+                console.log("befor chref " + chatroomid_ref.value); // console.log(messages)
 
-              case 5:
+              case 6:
               case "end":
                 return _context4.stop();
             }
@@ -25708,9 +25708,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     (0,vue__WEBPACK_IMPORTED_MODULE_4__.onMounted)(function () {
-      console.log("id from mount" + props.id); //      if(props.chat_room_id!="all")
-
-      getChatroom(data).then(function () {
+      console.log("id from mount" + props.chat_room_id);
+      if (props.chat_room_id != "all") getChatroom(data).then(function () {
         console.log("isitBlocked ==");
         console.log(isitBlocked.value);
         chtroom.value = messages.value;
@@ -26660,7 +26659,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS, HYDRATE_EVENTS */
   )], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  ), _ctx.chatroomid_ref != 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 0,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["", [' ', {
       'lg:w-3/5': _ctx.sidebarState.isOpen,
       'lg:w-4/5': !_ctx.sidebarState.isOpen
@@ -26842,7 +26842,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* HYDRATE_EVENTS */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isitBlocked == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_132, _hoisted_134)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isitBlocking == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_135, _hoisted_137)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 2
   /* CLASS */
-  )]);
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -27442,7 +27442,7 @@ var routes = [{
 }, {
   path: '/inbox/:type/:chattings',
   name: 'inbox.show',
-  component: _components_chat_ChatIndex_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  component: _components_chat_ChatRoom_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: true
 }, {
   path: '/inbox/:type/:chattings/:chat_room_id',

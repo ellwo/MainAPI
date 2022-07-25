@@ -61086,14 +61086,7 @@ h3.page-product-heading {
     left: auto
 }
 
-.product-miniature.item-row:before {
-    content: "";
-    position: absolute;
-    top: calc(100% + 11px)!important;
-    width: 100%!important;
-    height: 1px!important;
-    background: #e7e7e7
-}
+.product-miniature.item-row:before {}
 
 .product-miniature.item-row:hover {
     -webkit-box-shadow: none;

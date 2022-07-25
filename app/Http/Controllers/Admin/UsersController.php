@@ -6,6 +6,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadeController;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
 use App\Models\User;
@@ -159,7 +160,18 @@ class UsersController extends Controller
             return abort(401);
         }
 
-        $user->delete();
+
+
+        $user->bussinses()->delete();
+        $user->products()->delete();
+        $user->services()->delete();
+
+        $upld= new UploadeController();
+        $upld->delete_file($user->avatar);
+        $user->services()->delete();
+        $user->orders()->delete();
+        $user->chats()->delete();
+               $user->delete();
 
         return redirect()->route('admin.users.index');
     }

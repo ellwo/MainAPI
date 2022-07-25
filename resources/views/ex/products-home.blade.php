@@ -10,7 +10,7 @@
                         class="nov-productlist nov-countdown-productlist col-xl-4 col-lg-4 col-md-4 col-xs-12 col-md-12">
                         <div class="block clearfix block-product">
                             <h2 class="title_block">
-                                FLASH DEALS
+                                {{ $routename=="product.show"?'منتجات اكثر زيارة':'خدمات الاكثر زيارة' }}
                             </h2>
                             <div class="block_content">
                                 <div id="productlist706506225"
@@ -57,7 +57,8 @@
                     <div class="nov-productlist productlist-rows col-xl-8 col-lg-8 col-md-8 col-xs-12 col-md-12">
                         <div class="block clearfix block-product">
                             <h2 class="title_block">
-                                NEW ARRIVALS hh
+
+                                {{ $routename=="product.show"?'منتجات اكثر تقييم':'خدمات الاكثر تقييم' }}
                             </h2>
                             <div class="block_content">
                                 <div id="productlist1693764381"
@@ -415,9 +416,9 @@
                                                             <p class="seller_name">
                                                                 <a title="View seller profile">
                                                                     <i class="fa fa-user"></i>
-                                                                    {{ $product->owner->name }}
+                                                                    {{ $product->owner?->name }}
                                                                     <br />
-                                                                    {{ '@' . $product->owner->username }}
+                                                                    {{ '@' . $product->owner?->username }}
                                                                 </a>
                                                             </p>
 
@@ -558,9 +559,9 @@
                                                             <p class="seller_name">
                                                                 <a title="View seller profile">
                                                                     <i class="fa fa-user"></i>
-                                                                    {{ $product->owner->name }}
+                                                                    {{ $product->owner?->name }}
                                                                     <br />
-                                                                    {{ '@' . $product->owner->username }}
+                                                                    {{ '@' . $product->owner?->username }}
                                                                 </a>
                                                             </p>
 

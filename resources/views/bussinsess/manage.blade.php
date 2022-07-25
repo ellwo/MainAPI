@@ -3,7 +3,60 @@
 
     <div dir="rtl" class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-darker">
         مرحبا عزيزنا العميل{{ '  ' . $bussinse->name }}
+        <br>
+        {{ $bussinse->username }}
     </div>
+
+
+    <div dir="rtl" class="gap-6 p-6 mt-4 overflow-hidden rounded-md shadow-md sm:grid sm:grid-cols-2 dark:bg-darker">
+
+
+        <a href="{{ route('b.edit',$bussinse) }}"
+            class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+            <div>
+                <h6
+                    class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                 تعديل معلومات الحساب
+                </h6>
+                <span class="text-xs font-semibold">
+                يمكنك تغيير الصورة العامة وتعديل المعلومات الخاصة بحسابك
+                </span>
+            </div>
+            <div>
+
+
+                <span class="relative">
+                    <x-bi-wrench-adjustable class="w-6 h-6 " />
+
+                </span>
+
+            </div>
+        </a>
+
+
+        <a href="{{ route('b.show',$bussinse->username) }}"
+            class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
+            <div>
+                <h6
+                    class="text-lg font-bold leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
+                استعراض حسابك الان
+                </h6>
+                <span class="text-xs font-semibold">
+                استعرض حسابك
+                </span>
+            </div>
+            <div>
+
+
+                <span class="relative">
+                    <x-heroicon-s-eye class="w-6 h-6 " />
+
+                </span>
+
+            </div>
+        </a>
+    </div>
+
 
 
 
@@ -15,7 +68,7 @@
 
 
             <!-- Orders card -->
-            <a href="{{ route('product.create', ['username' => 'me']) }}"
+            <a href="{{ route('inbox', ['type'=>'bus','chattings'=>$bussinse->id]) }}"
                 class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
                 <div>
                     <h6
@@ -65,8 +118,8 @@
 
 
                     <span class="relative">
-                        <x-bi-inbox-fill class="w-12 h-12 text-yellow-700 mr-2" />
-                        <span class="absolute top-0 right-0 bg-white border border-danger rounded-full text-danger text-center text-xs w-6 h-6">{{ $bussinse->owne_product_orders()->where('product_orders.status','=',0)->count() }}</span>
+                        <x-bi-inbox-fill class="w-12 h-12 mr-2 text-yellow-700" />
+                        <span class="absolute top-0 right-0 w-6 h-6 text-xs text-center bg-white border rounded-full border-danger text-danger">{{ $bussinse->owne_product_orders()->where('product_orders.status','=',0)->count() }}</span>
 
                     </span>
 
@@ -91,7 +144,7 @@
 
                     <span class="relative">
                         <x-bi-inbox class="w-12 h-12 text-yellow-700" />
-                        <span class="absolute top-0 right-0 bg-white border rounded-full text-danger w-4 h-4">{{ $bussinse->owne_service_orders()->get()->count() }}</span>
+                        <span class="absolute top-0 right-0 w-4 h-4 bg-white border rounded-full text-danger">{{ $bussinse->owne_service_orders()->get()->count() }}</span>
 
                     </span>
 
@@ -156,7 +209,7 @@
 
             @if ($bussinse->department->type==1)
 
-            <a href="{{ route('service.create', ['username' => $bussinse->username]) }}"
+            <a href="{{ route('mange.products', ['bussinse_username' => $bussinse->username,'type'=>'bussinse']) }}"
                 class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
                 <div>
                     <h6
@@ -178,7 +231,7 @@
 
 
             @else
-            <a href="{{ route('service.create', ['username' => $bussinse->username]) }}"
+            <a href="{{ route('mange.products', ['bussinse_username' => $bussinse->username,'type'=>'bussinse']) }}"
                 class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
                 <div>
                     <h6
@@ -241,16 +294,6 @@
                    @endif
                 </h6>
                 <span class="text-xl font-semibold">{{$bussinse->items_count()}}</span>
-
-                <a href="   @if ($bussinse->department->type==1)
-                   {{ route('mange.products', ['type'=>"bussinse",' bussinse_username'=>$bussinse->username]) }} @else
-                   {{ route('mange.services', ['type'=>"bussinse",' bussinse_username'=>$bussinse->username]) }} @endif
-                   ">
-                <span
-                    class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    ادارة العروض
-                </span>
-                </a>
             </div>
             <div>
                 <span>
@@ -272,10 +315,7 @@
                     عدد المتابعين
                 </h6>
                 <span class="text-xl font-semibold">{{$bussinse->f_count}}</span>
-                <span
-                    class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +2.6%
-                </span>
+
             </div>
             <div>
                 <span>
@@ -297,10 +337,7 @@
                     عدد الزيارات
                 </h6>
                 <span class="text-xl font-semibold">{{$bussinse->vzt()->count()}}</span>
-                <span
-                    class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-                    +3.1%
-                </span>
+
             </div>
             <div>
                 <span>
@@ -323,7 +360,16 @@
                 </h6>
 
 
-                <span class="text-xl font-semibold">20,516</span>
+                <span class="text-xl font-semibold">
+                    @if ($bussinse->department->type==1)
+                    {{ $bussinse->owne_product_orders()->count() }}
+
+                    @else
+                        {{ $bussinse->owne_service_orders()->count() }}
+                    @endif
+
+
+                </span>
 
             </div>
             <div>

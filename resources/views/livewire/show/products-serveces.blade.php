@@ -1,8 +1,8 @@
-<div class="flex flex-col" >
+<div class="flex flex-col w-full" >
 
 
     {{$products->links()}}
-    <div class="grid gap-2 my-3 sm:grid-cols-3">
+    <div class="flex flex-col my-3 lg:gap-2 lg:grid lg:grid-cols-3">
 
         <style>
             .item-rtl{
@@ -35,7 +35,7 @@
         <div x-on:mouseenter='imgtow=!imgtow' x-on:mouseleave='imgtow=!imgtow'
         class="flex justify-between py-2 space-x-4">
         <div class="w-1/3 ml-2 border-l" >
-        <img @click=" product=@js($product) ; img='{{ $product->img }}'; openmodel=true;console.log(product) " src="{{ $product->img }}" class="w-32 rounded-2xl" alt="" srcset="">
+        <img @click=" product=@js($product) ; image='{{ $product->img }}'; img='{{ $product->img }}'; openmodel=true;console.log(product) " src="{{ $product->img }}" class="w-32 rounded-2xl" alt="" srcset="">
     <span class="text-xs">{{ $product->updated_at }}</span>
     </div>
         <div class="flex flex-col justify-start w-2/3 space-y-2">

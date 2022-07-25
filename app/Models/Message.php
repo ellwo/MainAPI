@@ -34,7 +34,7 @@ public function getContentAttribute($value)
         $content=null;
 
         $order=ProductOrder::with('product')->where('id','=',$value)->first();
-        if($order!=null)
+        if($order!=null && $order->product!=null)
         {
             $content=[
                 'product'=>$order->product,
@@ -43,6 +43,9 @@ public function getContentAttribute($value)
             ];
         }
         else{
+
+        $this->type_message="text";
+        $this->save();
             $content="يبدو ان هذه الرسالة لم تعد موجودة";
         }
 
@@ -51,11 +54,20 @@ public function getContentAttribute($value)
     else if($this->type_message=="serorder"){
 
         $order=ServiceOrder::with('service')->where('id','=',$value)->first();
+
+        if($order!=null && $order->service!=null)
+        {
         $content=[
             'service'=>$order->service,
             'order'=>$order,
             'routename'=>route('service.show',$order->service->id)
         ];
+    }
+    else{
+        $this->type_message="text";
+        $this->save();
+        $content="يبدو ان هذه الرسالة لم تعد موجودة";
+    }
 
         return $content;
 

@@ -43,7 +43,7 @@
                     المعلومات الاساسية
                 </h1>
                 <hr>
-                <div class="flex flex-col text-center mx-auto ">
+                <div class="flex flex-col mx-auto text-center ">
                     <x-label for="avatar" :value="__('صورة العرض الاساسية  ')" />
 
                     <div id="avatar" class="border rounded-full "></div>
@@ -105,6 +105,16 @@
 
             <br>
 
+            <div class="w-full px-2 space-y-2 text-darker md:w-1/2">
+                <x-label :value="__('وصف مختصر للمنتج')" />
+                <textarea cols="30" rows="10"
+                name="note" id="note"
+                 class="w-full px-2 py-1 mr-2 text-black text-opacity-50 rounded shadow appearance-none dark:text-darker dark:bg-darker ckeditor focus:outline-none focus:shadow-outline focus:border-primary" >
+                @php
+                 echo old('note');
+                @endphp
+                 </textarea>
+            </div>
 
            </div>
 
@@ -401,6 +411,24 @@
 
         });
 
+        ClassicEditor
+    .create( document.querySelector( '#note' ), {
+        language: {
+            // The UI will be English.
+            ui: 'ar',
+
+            // But the content will be edited in Arabic.
+            content: 'ar'
+        }  ,
+         removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed'],
+
+    } )
+    .then( editor => {
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err.stack );
+    } );
 
             const stpes=()=>{
 

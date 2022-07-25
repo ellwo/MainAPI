@@ -15,7 +15,7 @@ const routes = [{
     {
         path: '/inbox/:type/:chattings',
         name: 'inbox.show',
-        component: ChatIndex,
+        component: ChatRoom,
         props: true
     },
     {

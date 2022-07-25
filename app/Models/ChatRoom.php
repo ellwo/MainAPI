@@ -105,11 +105,20 @@ class ChatRoom extends Model
             $model=$this->from;
 
 
+
+            if($model!=null)
             return [
                 'name'=>$model->name,
                 'avatar'=>$model->avatar,
                 'username'=>$model->username,
                 'id'=>$model->id
+            ];
+            else
+            return [
+                'name'=>"مستخدم اي زوم",
+                'avatar'=>"127.0.0.1:8888/build/images/logoezoom.png",
+                'username'=>"null",
+                'id'=>-4
             ];
         }
         else if($this->from_id==$id){
@@ -124,11 +133,19 @@ class ChatRoom extends Model
             $model=$this->to;
 
 
+            if($model!=null)
             return [
                 'name'=>$model->name,
                 'avatar'=>$model->avatar,
-                'id'=>$model->id,
-                'username'=>$model->username
+                'username'=>$model->username,
+                'id'=>$model->id
+            ];
+            else
+            return [
+                'name'=>"مستخدم اي زوم",
+                'avatar'=>"127.0.0.1:8888/build/images/logoezoom.png",
+                'username'=>"null",
+                'id'=>-4
             ];
         }
 
@@ -141,13 +158,13 @@ class ChatRoom extends Model
         # code...
         if($this->from_id==$id){
 
-            return  $this->from->blocks($this->to);
+            return  $this->from?->blocks($this->to);
 
 
          }
          else if($this->to_id==$id){
 
-             return  $this->to->blocks($this->from);
+             return  $this->to?->blocks($this->from);
 
          }
     }
@@ -156,13 +173,13 @@ class ChatRoom extends Model
     {
         if($this->to_id==$id){
 
-           return  $this->from->isBlocking($this->to);
+           return  $this->from?->isBlocking($this->to);
 
 
         }
         else if($this->from_id==$id){
 
-            return  $this->to->isBlocking($this->from);
+            return  $this->to?->isBlocking($this->from);
 
         }
 

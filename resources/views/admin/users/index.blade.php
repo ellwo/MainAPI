@@ -32,6 +32,9 @@
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <th>
+                            اسم المستخدم
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
@@ -56,6 +59,9 @@
                             </td>
                             <td>
                                 {{ $user->email ?? '' }}
+                            </td>
+                            <td>
+                                <a href="{{ route('profile.show',$user->username) }}">{{ $user->username ?? '' }}</a>
                             </td>
                             <td>
                                 @foreach($user->roles->pluck('name') as $role)

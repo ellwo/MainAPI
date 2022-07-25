@@ -54,20 +54,12 @@ class BussinseController extends Controller
      */
     public function store(Request $request)
     {
-
-
-       // return dd(Bussinse::with('cities','parts')->where('username','dobaa')->first());
-
-
-
         $this->validate($request,[
             'name'=>'required|unique:bussinses,name|string',
             'department_id'=>'required|exists:departments,id',
             'username' => ['min:4','regex:/^[a-z\d_.]{2,20}$/i','required','string', 'max:191', 'unique:users','unique:bussinses'],
             'email'=> ['email','required','unique:bussinses,email'],
-
         ]);
-
         $buss=Bussinse::create([
             'name'=>$request["name"],
             'username'=>$request["username"],
@@ -81,21 +73,11 @@ class BussinseController extends Controller
             'note'=>$request["note"],
             'address'=>$request["address"],
         ]);
-
-       $cities=explode(',',$request->cities);
-        $cities=$request["cities"];
-        $buss->cities()->attach($cities);
-
         $parts=explode(',',$request->parts);
-        // $cities=$request["cities"];
          $buss->parts()->attach($parts);
-
          $address=$request->locs_address;
          $phone=$request->locs_phone;
          $markts=$request->markt_id;
-
-
-
          if($address!=null)
          Location::create([
             'markt_id'=>$markts[0],
@@ -103,29 +85,7 @@ class BussinseController extends Controller
             'phone'=>$phone,
             'bussinse_id'=>$buss->id
         ]);
-
-
-
-
-
-
-        // $parts=$request["parts"];
-        // $buss->attach($parts);
-
         return redirect()->route('b.manage',['username'=>$buss->username])->with('status','تم الحفظ بنجاح ');
-
-
-
-
-
-
-
-
-
-
-
-        return dd($request->all());
-        //
     }
 
 
@@ -269,8 +229,19 @@ class BussinseController extends Controller
      * @param  \App\Models\Bussinse  $bussinse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bussinse $bussinse)
+    public function edit(Bussinse $b)
     {
+
+        if($b->user_id===auth()->user()->id)
+        return view('bussinsess.edit',['bussinse'=>$b]);
+        else
+        {
+
+            return redirect()->route('b.show',$b);
+        }
+       // return view('bussinsess.show',['bussinse'=>$b]);
+
+
 
     }
 
@@ -310,11 +281,11 @@ class BussinseController extends Controller
             'address'=>$request["address"],
         ]);
 
-        $bussinse->cities()->detach();
+        //$bussinse->cities()->detach();
         $bussinse->parts()->detach();
-        $cities=explode(',',$request->cities);
+      //  $cities=explode(',',$request->cities);
         // $cities=$request["cities"];
-         $bussinse->cities()->attach($cities);
+        // $bussinse->cities()->attach($cities);
 
         $parts=explode(',',$request->parts);
         // $cities=$request["cities"];

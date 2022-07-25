@@ -1,5 +1,5 @@
 <div x-data='{showbtn:1}' >
-    <div :class='{"bg-white":showbtn,"bg-white rounded-full":!showbtn}'  class="flex w-full h-full cursor-pointer ">
+    <div  class="flex w-full h-full cursor-pointer ">
         <a x-show='showbtn' x-on:click='$wire.addtocart({{ $p }},"{{ $routename }}"); showbtn=!showbtn' class="w-full h-full" >
 
             <div class="flex w-full h-full text-dark ">

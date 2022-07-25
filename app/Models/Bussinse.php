@@ -55,7 +55,7 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
-        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders())->where('product_orders.status','=',0);
+        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders());
 
         # code...
     }
@@ -66,7 +66,7 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
-        return  $this->hasManyDeepFromRelations($this->services(), (new Service)->orders())->where('service_orders.status','=',0);
+        return  $this->hasManyDeepFromRelations($this->services(), (new Service)->orders());
 
         # code...
     }
@@ -139,7 +139,21 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
+   public static function boot() {
+    parent::boot();
 
+    Bussinse::deleting(function($bussinse) { // before delete() method call this
+
+        $bussinse->chats()->delete();
+        $bussinse->owne_product_orders()->delete();
+       $bussinse->owne_service_orders()->delete();
+        $bussinse->products()->delete();
+        $bussinse->services()->delete();
+
+
+         // do the rest of the cleanup...
+    });
+}
 
 
 

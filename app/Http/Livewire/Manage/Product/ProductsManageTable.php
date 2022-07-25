@@ -113,7 +113,7 @@ class ProductsManageTable extends Component
 
             $uplode->delete_file($pro->img);
 
-            foreach($pro->imgs as $img){
+            foreach($pro->imgs??[] as $img){
                 $uplode->delete_file($img);
 
             }
@@ -121,7 +121,7 @@ class ProductsManageTable extends Component
             $pro->delete();
 
             session()->flash('status','تم الحذف بنجاح');
-            session()->flash('tital','عملية التعديل ');
+            session()->flash('tital','عملية الحذف ');
 
     }
 }

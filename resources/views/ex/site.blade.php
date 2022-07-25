@@ -89,7 +89,7 @@
 
 
 
-<div class="sticky top-0 z-10 text-white transition-transform duration-500 bg-black sm:hidden sm:mb-0"
+<div class="sticky top-0 z-50 bg-white text-white transition-transform duration-500 bg-black sm:hidden sm:mb-0"
 :class="{
     '-translate-y-full': scrollingDown,
     'translate-y-0 ': scrollingUp,

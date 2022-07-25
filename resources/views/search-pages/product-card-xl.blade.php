@@ -1,5 +1,12 @@
 
-<div class="flex-wrap d-flex align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
+<div class="h-full max-h-full relative border-b border-l ">
+    <span class="absolute bottom-4 text-md underline left-2 rounded-xl bg-white text-m_primary font-bold">
+        {{ $product->updated_at }}
+    </span>
+
+    <div class="flex-wrap  d-flex align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
+
+
     <div class="pl-0 col-6 col-w40">
         <div class="thumbnail-container">
 
@@ -74,21 +81,23 @@ href="@if ($product->owner_type=="App\Models\Bussinse")
               </div>
             <div class="product-buttons d-flex justify-content-center" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 
-                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
+                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-white border border-m_primary mx-2">
                     @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
                 </div>
-                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-m_primary-dark">
+                <div class="flex flex-col justify-center p-2 rounded-full h-14 w-14 dark:bg-white bg-white border border-m_primary">
                     @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>$routename=="product.show"?'product.show':'service.show'], key(time()))
                 </div>
 
 
-                                        <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
+                                        <a href="{{ route('search',['deptname'=>$product->department?->name,'dept'=>$product->department?->name]) }}" class="quick-view hidden-sm-down bg-white" data-link-action="quickview">
                     <i class="fa fa-search"></i><span> نظرة سريعة</span>
                 </a>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 
 {{-- <div class="flex-wrap d-flex align-items-center product-miniature js-product-miniature item-row first_item" data-id-product="3" data-id-product-attribute="95" itemscope="" itemtype="http://schema.org/Product">
 			<div class="pl-0 col-6 col-w40">

@@ -100,7 +100,7 @@
 
 
 
-          <div class=" "
+          <div v-if="chatroomid_ref!='all'" class=" "
           :class="[
             ' ',
             {
@@ -626,7 +626,7 @@ export default defineComponent({
             'is_readed':0
         })
 
-           console.log("her is Set Up "+chatroom.value.id);
+           console.log("her is Set Up "+props.chat_room_id);
 
                console.log("chattings "+props.chattings);
 
@@ -761,7 +761,7 @@ export default defineComponent({
                   louding.value=false
               })
               chatroomid_ref.value=id;
-           //console.log("messages")
+           console.log("befor chref "+chatroomid_ref.value)
           // console.log(messages)
 
            }
@@ -858,9 +858,9 @@ element.lastElementChild.scrollIntoView({ behavior: 'smooth' });
 
 
 
-                console.log("id from mount"+props.id)
+                console.log("id from mount"+props.chat_room_id)
 
-          //      if(props.chat_room_id!="all")
+                if(props.chat_room_id!="all")
               getChatroom(data).then(()=>{
 
 console.log("isitBlocked ==");

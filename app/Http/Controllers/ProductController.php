@@ -51,10 +51,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-
-        $this->validate($request,[
+    {   $this->validate($request,[
             'name'=>'required|string|max:100',
             'price'=>'numeric|required',
             'discrip'=>'string',
@@ -63,28 +60,21 @@ class ProductController extends Controller
             'owner_type'=>'required',
             'department_id'=>'required|exists:departments,id',
         ]);
-
-
-
-        if($request['owner_type']==Bussinse::class){
-
+        if($request['owner_type']==Bussinse::class)
+        {
             $bussinse=Bussinse::find($request["owner_id"]);
             if($bussinse->user_id!=auth()->user()->id)
             abort(403,'لاتمتلك الصلاحيات اللازمة لاتمام العملية');
-
-
         }
 
 
-
          $note=[];
-         $n_key=$request["n_key"];
-         $n_value=$request["n_value"];
+         $n_key=$request["n_key"];$n_value=$request["n_value"];
          for($i=0; $i<count($n_key); $i++){
+
+            if($n_key[$i]!=null && $n_value!=null)
             $note[$n_key[$i]]=$n_value[$i];
          }
-
-
          $product=Product::create([
             'name'=>$request['name'],
             'price'=>$request['price'],
@@ -93,19 +83,15 @@ class ProductController extends Controller
             'owner_type'=>$request['owner_type'],
             'department_id'=>$request['department_id'],
             'img'=>$request['img'],
-            'imgs'=>$request['imgs'],
+            'imgs'=>$request['imgs']??[],
             'status'=>$request["status"],
             'year_created'=>$request["year_created"],
             'note'=>$note
         ]);
         $parts=explode(',',$request->parts);
-        // $cities=$request["cities"];
          $product->parts()->attach($parts);
-
-
-         return redirect()->route('mange.products',['username'=>$product->owner->username])->with('status','تمت اضافة المنتج بنجاح');
-
-
+         return redirect()->route('mange.products',
+         ['username'=>$product->owner->username])->with('status','تمت اضافة المنتج بنجاح');
     }
 
     /**
@@ -127,7 +113,7 @@ class ProductController extends Controller
 
        $owner3= $product->owner->products()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
        if($product->department!=null)
-       $dept_3=$product->department->products()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $dept_3=$product->department->products()->withAvg('ratings:value')->withCount('ratings')->whereNotIn('id',$owner3->pluck('id')->toArray())->orderByRelation('ratings:value', 'desc', 'avg')->take(5)->get();
        else
        $dept_3=Product::withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
 

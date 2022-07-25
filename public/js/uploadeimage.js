@@ -28,200 +28,200 @@ function printContent(id, csspath = "../css/app.css") {
 }
 
 
-class ImgaeUplodedtoServer {
-
-    constructor({ url, id, w = 650, h = 650, shep = "rect", color = "#fff", mulit = false, lablename = "", iconolnly = false, icon = "", oldsrc = "" }) {
-        this.url = url;
-        this.id = id;
-        this.w = w;
-        this.h = h;
-        this.shep = shep;
-        this.color = color;
-        this.mulit = mulit;
-        this.lablename = lablename;
-        this.iconolnly = iconolnly;
-        this.icon = icon;
-        this.oldsrc = oldsrc;
-
-    }
-
-    print(x) {
-        console.log("from print = " + x)
-    }
-
-    create() {
-        var inputid = "'input" + this.id + "'";
-
-        var source = ' <div  class=" rounded-full"> ' +
-            ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white"> ' +
-            ' <button type="button" onclick="document.getElementById(' + inputid + ').click()"     class="btn btn-ghost bg-white  text-blue-700 rounded-lg  mt-2">' + this.lablename + '</button>' +
-            ' <input ' +
-            'class="imguploade hidden px-3  rounded-lg border-2 border-blue-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" ' +
-            ' name="input' + this.id + '" id="input' + this.id + '" type="file"  />  <input value="" id="value' + this.id + '" name="value' + this.id + '" type="hidden" />' +
-            ' <div class="flex flex-wrap" id="imgrow' + this.id + '"> ' +
-            ' <div class="flex-1 rounded-lg m-2 "> ' +
-            ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
-            ' <img id="imgsrc' + this.id + '" src="' + this.oldsrc + '"  class=" h-32 w-32 mx-auto rounded-full image-full"/> ' +
-            '</div>   </div> </div> </div> </div> ';
-        document.getElementById(this.id).innerHTML = source;
-        document.getElementById("input" + this.id).addEventListener('change', (e) => {
-            //console.log("length =  " + e.target.files.length + "     id aand src = " + this.oldsrc + " " + this.shep);
-            //this.print(e.target.files.length)
-
-            var data = this.convert_to_base64(e.target.files[0]);
-            var d = document.getElementById("value" + this.id).value;
-            console.log("the d ");
-            console.log(d);
-        });
-    }
-
-    convert_to_base64(e) {
-
-        var file = e;
-        var dataURL;
-        var height = this.h;
-        var width = this.w;
-        var color = this.color;
-        var input_id = this.id;
-        var mulit = this.mulit;
-        var url = this.url;
-
-        if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/jpg" || file.type == "image/JPG") {
-            var reader = new FileReader();
-            reader.onload = function(readerEvent) {
-
-                var image = new Image();
-                image.onload = function(imageEvent) {
-                    //if (image.height < max_size)
-                    var max_size = height;
-
-                    if (image.height < max_size)
-                        max_size = 650;
-
-
-
-                    //   ma
-
-
-                    max_size = Number(max_size);
-                    var w = image.width;
-                    var h = image.height;
-
-                    if (w > h) {
-                        if (w > max_size) {
-                            h *= max_size / w;
-                            w = max_size;
-                        }
-                    } else {
-                        if (h > max_size) {
-                            w *= max_size / h;
-                            h = max_size;
-                        }
-                    }
+// class ImgaeUplodedtoServer {
+
+//     constructor({ url, id, w = 650, h = 650, shep = "rect", color = "#fff", mulit = false, lablename = "", iconolnly = false, icon = "", oldsrc = "" }) {
+//         this.url = url;
+//         this.id = id;
+//         this.w = w;
+//         this.h = h;
+//         this.shep = shep;
+//         this.color = color;
+//         this.mulit = mulit;
+//         this.lablename = lablename;
+//         this.iconolnly = iconolnly;
+//         this.icon = icon;
+//         this.oldsrc = oldsrc;
+
+//     }
+
+//     print(x) {
+//         console.log("from print = " + x)
+//     }
+
+//     create() {
+//         var inputid = "'input" + this.id + "'";
+
+//         var source = ' <div  class=" rounded-full"> ' +
+//             ' <div class="relative pb-6 px-4 mb-4  mx-auto bg-white"> ' +
+//             ' <button type="button" onclick="document.getElementById(' + inputid + ').click()"     class="btn btn-ghost bg-white  text-blue-700 rounded-lg  mt-2">' + this.lablename + '</button>' +
+//             ' <input ' +
+//             'class="imguploade hidden px-3  rounded-lg border-2 border-blue-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" ' +
+//             ' name="input' + this.id + '" id="input' + this.id + '" type="file"  />  <input value="" id="value' + this.id + '" name="value' + this.id + '" type="hidden" />' +
+//             ' <div class="flex flex-wrap" id="imgrow' + this.id + '"> ' +
+//             ' <div class="flex-1 rounded-lg m-2 "> ' +
+//             ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
+//             ' <img id="imgsrc' + this.id + '" src="' + this.oldsrc + '"  class=" h-32 w-32 mx-auto rounded-full image-full"/> ' +
+//             '</div>   </div> </div> </div> </div> ';
+//         document.getElementById(this.id).innerHTML = source;
+//         document.getElementById("input" + this.id).addEventListener('change', (e) => {
+//             //console.log("length =  " + e.target.files.length + "     id aand src = " + this.oldsrc + " " + this.shep);
+//             //this.print(e.target.files.length)
+
+//             var data = this.convert_to_base64(e.target.files[0]);
+//             var d = document.getElementById("value" + this.id).value;
+//             console.log("the d ");
+//             console.log(d);
+//         });
+//     }
+
+//     convert_to_base64(e) {
+
+//         var file = e;
+//         var dataURL;
+//         var height = this.h;
+//         var width = this.w;
+//         var color = this.color;
+//         var input_id = this.id;
+//         var mulit = this.mulit;
+//         var url = this.url;
+
+//         if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/jpg" || file.type == "image/JPG") {
+//             var reader = new FileReader();
+//             reader.onload = function(readerEvent) {
+
+//                 var image = new Image();
+//                 image.onload = function(imageEvent) {
+//                     //if (image.height < max_size)
+//                     var max_size = height;
+
+//                     if (image.height < max_size)
+//                         max_size = 650;
+
+
+
+//                     //   ma
+
+
+//                     max_size = Number(max_size);
+//                     var w = image.width;
+//                     var h = image.height;
+
+//                     if (w > h) {
+//                         if (w > max_size) {
+//                             h *= max_size / w;
+//                             w = max_size;
+//                         }
+//                     } else {
+//                         if (h > max_size) {
+//                             w *= max_size / h;
+//                             h = max_size;
+//                         }
+//                     }
 
-                    var canvas = document.createElement('canvas');
-                    canvas.width = w;
-                    canvas.height = h;
-                    var chim = max_size - h;
-                    var chwi = max_size - w;
-                    var ctx = canvas.getContext('2d');
-                    ctx.drawImage(image, 0, 0, w, h);
-                    ctx.fillStyle = color;
-                    canvas.id = 'red';
-                    var convasimg = document.createElement('canvas');
-                    convasimg.width = max_size + 5;
-                    convasimg.height = max_size + 5;
-                    // convasimg.id = 'con' + divid;
-                    var ctximg = convasimg.getContext('2d');
-                    ctximg.fillStyle = color;
-                    ctximg.fillRect(0, 0, max_size + 5, max_size + 5);
-                    ctximg.putImageData(ctx.getImageData(0, 0, max_size, max_size), chwi / 2, chim / 2, 0, 0, w, h);
+//                     var canvas = document.createElement('canvas');
+//                     canvas.width = w;
+//                     canvas.height = h;
+//                     var chim = max_size - h;
+//                     var chwi = max_size - w;
+//                     var ctx = canvas.getContext('2d');
+//                     ctx.drawImage(image, 0, 0, w, h);
+//                     ctx.fillStyle = color;
+//                     canvas.id = 'red';
+//                     var convasimg = document.createElement('canvas');
+//                     convasimg.width = max_size + 5;
+//                     convasimg.height = max_size + 5;
+//                     // convasimg.id = 'con' + divid;
+//                     var ctximg = convasimg.getContext('2d');
+//                     ctximg.fillStyle = color;
+//                     ctximg.fillRect(0, 0, max_size + 5, max_size + 5);
+//                     ctximg.putImageData(ctx.getImageData(0, 0, max_size, max_size), chwi / 2, chim / 2, 0, 0, w, h);
 
 
 
 
-                    if (file.type == "image/jpeg" || file.type == "image/JPG") {
-                        dataURL = convasimg.toDataURL("image/jpeg", 1);
-                    } else {
-                        dataURL = convasimg.toDataURL("image/png");
-                    }
+//                     if (file.type == "image/jpeg" || file.type == "image/JPG") {
+//                         dataURL = convasimg.toDataURL("image/jpeg", 1);
+//                     } else {
+//                         dataURL = convasimg.toDataURL("image/png");
+//                     }
 
 
 
-                    var dataUrl = '"' + dataURL + '"';
-                    console.log(dataURL);
-                    document.getElementById("value" + input_id).value = dataURL;
+//                     var dataUrl = '"' + dataURL + '"';
+//                     console.log(dataURL);
+//                     document.getElementById("value" + input_id).value = dataURL;
 
-                    var imagView = ' <div class="flex-1 rounded-lg m-2 "> ' +
-                        ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
-                        '<div class=" h-32 w-32 mx-auto rounded-full image-full"></div> ' +
-                        '</div>   </div>';
+//                     var imagView = ' <div class="flex-1 rounded-lg m-2 "> ' +
+//                         ' <div class="object-center mx-auto text-center  py-4 mb-4 "> ' +
+//                         '<div class=" h-32 w-32 mx-auto rounded-full image-full"></div> ' +
+//                         '</div>   </div>';
 
-                    var rowelemnt = document.getElementById('imgrow' + input_id);
-                    console.log(rowelemnt.innerHTML);
-                    convasimg.classList.add('w-32');
-                    convasimg.classList.add('flex');
+//                     var rowelemnt = document.getElementById('imgrow' + input_id);
+//                     console.log(rowelemnt.innerHTML);
+//                     convasimg.classList.add('w-32');
+//                     convasimg.classList.add('flex');
 
-                    console.log(rowelemnt.lastElementChild.innerHTML)
-                    if (mulit == false)
-                        rowelemnt.lastElementChild.lastElementChild.innerHTML = '';
+//                     console.log(rowelemnt.lastElementChild.innerHTML)
+//                     if (mulit == false)
+//                         rowelemnt.lastElementChild.lastElementChild.innerHTML = '';
 
-                    var but = "<button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataURL + "," + url + "," + input_id + ",$(this)," + "value" + input_id + ")'> تاكيد</button>";
-                    rowelemnt.lastElementChild.lastElementChild.appendChild(convasimg);
-                    $("#imgrow").lastElementChild.appendChild(but);
+//                     var but = "<button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataURL + "," + url + "," + input_id + ",$(this)," + "value" + input_id + ")'> تاكيد</button>";
+//                     rowelemnt.lastElementChild.lastElementChild.appendChild(convasimg);
+//                     $("#imgrow").lastElementChild.appendChild(but);
 
 
 
 
-                    //var url = '"' + urll + '"';
-                    //var input_id = '"' + inputimg.id + '"';
-                    //var inputnamee = '"' + inputname + '"';
+//                     //var url = '"' + urll + '"';
+//                     //var input_id = '"' + inputimg.id + '"';
+//                     //var inputnamee = '"' + inputname + '"';
 
-                    // <div class="">
-                    //var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
-                    //                var im = "";
+//                     // <div class="">
+//                     //var imageshow = "<div id='imgview" + count + "' class='flex-1 rounded-lg border-blue-600 border m-2 '><div class='object-center mx-auto text-center ' ><button class='btn uploadebtn btn-ghost btn-sm' onclick='upLoad(" + dataUrl + "," + url + "," + input_id + ",$(this)," + inputnamee + ")'> تاكيد</button> </div></div>";
+//                     //                var im = "";
 
 
-                    // $("#" + id).parent().parent()
+//                     // $("#" + id).parent().parent()
 
-                    // console.log(inputimg.id);
-                    // if ($("#" + inputimg.id).attr('multiple') === undefined) {
-                    //     //              $("#" + id).parent().html(convasimg).append(im);
-                    //     $("#" + id).html(imageshow);
-                    //     $("#imgview" + count++).prepend(convasimg);
+//                     // console.log(inputimg.id);
+//                     // if ($("#" + inputimg.id).attr('multiple') === undefined) {
+//                     //     //              $("#" + id).parent().html(convasimg).append(im);
+//                     //     $("#" + id).html(imageshow);
+//                     //     $("#imgview" + count++).prepend(convasimg);
 
-                    //     //            console.log("is == undefinded");
-                    // } else {
+//                     //     //            console.log("is == undefinded");
+//                     // } else {
 
-                    //     $("#" + id).append(imageshow);
-                    //     $("#imgview" + (count++) + " div").prepend(convasimg);
+//                     //     $("#" + id).append(imageshow);
+//                     //     $("#imgview" + (count++) + " div").prepend(convasimg);
 
-                    // }
+//                     // }
 
-                    return dataURL;
+//                     return dataURL;
 
 
-                }
+//                 }
 
-                image.src = readerEvent.target.result;
-                return dataURL;
-            }
-            reader.readAsDataURL(file);
+//                 image.src = readerEvent.target.result;
+//                 return dataURL;
+//             }
+//             reader.readAsDataURL(file);
 
-            return dataURL;
+//             return dataURL;
 
 
 
 
 
-        } else {
-            //inputimg.val('');
-            document.getElementById(input_id).value = '';
-            document.getElementById(hidden_input_id).value = '';
+//         } else {
+//             //inputimg.val('');
+//             document.getElementById(input_id).value = '';
+//             document.getElementById(hidden_input_id).value = '';
 
-            alert('Please only select images in JPG- or PNG-format.' + file.type);
-            return false;
-        }
+//             alert('Please only select images in JPG- or PNG-format.' + file.type);
+//             return false;
+//         }
 
 
 
@@ -229,14 +229,14 @@ class ImgaeUplodedtoServer {
 
 
 
-    }
+//     }
 
 
 
 
 
 
-}
+// }
 
 
 
@@ -554,9 +554,11 @@ class ImagetoServer {
                 if (mx_h != -1 && mx_w != -1) {
                     convert_tobase(e.target.files[i], lcolor, this, id_d, url, input_id, w, mx_h, mx_w);
 
-                } else if ((w === 0 && h === w) || with_w_h == true)
+                } else if ((w === 0 && h === w) || with_w_h == true) {
+                    console.log("with wh");
                     convert_tobase_with_orginal_wh(e.target.files[i], lcolor, this, id_d, url, input_id, w, h);
-                else
+
+                } else
                     convert_tobase(e.target.files[i], lcolor, this, id_d, url, input_id, w);
 
 

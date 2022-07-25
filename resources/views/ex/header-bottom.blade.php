@@ -9,8 +9,8 @@
                     <span>تسوق عن طريق القسم </span>
                     <span class="caret-circle"></span>
                 </div>
-                <div class="verticalmenu-content has-showmore ">
-                    <div id="_desktop_verticalmenu" class="nov-verticalmenu block" data-count_showmore="6">
+                <div class=" verticalmenu-content has-showmore">
+                    <div id="_desktop_verticalmenu" class="block nov-verticalmenu" data-count_showmore="6">
                         <div class="box-content block_content">
                             <div id="verticalmenu" class="verticalmenu" role="navigation">
                                 <ul class="menu level1">
@@ -44,18 +44,18 @@
                 </div>
             </div>
 
-            <div class="col-lg-9 col-md-11 rounded-full p-2 dark:bg-m_primary dark:text-m_primary-darker bg-m_primary-dark text-m_primary header-menu d-flex align-items-center justify-content-end">
+            <div class="p-2 rounded-full col-lg-9 col-md-11 dark:bg-m_primary dark:text-m_primary-darker bg-m_primary-dark text-m_primary header-menu d-flex align-items-center justify-content-end">
 
                 <div id="_desktop_top_menu" algin='left'>
                     <nav id="nov-megamenu" class="clearfix">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <div id="megamenu" class="nov-megamenu clearfix">
+                        <div id="megamenu" class="clearfix nov-megamenu">
                             <ul class="menu level1">
 
-                                <li class="item  has-sub" x-data='{opendropdown1:false,dclass:"hidden"}' x-on:mousemove='opendropdown1=true; dclass=""' ><span class="opener"></span>
+                                <li class="item has-sub" x-data='{opendropdown1:false,dclass:"hidden"}' x-on:mousemove='opendropdown1=true; dclass=""' ><span class="opener"></span>
 
                                     <a  x-on:click='opendropdown1=!opendropdown1; dclass=dclass=="hidden"?"":"hidden";'
-                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="text-m_primary dark:text-m_primary-dark mx-2 h-5 w-5"/>الاسواق</div></a>
+                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="w-5 h-5 mx-2 text-m_primary dark:text-m_primary-dark"/>الاسواق</div></a>
                                     <div :class="dclass" class="dropdown-menu" style="width:270px">
                                         <ul class="">
                                             @foreach ($markts as $m)
@@ -67,10 +67,10 @@
                                     </div>
                                 </li>
                                 <li class="item group"  x-data='{opendropdown2:false,dclass:"hidden"}' x-on:mousemove='opendropdown2=true;dclass=""'><span class="opener"></span><a
-                                    x-on:click='opendropdown2=!opendropdown2; dclass=dclass=="hidden"?"":"hidden";' class="cursor-pointer" title="Categories"><div class="dark:text-white flex"><x-bi-grid-fill class="w-5 h-5 mx-2 dark:text-m_primary-dark text-m_primary"/>الاقسام</div></a>
+                                    x-on:click='opendropdown2=!opendropdown2; dclass=dclass=="hidden"?"":"hidden";' class="cursor-pointer" title="Categories"><div class="flex dark:text-white"><x-bi-grid-fill class="w-5 h-5 mx-2 dark:text-m_primary-dark text-m_primary"/>الاقسام</div></a>
                                     <div  :class="dclass" class="dropdown-menu">
                                         <ul class="">
-                                            <li class="item container group">
+                                            <li class="container item group">
                                                 <div class="dropdown-menu">
                                                     <ul class="">
 
@@ -91,7 +91,7 @@
                                         </ul>
                                     </div>
 
-                                    {{-- <div x-bind:class="{'hidden':!opendropdown2,'flex flex-col sm:h-0 h-64 sm:overflow-hidden':opendropdown2}" class="flex flex-col sm:h-0 h-64 sm:overflow-hidden" >
+                                    {{-- <div x-bind:class="{'hidden':!opendropdown2,'flex flex-col sm:h-0 h-64 sm:overflow-hidden':opendropdown2}" class="flex flex-col h-64 sm:h-0 sm:overflow-hidden" >
                                         <ul class="">
                                             @foreach ($depts as $m)
                                             <li class="item "><a

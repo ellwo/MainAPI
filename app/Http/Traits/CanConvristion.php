@@ -14,39 +14,13 @@ trait CanConvristion{
 
 
     function startconvristion($model){
-
-
-
-        // if($this->blocking(get_class($model)) || $model->blocks($this)){
-        //     return null;
-        // }
-
         $model_id=$model->id;
-
-
         $count=ChatRoom::where(function($query)use ($model){
-
-
             $query->where('to_id',"=",$model->id)->where('to_type','=',get_class($model))->where('from_id',"=",$this->id)->where('from_type','=',get_class($this));
-
-
         })->Orwhere(function($query)use ($model){
             $query->where('from_id',"=",$model->id)->where('from_type','=',get_class($model))
             ->where('to_id',"=",$this->id)->where('to_type','=',get_class($this));
            })->first();
-
-
-        // $count=$this->chatrooms()
-        // ->where(function ($query) use ($model_id) {
-        //     $query->where("to_id","=",$model_id)
-        //     ->where("from_id","=",$this->id);
-        // })->Orwhere(
-        //     function ($query) use ($model_id) {
-        //         $query->where("to_id","=",$this->id)
-        //         ->where("from_id","=",$model_id);
-        //     }
-        // )->where("isblocked",0)->first();
-
         if($count==null)
 {
    return $convers= ChatRoom::create([
@@ -118,6 +92,24 @@ trait CanConvristion{
         # code...
     }
 
+
+    public function chats()
+    {
+
+
+      return  ChatRoom::
+        where(function ($query) {
+            $query->where("to_id",$this->id)
+            ->where("to_type",get_class($this));
+
+        })
+        ->Orwhere(function($query){
+            $query->where("from_type",get_class($this))
+            ->where("from_id",$this->id);
+        });
+
+        # code...
+    }
     public function chatrooms_only()
     {
         # code...

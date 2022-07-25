@@ -9,12 +9,12 @@
     x-transition:enter-end="opacity-100" x-transition:leave="transition duration-500 ease-in-out"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
 
-    @click.away="open_delete=false" x-show="open_delete" class="absolute flex text-darker flex-col p-8 space-y-4 bg-white rounded-md top-24 left-1/2 right-1/5">
-        <span class="w-full text-danger text-right text-3xl font-bold">!تنويه</span>
+    @click.away="open_delete=false" x-show="open_delete" class="absolute flex flex-col p-8 space-y-4 bg-white rounded-md text-darker top-24 left-1/2 right-1/5">
+        <span class="w-full text-3xl font-bold text-right text-danger">!تنويه</span>
         <hr>
         هل انت متاكد من الحذف ؟
         <div class="flex justify-between space-x-2">
-  <x-button variant='success' @click='open_delete=false' wire:click='delete_pro({{$delete_productid}})'>تأكيد</x-button>
+  <x-button variant='success' @click='open_delete=false; $wire.delete_pro({{$delete_productid}})' wire:click=''>تأكيد</x-button>
   <x-button variant='danger' x-on:click="open_delete=false;$wire.set('delete_productid','no')" > الغاء</x-button>
         </div>
     </div>
@@ -39,7 +39,7 @@
 			<div class="w-full pr-4">
 				<div class="relative md:w-full">
 					<input dir="rtl" wire:model.lazy="search" type="search"
-						class="w-full py-2 pl-10 pr-4 font-medium text-gray-600 rounded-lg shadow  focus:outline-none focus:shadow-outline"
+						class="w-full py-2 pl-10 pr-4 font-medium text-gray-600 rounded-lg shadow focus:outline-none focus:shadow-outline"
 						placeholder="بحث. . .">
 					<div class="absolute top-0 left-0 inline-flex items-center p-2">
 						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" viewBox="0 0 24 24"

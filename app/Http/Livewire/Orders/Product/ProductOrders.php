@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Orders\Product;
 
 use App\Models\Bussinse;
+use App\Models\Message;
 use App\Models\ProductOrder;
 use App\Models\User;
 use Livewire\Component;
@@ -92,6 +93,21 @@ class ProductOrders extends Component
 
     $order->save();
     $this->status=1;
+
+    $chatroom=$order->product->owner->startconvristion($order->user);
+
+    $contact="لقد تم قبول طلبك للمنتج ".$order->product->name;
+    $message=Message::create([
+        'sender'=>$order->product->owner->id,
+        'content'=>$contact,
+        'type_message'=>'text',
+        'chat_room_id'=>$chatroom->id,
+        'is_readed'=>0
+    ]);
+
+
+
+
    }
    public function deny_order($id){
     $order= ProductOrder::find($id);

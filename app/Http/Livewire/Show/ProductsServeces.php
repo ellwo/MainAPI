@@ -53,7 +53,7 @@ class ProductsServeces extends Component
             if($this->proORserv=="pro")
             {
 
-                $products=$user->products()->latest()->paginate($this->procount);
+                $products=$user->products()->with('department','parts')->latest()->paginate($this->procount);
 
 
                $this->prototal= $products->total();
@@ -64,7 +64,7 @@ class ProductsServeces extends Component
 
             else
             {
-                $products=$user->services()->paginate($this->servcount);
+                $products=$user->services()->with('department','parts')->paginate($this->servcount);
                 $this->servtotal=$products->total();
                 $this->emit('userStore');
                 return view('livewire.show.products-serveces',compact('products'));

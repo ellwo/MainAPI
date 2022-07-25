@@ -18,23 +18,16 @@
 
                     <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
                         <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://demo.bestprestashoptheme.com/savemart/ar/">
+                            <a itemprop="item" href="{{ route('home') }}">
                                 <span itemprop="name">الصفحة الرئيسية</span>
                             </a>
                             <meta itemprop="position" content="1">
                         </li>
                         <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://demo.bestprestashoptheme.com/savemart/ar/9-smartphone-tablet">
-                                <span itemprop="name">Smartphone &amp; Tablet</span>
+                            <a itemprop="item" href="{{ route('search',['dept'=>$product->department->id]) }}">
+                                <span itemprop="name">{{ $product->department->name }}</span>
                             </a>
                             <meta itemprop="position" content="2">
-                        </li>
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item"
-                                href="https://demo.bestprestashoptheme.com/savemart/ar/smartphone-tablet/1-40-hummingbird-printed-t-shirt.html#/الحجم-ص/اللون_-رمادي_داكن">
-                                <span itemprop="name">Nullam sed sollicitudin mauris</span>
-                            </a>
-                            <meta itemprop="position" content="3">
                         </li>
                     </ol>
 
@@ -146,7 +139,51 @@
                                                                             {{ '@' . $product->owner->username }}
                                                                         </span>
                                                                     </a>
+
+
+
+
+                                                                <p class="link_seller_profile">
+                                                                    <button>
+                                                                    <a
+                                                                        href="
+                                                                        @if ($product->owner_type=="App\Models\Bussinse")
+                                                                                       {{ route('b.show',$product->owner->username) }}
+
+                                                                                       @else
+                                                                                       {{ route('profile.show',$product->owner->username) }}
+
+                                                                                       @endif
+                                                                                       ">
+                                                                        <i class="icon-user fa fa-user"></i>
+                                                                       <span class="dark:text-white"> زيارة حساب البائع</span>
+                                                                    </a>
+                                                                    </button>
+                                                                </p>
+                                                                <p class="">
+
+                                                                    <form method="POST" action="{{ route('create_chatroom') }}">
+                                                                        @csrf
+                                                                        <input type="hidden" name="type"
+                                                                        value="@if ($product->owner_type=="App\Models\Bussinse")
+                                                                        Bussinse
+                                                                        @else
+                                                                            User
+                                                                        @endif"
+                                                                        />
+                                                                        <input type="hidden" name="chatable_id" value="{{ $product->owner->username }}"/>
+
+                                                                        <button type="submit">
+                                                                        <a title="Contact seller">
+                                                                        <i class="fa fa-comment"></i>
+                                                                        تواصل الان مع البائع
+                                                                    </a>
+                                                                        </button>
+                                                                    </form>
+                                                                </p>
+
                                                                 </div>
+
 
                                                             </div>
 
@@ -304,62 +341,7 @@
 
                                                     </div>
                                                     </div>
-                                                    <div class="flex p-4 mr-2 bg-transparent cursor-pointer ">
-                                                        <a href="{{ route('productorder.create', ['product'=>$product]) }}" class="">
 
-                                                            <div class="flex p-4 border rounded-full text-dark">
-                                                                <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
-                                                            <span class="text-3xl dark:text-white">اطلب الان </span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div id="_desktop_productcart_detail">
-                                                        <div class="product-add-to-cart in_border">
-                                                            {{-- <div class="add">
-                                                                <button class="btn btn-primary add-to-cart"
-                                                                    data-button-action="add-to-cart" type="submit">
-                                                                    <div class="icon-cart">
-                                                                        <i class="shopping-cart"></i>
-                                                                    </div>
-                                                                    <span>أضف للسلة</span>
-                                                                </button>
-                                                            </div> --}}
-                                                            <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
-                                                            اضف للسلة
-                                                            <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
-                                                            @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'product.show'], key(time()))
-                                                           </div>
-                                                            </div>
-                                                            <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
-                                                                اضف للمفضلات
-                                                                <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
-                                                                @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'product.show'], key(time()))
-                                                               </div>
-                                                                </div>
-
-
-
-                                                            <a class="addToWishlist wishlistProd_6" href="#"
-                                                                data-rel="6"
-                                                                onclick="WishlistCart('wishlist_block_list', 'add', '6', false, 1); return false;">
-                                                                <i class="fa fa-heart"></i>
-                                                                <span>Add to Wishlist</span>
-                                                            </a>
-
-                                                            <div class="clearfix"></div>
-
-                                                            <div id="product-availability" class="mt-20 info-stock">
-                                                                <label class="control-label">Availability:</label>
-                                                                in stock
-                                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                            </div>
-
-
-                                                            <p class="mt-20 product-minimal-quantity">
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
 
 
 
@@ -374,180 +356,65 @@
 
 
                                                     <div class="product-quantity">
-                                                        <span class="control-label">الكميَّة : </span>
-                                                        <div class="qty">
-                                                            <div class="input-group bootstrap-touchspin"><span
-                                                                    class="input-group-addon bootstrap-touchspin-prefix"
-                                                                    style="display: none;"></span><input type="text"
-                                                                    name="qty" id="quantity_wanted" value="1"
-                                                                    class="input-group form-control" min="1"
-                                                                    style="display: block;"><span
-                                                                    class="input-group-addon bootstrap-touchspin-postfix"
-                                                                    style="display: none;"></span><span
-                                                                    class="input-group-btn-vertical"><button
-                                                                        class="btn btn-touchspin js-touchspin bootstrap-touchspin-up"
-                                                                        type="button"><i
-                                                                            class="material-icons touchspin-up"></i></button><button
-                                                                        class="btn btn-touchspin js-touchspin bootstrap-touchspin-down"
-                                                                        type="button"><i
-                                                                            class="material-icons touchspin-down"></i></button></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
 
 
 
+                                                        <div class="flex p-4 mr-2 bg-transparent cursor-pointer ">
+                                                            <a href="{{ route('productorder.create', ['product'=>$product]) }}" class="">
 
-
-                                                    <div id="_mobile_productcart_detail"></div>
-
-                                                    <div class="productbuttons">
-                                                        <div class="tabs">
-
-
-
-
-
-
-
-
-
-
-
-                                                            <h4 class="dark:text-white ">
-                                                                معلومات عن البائع
-                                                            </h4>
-
-                                                            <div class="flex flex-col space-x-2 space-y-2 border rounded-lg">
-                                                                <div class="py-2 mx-4 rounded-full">
-                                                                    <img class="w-32 h-32 rounded-full"
-                                                                        src="{{ $product->owner->avatar }}">
+                                                                <div class="flex p-4 border rounded-full text-dark">
+                                                                    <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
+                                                                <span class="text-3xl dark:text-white">اطلب الان </span>
                                                                 </div>
-                                                                <div class="">
-                                                                    <a href=" @if ($product->owner_type=="App\Models\Bussinse")
-                                                                        {{ route('b.show',$product->owner->username) }}
-
-                                                                        @else
-                                                                        {{ route('profile.show',$product->owner->username) }}
-
-                                                                        @endif"><span
-                                                                            class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
-                                                                        <br>
-                                                                        <span class="font-normal text-info">
-                                                                            {{ '@' . $product->owner->username }}
-                                                                        </span>
-                                                                    </a>
-
-
-                                                                    <div class="seller_info">
-
-
-                                                                        @if ($product->owner_type=="App\Models\Bussinse")
-
-                                                                        @php
-                                                                            $count=(int)$product->owner->ratingsAvg_();
-                                                                        @endphp
-
-                                                                        <div class="average_rating">
-                                                                            <a href="https://demo.bestprestashoptheme.com/savemart/ar/jmarketplace/2_taylor-jonson/comments"
-                                                                                title="View comments about Taylor Jonson">
-                                                                                @for ($i = 1; $i <= $count; $i++)
-                                                                                <div class="star star_on"></div>
-                                                                            @endfor
-                                                                            @for ($i = 0; $i < 5 - $count; $i++)
-                                                                                <div class="star">
-
-                                                                                </div>
-                                                                            @endfor
-                                                                            (0)
-                                                                            </a>
+                                                            </a>
+                                                        </div>
+                                                        <div id="_desktop_productcart_detail">
+                                                             <div class="product-add-to-cart in_border">
+                                                                {{-- <div class="add">
+                                                                    <button class="btn btn-primary add-to-cart"
+                                                                        data-button-action="add-to-cart" type="submit">
+                                                                        <div class="icon-cart">
+                                                                            <i class="shopping-cart"></i>
                                                                         </div>
-                                                                        @endif
+                                                                        <span>أضف للسلة</span>
+                                                                    </button>
+                                                                </div> --}}
+                                                                <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+                                                                اضف للسلة
+                                                                <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+                                                                @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'product.show'], key(time()))
+                                                               </div>
+                                                                </div>
+                                                                <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+                                                                    اضف للمفضلات
+                                                                    <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+                                                                    @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'product.show'], key(time()))
+                                                                   </div>
                                                                     </div>
 
 
 
 
-                                                                </div>
+                                                                <div class="clearfix"></div>
 
-                                                                <p class="link_seller_profile">
-                                                                    <button>
-                                                                    <a
-                                                                        href="
-                                                                        @if ($product->owner_type=="App\Models\Bussinse")
-                                                                                       {{ route('b.show',$product->owner->username) }}
 
-                                                                                       @else
-                                                                                       {{ route('profile.show',$product->owner->username) }}
 
-                                                                                       @endif
-                                                                                       ">
-                                                                        <i class="icon-user fa fa-user"></i>
-                                                                       <span class="dark:text-white"> زيارة حساب البائع</span>
-                                                                    </a>
-                                                                    </button>
-                                                                </p>
-                                                                <p class="">
 
-                                                                    <form method="POST" action="{{ route('create_chatroom') }}">
-                                                                        @csrf
-                                                                        <input type="hidden" name="type"
-                                                                        value="@if ($product->owner_type=="App\Models\Bussinse")
-                                                                        Bussinse
-                                                                        @else
-                                                                            User
-                                                                        @endif"
-                                                                        />
-                                                                        <input type="hidden" name="chatable_id" value="{{ $product->owner->username }}"/>
-
-                                                                        <button type="submit">
-                                                                        <a title="Contact seller">
-                                                                        <i class="fa fa-comment"></i>
-                                                                        تواصل الان مع البائع
-                                                                    </a>
-                                                                        </button>
-                                                                    </form>
+                                                                <p class="mt-20 product-minimal-quantity">
                                                                 </p>
 
                                                             </div>
 
 
+
+
+
+
+
                                                         </div>
-
-
-                                                        <div class="dropdown social-sharing">
-                                                            <button class="btn btn-link" type="button"
-                                                                id="social-sharingButton" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <span><i class="fa fa-share-alt"
-                                                                        aria-hidden="true"></i>Share With
-                                                                    :</span>
-                                                            </button>
-                                                            <div class="dropdown-menu"
-                                                                aria-labelledby="social-sharingButton">
-                                                                <a class="dropdown-item"
-                                                                    href="http://www.facebook.com/sharer.php?u={{ route('product.show',$product) }}"
-                                                                    title="مشاركة" target="_blank"><i
-                                                                        class="fa fa-facebook"></i>Facebook</a>
-                                                                <a class="dropdown-item"
-                                                                    href="https://twitter.com/intent/tweet?text={{$product->name."  " .route('product.show',$product) }}"
-                                                                    title="تغريدة" target="_blank"><i
-                                                                        class="fa fa-twitter"></i>تغريدة</a>
-
-                                                            </div>
-                                                        </div>
-
-
-                                                        <a class="btn btn-link" href="javascript:print();">
-                                                            <span><i class="fa fa-print"
-                                                                    aria-hidden="true"></i>Print</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-col justify-around w-3/4 mx-auto"
-                                                x-data="{ tap: 2 }">
+                                                        <div class="flex flex-col justify-around w-full mx-auto"
+                                                x-data="{ tap: 1 }">
 
                                                 <div class="flex m-4 mx-auto space-x-4">
                                                     <button type="button" x-on:click="tap=1"
@@ -775,31 +642,166 @@
                                                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 </div>
 
 
                                             </div>
+
+                                                    </div>
+
+
+
+
+
+
+                                                    <div id="_mobile_productcart_detail"></div>
+
+{{--
+                                                    <div class="productbuttons">
+                                                        <div class="tabs">
+
+
+
+                                                            <h4 class="dark:text-white ">
+                                                                معلومات عن البائع
+                                                            </h4>
+
+                                                            <div class="flex flex-col space-x-2 space-y-2 border rounded-lg">
+                                                                <div class="py-2 mx-4 rounded-full">
+                                                                    <img class="w-32 h-32 rounded-full"
+                                                                        src="{{ $product->owner->avatar }}">
+                                                                </div>
+                                                                <div class="">
+                                                                    <a href=" @if ($product->owner_type=="App\Models\Bussinse")
+                                                                        {{ route('b.show',$product->owner->username) }}
+
+                                                                        @else
+                                                                        {{ route('profile.show',$product->owner->username) }}
+
+                                                                        @endif"><span
+                                                                            class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
+                                                                        <br>
+                                                                        <span class="font-normal text-info">
+                                                                            {{ '@' . $product->owner->username }}
+                                                                        </span>
+                                                                    </a>
+
+
+
+
+
+
+
+
+                                                                    <div class="seller_info">
+
+
+                                                                        @if ($product->owner_type=="App\Models\Bussinse")
+
+                                                                        @php
+                                                                            $count=(int)$product->owner->ratingsAvg_();
+                                                                        @endphp
+
+                                                                        <div class="average_rating">
+                                                                            <a href="https://demo.bestprestashoptheme.com/savemart/ar/jmarketplace/2_taylor-jonson/comments"
+                                                                                title="View comments about Taylor Jonson">
+                                                                                @for ($i = 1; $i <= $count; $i++)
+                                                                                <div class="star star_on"></div>
+                                                                            @endfor
+                                                                            @for ($i = 0; $i < 5 - $count; $i++)
+                                                                                <div class="star">
+
+                                                                                </div>
+                                                                            @endfor
+                                                                            (0)
+                                                                            </a>
+                                                                        </div>
+                                                                        @endif
+                                                                    </div>
+
+
+
+
+                                                                </div>
+{{--
+                                                                <p class="link_seller_profile">
+                                                                    <button>
+                                                                    <a
+                                                                        href="
+                                                                        @if ($product->owner_type=="App\Models\Bussinse")
+                                                                                       {{ route('b.show',$product->owner->username) }}
+
+                                                                                       @else
+                                                                                       {{ route('profile.show',$product->owner->username) }}
+
+                                                                                       @endif
+                                                                                       ">
+                                                                        <i class="icon-user fa fa-user"></i>
+                                                                       <span class="dark:text-white"> زيارة حساب البائع</span>
+                                                                    </a>
+                                                                    </button>
+                                                                </p>
+                                                                <p class="">
+
+                                                                    <form method="POST" action="{{ route('create_chatroom') }}">
+                                                                        @csrf
+                                                                        <input type="hidden" name="type"
+                                                                        value="@if ($product->owner_type=="App\Models\Bussinse")
+                                                                        Bussinse
+                                                                        @else
+                                                                            User
+                                                                        @endif"
+                                                                        />
+                                                                        <input type="hidden" name="chatable_id" value="{{ $product->owner->username }}"/>
+
+                                                                        <button type="submit">
+                                                                        <a title="Contact seller">
+                                                                        <i class="fa fa-comment"></i>
+                                                                        تواصل الان مع البائع
+                                                                    </a>
+                                                                        </button>
+                                                                    </form>
+                                                                </p>
+                                                                </div> --}}
+
+
+
+
+                                                        </div>
+
+
+                                                        <div class="dropdown social-sharing">
+                                                            <button class="btn btn-link" type="button"
+                                                                id="social-sharingButton" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <span><i class="fa fa-share-alt"
+                                                                        aria-hidden="true"></i>Share With
+                                                                    :</span>
+                                                            </button>
+                                                            <div class="dropdown-menu"
+                                                                aria-labelledby="social-sharingButton">
+                                                                <a class="dropdown-item"
+                                                                    href="http://www.facebook.com/sharer.php?u={{ route('product.show',$product) }}"
+                                                                    title="مشاركة" target="_blank">
+                                                                    <x-bi-facebook class="w-8 h-8 text-blue-700"/>
+                                                                    Facebook</a>
+                                                                <a class="dropdown-item"
+                                                                    href="https://twitter.com/intent/tweet?text={{$product->name."  " .route('product.show',$product) }}"
+                                                                    title="تغريدة" target="_blank"><i
+                                                                        class="fa fa-twitter"></i>تغريدة</a>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <a class="btn btn-link" href="javascript:print();">
+                                                            <span><i class="fa fa-print"
+                                                                    aria-hidden="true"></i>Print</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
 
                                         </div>
@@ -873,7 +875,7 @@
     </div>
     <div class="w-4/5 p-8 m-4 mx-auto border rounded-xl">
 
-        <section class="clearfix relate-product product-accessories">
+        <section class="">
             <h1 class="text-5xl dark:text-white">
                 المنتجات المشابهة
             </h1>
@@ -883,9 +885,9 @@
                     <div class="grid xl:grid-cols-4 ">
                     @foreach ($related_products as $prod )
 
-                    <div style="width: 243px;" class="m-4 h-3/4 ">
+                    <div  class="m-4 h-3/4 ">
 
-                    @include('productsview.product-card',['product'=>$prod,'routename'=>'product.show'])
+                    @include('search-pages.product-card-xl',['product'=>$prod,'routename'=>'product.show'])
                     </div>
                     @endforeach
                     </div>

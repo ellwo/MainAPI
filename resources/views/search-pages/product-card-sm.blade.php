@@ -1,5 +1,8 @@
-<div class="flex flex-row mb-0 border rounded-md product-miniature js-product-miniature ">
+<div class="flex relative flex-row mb-0 border rounded-md product-miniature js-product-miniature ">
 
+    <span class="absolute top-1 text-md underline left-2 rounded-xl bg-white text-m_primary font-bold">
+        {{ $product->updated_at }}
+    </span>
 
     <div class="mt-16 col-12 col-w27 no-padding">
         <div class="thumbnail-container">
@@ -43,16 +46,16 @@
                     <a title="View seller profile"
                         href="
                         @if ($product->owner_type==="App\Models\Bussinse")
-                                       {{ route('b.show',$product->owner->username) }}
+                                       {{ route('b.show',$product->owner?->username) }}
 
                                        @else
-                                       {{ route('profile.show',$product->owner->username) }}
+                                       {{ route('profile.show',$product->owner?->username) }}
 
                                        @endif">
                         <div class="flex dark:text-light">
                             <span class="flex flex-row space-x-2">
                             <x-heroicon-s-user class="w-6 h-6 text-gray-600"/>
-                            {{ $product->owner->name }}
+                            {{ $product->owner?->name }}
                         </span>
 </div>
                     </a>

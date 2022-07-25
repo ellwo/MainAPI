@@ -392,7 +392,8 @@
 
 
             <!-- Orders card -->
-            <a href="{{ route('product.create', ['username' => 'me']) }}"
+
+            <a href="{{ route('inbox', ['type'=>'user','chattings'=>auth()->user()->id]) }}"
                 class="flex items-center justify-between p-4 bg-white rounded-md hover:shadow-2xl dark:bg-darker">
                 <div>
                     <h6

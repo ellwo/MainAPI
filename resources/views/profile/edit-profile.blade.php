@@ -287,7 +287,8 @@
                 id:'avatar',
                 h:500,
                 w:500,
-                with_w_h:true,
+                mx_h:800,
+                mx_w:800
 
 
             });

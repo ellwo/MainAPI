@@ -24,7 +24,7 @@
                             <meta itemprop="position" content="1">
                         </li>
                         <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="{{ route('search') }}">
+                            <a itemprop="item" href="{{ route('search',['dept'=>$product->department->id]) }}">
                                 <span itemprop="name">{{ $product->department!=null?$product->department->name:"الجميع" }}</span>
                             </a>
                             <meta itemprop="position" content="2">
@@ -255,6 +255,49 @@
                                                                             {{ '@' . $product->owner->username }}
                                                                         </span>
                                                                     </a>
+
+
+
+                                                                    <p class="link_seller_profile">
+                                                                        <button>
+                                                                        <a
+                                                                            href="
+                                                                            @if ($product->owner_type=="App\Models\Bussinse")
+                                                                                           {{ route('b.show',$product->owner->username) }}
+
+                                                                                           @else
+                                                                                           {{ route('profile.show',$product->owner->username) }}
+
+                                                                                           @endif
+                                                                                           ">
+                                                                            <i class="icon-user fa fa-user"></i>
+                                                                           <span class="dark:text-white"> زيارة حساب البائع</span>
+                                                                        </a>
+                                                                        </button>
+                                                                    </p>
+                                                                    <p class="">
+
+                                                                        <form method="POST" action="{{ route('create_chatroom') }}">
+                                                                            @csrf
+                                                                            <input type="hidden" name="type"
+                                                                            value="@if ($product->owner_type=="App\Models\Bussinse")
+                                                                            Bussinse
+                                                                            @else
+                                                                                User
+                                                                            @endif"
+                                                                            />
+                                                                            <input type="hidden" name="chatable_id" value="{{ $product->owner->username }}"/>
+
+                                                                            <button type="submit">
+                                                                            <a title="Contact seller">
+                                                                            <i class="fa fa-comment"></i>
+                                                                            تواصل الان مع البائع
+                                                                        </a>
+                                                                            </button>
+                                                                        </form>
+                                                                    </p>
+
+
                                                                 </div>
 
                                                             </div>
@@ -413,63 +456,7 @@
 
                                                     </div>
                                                     </div>
-                                                    <div class="flex p-4 mr-2 bg-transparent cursor-pointer ">
-                                                        <a href="{{ route('serviceorder.create', ['service'=>$product]) }}" class="">
 
-                                                            <div class="flex p-4 border rounded-full text-dark">
-                                                                <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
-                                                            <span class="text-3xl dark:text-white">اطلب الان </span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div id="_desktop_productcart_detail">
-                                                        <div class="product-add-to-cart in_border">
-                                                            {{-- <div class="add">
-                                                                <button class="btn btn-primary add-to-cart"
-                                                                    data-button-action="add-to-cart" type="submit">
-                                                                    <div class="icon-cart">
-                                                                        <i class="shopping-cart"></i>
-                                                                    </div>
-                                                                    <span>أضف للسلة</span>
-                                                                </button>
-                                                            </div> --}}
-
-  <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
-                                                            اضف للسلة
-                                                            <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
-                                                            @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'service.show'], key(time()))
-                                                           </div>
-                                                            </div>
-
-
-  <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
-    اضف للمفضلة
-    <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
-    @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'service.show'], key(time()))
-   </div>
-    </div>
-                                                            <a class="addToWishlist wishlistProd_6" href="#"
-                                                                data-rel="6"
-                                                                onclick="WishlistCart('wishlist_block_list', 'add', '6', false, 1); return false;">
-                                                                <i class="fa fa-heart"></i>
-                                                                <span>Add to Wishlist</span>
-                                                            </a>
-
-                                                            <div class="clearfix"></div>
-
-                                                            <div id="product-availability" class="mt-20 info-stock">
-                                                                <label class="control-label">Availability:</label>
-                                                                in stock
-                                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                            </div>
-
-
-                                                            <p class="mt-20 product-minimal-quantity">
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
 
 
 
@@ -484,25 +471,307 @@
 
 
                                                     <div class="product-quantity">
-                                                        <span class="control-label">الكميَّة : </span>
-                                                        <div class="qty">
-                                                            <div class="input-group bootstrap-touchspin"><span
-                                                                    class="input-group-addon bootstrap-touchspin-prefix"
-                                                                    style="display: none;"></span><input type="text"
-                                                                    name="qty" id="quantity_wanted" value="1"
-                                                                    class="input-group form-control" min="1"
-                                                                    style="display: block;"><span
-                                                                    class="input-group-addon bootstrap-touchspin-postfix"
-                                                                    style="display: none;"></span><span
-                                                                    class="input-group-btn-vertical"><button
-                                                                        class="btn btn-touchspin js-touchspin bootstrap-touchspin-up"
-                                                                        type="button"><i
-                                                                            class="material-icons touchspin-up"></i></button><button
-                                                                        class="btn btn-touchspin js-touchspin bootstrap-touchspin-down"
-                                                                        type="button"><i
-                                                                            class="material-icons touchspin-down"></i></button></span>
+
+
+
+                                                        <div class="flex p-4 mr-2 bg-transparent cursor-pointer ">
+                                                            <a href="{{ route('serviceorder.create', ['service'=>$product]) }}" class="">
+
+                                                                <div class="flex p-4 border rounded-full text-dark">
+                                                                    <x-bi-send-plus-fill class="w-12 h-12 text-yellow-400"/>
+                                                                <span class="text-3xl dark:text-white">اطلب الان </span>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+
+                                                        <div id="_desktop_productcart_detail">
+                                                            <div class="product-add-to-cart in_border">
+                                                                {{-- <div class="add">
+                                                                    <button class="btn btn-primary add-to-cart"
+                                                                        data-button-action="add-to-cart" type="submit">
+                                                                        <div class="icon-cart">
+                                                                            <i class="shopping-cart"></i>
+                                                                        </div>
+                                                                        <span>أضف للسلة</span>
+                                                                    </button>
+                                                                </div> --}}
+
+      <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+                                                                اضف للسلة
+                                                                <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+                                                                @livewire('cart.add-to-cart-button', ['p' => $product,'routename'=>'service.show'], key(time()))
+                                                               </div>
+                                                                </div>
+
+
+      <div class="flex items-center mx-2 space-x-4 text-center border rounded-full ">
+        اضف للمفضلة
+        <div class="w-24 h-24 p-2 mx-auto my-auto text-center border rounded-full">
+        @livewire('wishlist.add-to-wishlist-button', ['p' => $product,'routename'=>'service.show'], key(time()))
+       </div>
+        </div>
+                                                                {{-- <a class="addToWishlist wishlistProd_6" href="#"
+                                                                    data-rel="6"
+                                                                    onclick="WishlistCart('wishlist_block_list', 'add', '6', false, 1); return false;">
+                                                                    <i class="fa fa-heart"></i>
+                                                                    <span>Add to Wishlist</span>
+                                                                </a>
+
+                                                                <div class="clearfix"></div>
+
+                                                                <div id="product-availability" class="mt-20 info-stock">
+                                                                     <label class="control-label">Availability:</label>
+                                                                    in stock
+                                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                </div>
+ --}}
+
+                                                                <p class="mt-20 product-minimal-quantity">
+                                                                </p>
+
                                                             </div>
                                                         </div>
+
+                                                        <div class="flex flex-col justify-around w-full mx-auto"
+                                                        x-data="{ tap: 2 }">
+
+                                                        <div class="flex m-4 mx-auto space-x-4">
+                                                            <button type="button" x-on:click="tap=1"
+                                                                :class="{
+                                                                    'border-2 border-info bg-m_primary-dark hover:bg-m_primary hover:text-dark dark:bg-m_primary dark:text-dark': tap ==
+                                                                        1
+                                                                }"
+                                                                class="p-3 mx-8 text-xl font-bold border rounded-full cursor-pointer ">
+                                                                الخصائص
+                                                            </button>
+                                                            <button type="button" x-on:click="tap=2"
+                                                                :class="{
+                                                                    'border-2 bg-m_primary-dark hover:bg-m_primary hover:text-dark dark:bg-m_primary dark:text-dark border-info': tap ==
+                                                                        2
+                                                                }"
+                                                                class="p-3 text-xl font-bold border rounded-full cursor-pointer ">
+                                                                التقييم
+                                                            </button>
+
+
+                                                        </div>
+
+
+                                                        <div x-show="tap==1" class="flex flex-col border border-b-0 rounded-md">
+
+
+                                                            @foreach ($product->note as $k => $v)
+                                                                <div class="flex justify-start space-x-2">
+                                                                    <div class="w-1/4 h-full px-2 font-bold border-l-2 text-info">
+                                                                        {{ $k }}
+
+                                                                    </div>
+                                                                    <div class="w-3/4 px-2">
+                                                                        {{ $v }}
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <hr class="dark:border-m_primary-50" />
+                                                            @endforeach
+
+
+                                                        </div>
+
+
+                                                        <div x-show="tap==2" class="flex flex-col border border-b-0 rounded-md " x-data='rate()'>
+
+                                                            <x-perfect-scrollbar as="div" aria-label="main" class="h-64 px-3">
+
+
+                                                                @foreach ($product->ratings()->with("model")->orderBy("updated_at","desc")->take(5)->get() as $rate)
+
+                                                                    <div class="flex space-x-2">
+                                                                        <div class="flex flex-col w-1/4 h-full px-2 font-bold border-l-2 text-info">
+
+                                                                           <span  class="flex p-4 mx-auto space-x-2 text-4xl text-center rounded-full bg-info-100">
+                                                                            {{ $rate->value }}
+
+                                                                        <x-heroicon-s-star class="w-8 h-8 text-yellow-500"/>
+                                                                        </span>
+        {{--
+                                                                       <span class="text-lg text-dark" x-text='ratee.model.name'></span> --}}
+
+                                                                        </div>
+                                                                        <div  class="relative w-3/4 p-4">
+                                                                            <span >{{ $rate->comment }}</span>
+                                                                            <span class="absolute left-0 px-2 text-lg font-bold border rounded-full border-info-darker bottom-1 text-info-darker">
+                                                                                {{ $rate->updated_at }}
+
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <hr class="dark:border-m_primary-50" />
+
+                                                                @endforeach
+                                                            </x-perfect-scrollbar>
+                                                            <hr>
+
+                                                            <div class="flex flex-col p-4 mt-12 space-y-4 border rounded-lg" >
+
+                                                                @auth
+
+                                                                <form x-on:submit.prevent="submitForm">
+                                                                <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
+
+                                                                <div class="flex mx-auto text-center" >
+
+
+                                                                    <div x-show="show_r">
+                                                                    </div>
+
+
+
+                                                                    <template x-for="i in selected" key="i">
+
+                                                                        <div x-init=" if(ii<5) ii=i+1;">
+
+                                                                            <x-heroicon-s-star  x-on:click="show_r=true" x-on:mousemove="if(show_r!=true) { unselected=5-i; selected=5-unselected;}" class="w-12 h-12 mx-2 text-yellow-600"/>
+                                                                            </div>
+                                                                    </template>
+
+
+
+                                                                    <template x-for="i in 5-selected">
+
+
+                                                                            <div >
+                                                                            <x-heroicon-o-star x-on:mousemove="if(show_r!=true) {unselected=5-ii; selected=5-unselected;}" class="w-12 h-12 mx-2 text-yellow-600"/>
+                                                                            </div>
+
+
+
+                                                                    </template>
+
+
+        {{--
+                                                                    <template x-for="i in 5-unselected">
+                                                                        <div>
+                                                                            <span x-text="i"></span>
+                                                                            <x-heroicon-s-star class="w-12 h-12 mx-2 text-yellow-600"/>
+                                                                            </div>
+                                                                        </template>
+                                                                  <template x-for="i in 5-selected">
+                                                                    <div>
+                                                                        <h1 x-text="selected"></h1>
+                                                                    <span x-text="i"></span>
+                                                                    <x-heroicon-o-star x-on:mousemove="unselected=5-i; selected=5-unselected" class="w-12 h-12 mx-2 text-yellow-600"/>
+                                                                    </div>
+
+                                                              </template> --}}
+
+                                                                </div>
+                                                                <textarea x-model='comment' rows="3" placeholder="اكتب تعليقك" class="w-full rounded-lg text-darker dark:text-darker">
+
+                                                                </textarea>
+
+                                                                <div class="flex">
+                                                                <button type="submit" class="p-4 mx-auto text-white bg-blue-500 rounded-full">
+
+                                                                    تعليق
+                                                                </button>
+                                                                </div>
+
+                                                               </form>
+                                                               @else
+                                                               <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
+                                                               <h4>لاضافة تقييمك لابد من <a href="{{ route('register') }}" class="text-blue-900 underline">انشاء حساب </a> او <a class="text-blue-900 underline" href="{{ route('login') }}"> تسجيل الدخول</a></h4>
+
+
+                                                               @endauth
+
+
+                                                                @section('script')
+                                                                <script>
+
+                                                                    const FORM_URL="{{ route('service.rate') }}";
+
+                                                                    function rate(){
+
+                                                                        return {
+                                                                            selected:0,
+                                                                            unselected:5,
+                                                                            ii:1,
+                                                                            show_r:false,
+                                                                            comment:'',
+
+
+                                                                            submitForm() {
+
+                    fetch(FORM_URL, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json",
+                      'X-CSRF-TOKEN': '{{csrf_token()}}'
+
+                    },
+                    body: JSON.stringify({'product_id':"{{ $product->id }}","value":this.selected,"comment":this.comment}),
+
+
+                  }).then(response=>{
+                      if(!response.ok){
+                    //   this.formMessage="اعدالمحاولة";
+                    console.log(response)
+                      return null;
+                      }
+                      return response.json()
+                  }).then(data => {
+                      if(data!=null){
+
+                      if(data.status==true){
+
+                        this.comment='';
+                        // this.formMessage=data.message;
+                        // this.showbutton=false;
+
+                      }
+                      else{
+
+                        // this.formMessage=data.message;
+
+                      }
+
+
+                      }
+                      console.log(data);
+
+                    }).catch((e) => {
+                        console.log(e);
+                    });
+
+                }
+                                                                        }
+
+
+
+                                                                    }
+
+
+
+                                                                </script>
+
+                                                                @endsection
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                                     </div>
 
 
@@ -512,109 +781,6 @@
 
                                                     <div id="_mobile_productcart_detail"></div>
 
-                                                    <div class="productbuttons">
-                                                        <div class="tabs">
-
-
-
-
-
-
-
-
-
-
-
-                                                            <h4 class="dark:text-white ">
-                                                                معلومات عن البائع
-                                                            </h4>
-
-                                                            <div class="flex flex-col space-x-2 space-y-2 border rounded-lg">
-                                                                <div class="py-2 mx-4 rounded-full">
-                                                                    <img class="w-32 h-32 rounded-full"
-                                                                        src="{{ $product->owner->avatar }}">
-                                                                </div>
-                                                                <div class="">
-                                                                    <a href="#"><span
-                                                                            class="font-bold text-darker dark:text-white">{{ $product->owner->name }}</span>
-                                                                        <br>
-                                                                        <span class="font-normal text-info">
-                                                                            {{ '@' . $product->owner->username }}
-                                                                        </span>
-                                                                    </a>
-
-
-                                                                    <div class="seller_info">
-
-
-                                                                        @if ($product->owner_type=="App\Models\Bussinse")
-
-                                                                        @php
-                                                                            $count=(int)$product->owner->ratingsAvg_();
-                                                                        @endphp
-
-                                                                        <div class="average_rating">
-                                                                            <a href="https://demo.bestprestashoptheme.com/savemart/ar/jmarketplace/2_taylor-jonson/comments"
-                                                                                title="View comments about Taylor Jonson">
-                                                                                @for ($i = 1; $i <= $count; $i++)
-                                                                                <div class="star star_on"></div>
-                                                                            @endfor
-                                                                            @for ($i = 0; $i < 5 - $count; $i++)
-                                                                                <div class="star">
-
-                                                                                </div>
-                                                                            @endfor
-                                                                            (0)
-                                                                            </a>
-                                                                        </div>
-                                                                        @endif
-                                                                    </div>
-
-
-
-
-                                                                </div>
-
-                                                                <p class="link_seller_profile">
-                                                                    <button>
-                                                                    <a
-                                                                        href="
-                                                                        @if ($product->owner_type=="App\Models\Bussinse")
-                                                                                       {{ route('b.show',$product->owner->username) }}
-
-                                                                                       @else
-                                                                                       {{ route('profile.show',$product->owner->username) }}
-
-                                                                                       @endif
-                                                                                       ">
-                                                                        <i class="icon-user fa fa-user"></i>
-                                                                       <span class="dark:text-white"> زيارة حساب البائع</span>
-                                                                    </a>
-                                                                    </button>
-                                                                </p>
-                                                                <p class="">
-
-                                                                    <form method="POST" action="{{ route('create_chatroom') }}">
-                                                                        @csrf
-                                                                        <input type="hidden" name="type"
-                                                                        value="@if ($product->owner_type=="App\Models\Bussinse")
-                                                                        Bussinse
-                                                                        @else
-                                                                            User
-                                                                        @endif"
-                                                                        />
-                                                                        <input type="hidden" name="chatable_id" value="{{ $product->owner->username }}"/>
-
-                                                                        <button type="submit">
-                                                                        <a title="Contact seller">
-                                                                        <i class="fa fa-comment"></i>
-                                                                        تواصل الان مع البائع
-                                                                    </a>
-                                                                        </button>
-                                                                    </form>
-                                                                </p>
-
-                                                            </div>
 
 
                                                         </div>
@@ -650,267 +816,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="flex flex-col justify-around w-3/4 mx-auto"
-                                                x-data="{ tap: 2 }">
 
-                                                <div class="flex m-4 mx-auto space-x-4">
-                                                    <button type="button" x-on:click="tap=1"
-                                                        :class="{
-                                                            'border-2 border-info bg-m_primary-dark hover:bg-m_primary hover:text-dark dark:bg-m_primary dark:text-dark': tap ==
-                                                                1
-                                                        }"
-                                                        class="p-3 mx-8 text-xl font-bold border rounded-full cursor-pointer ">
-                                                        الخصائص
-                                                    </button>
-                                                    <button type="button" x-on:click="tap=2"
-                                                        :class="{
-                                                            'border-2 bg-m_primary-dark hover:bg-m_primary hover:text-dark dark:bg-m_primary dark:text-dark border-info': tap ==
-                                                                2
-                                                        }"
-                                                        class="p-3 text-xl font-bold border rounded-full cursor-pointer ">
-                                                        التقييم
-                                                    </button>
-
-
-                                                </div>
-
-
-                                                <div x-show="tap==1" class="flex flex-col border border-b-0 rounded-md">
-
-
-                                                    @foreach ($product->note as $k => $v)
-                                                        <div class="flex justify-start space-x-2">
-                                                            <div class="w-1/4 h-full px-2 font-bold border-l-2 text-info">
-                                                                {{ $k }}
-
-                                                            </div>
-                                                            <div class="w-3/4 px-2">
-                                                                {{ $v }}
-
-                                                            </div>
-
-                                                        </div>
-                                                        <hr class="dark:border-m_primary-50" />
-                                                    @endforeach
-
-
-                                                </div>
-
-
-                                                <div x-show="tap==2" class="flex flex-col border border-b-0 rounded-md " x-data='rate()'>
-
-                                                    <x-perfect-scrollbar as="div" aria-label="main" class="h-64 px-3">
-
-
-                                                        @foreach ($product->ratings()->with("model")->orderBy("updated_at","desc")->take(5)->get() as $rate)
-
-                                                            <div class="flex space-x-2">
-                                                                <div class="flex flex-col w-1/4 h-full px-2 font-bold border-l-2 text-info">
-
-                                                                   <span  class="flex p-4 mx-auto space-x-2 text-4xl text-center rounded-full bg-info-100">
-                                                                    {{ $rate->value }}
-
-                                                                <x-heroicon-s-star class="w-8 h-8 text-yellow-500"/>
-                                                                </span>
-{{--
-                                                               <span class="text-lg text-dark" x-text='ratee.model.name'></span> --}}
-
-                                                                </div>
-                                                                <div  class="relative w-3/4 p-4">
-                                                                    <span >{{ $rate->comment }}</span>
-                                                                    <span class="absolute left-0 px-2 text-lg font-bold border rounded-full border-info-darker bottom-1 text-info-darker">
-                                                                        {{ $rate->updated_at }}
-
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                            <hr class="dark:border-m_primary-50" />
-
-                                                        @endforeach
-                                                    </x-perfect-scrollbar>
-                                                    <hr>
-
-                                                    <div class="flex flex-col p-4 mt-12 space-y-4 border rounded-lg" >
-
-                                                        @auth
-
-                                                        <form x-on:submit.prevent="submitForm">
-                                                        <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
-
-                                                        <div class="flex mx-auto text-center" >
-
-
-                                                            <div x-show="show_r">
-                                                            </div>
-
-
-
-                                                            <template x-for="i in selected" key="i">
-
-                                                                <div x-init=" if(ii<5) ii=i+1;">
-
-                                                                    <x-heroicon-s-star  x-on:click="show_r=true" x-on:mousemove="if(show_r!=true) { unselected=5-i; selected=5-unselected;}" class="w-12 h-12 mx-2 text-yellow-600"/>
-                                                                    </div>
-                                                            </template>
-
-
-
-                                                            <template x-for="i in 5-selected">
-
-
-                                                                    <div >
-                                                                    <x-heroicon-o-star x-on:mousemove="if(show_r!=true) {unselected=5-ii; selected=5-unselected;}" class="w-12 h-12 mx-2 text-yellow-600"/>
-                                                                    </div>
-
-
-
-                                                            </template>
-
-
-{{--
-                                                            <template x-for="i in 5-unselected">
-                                                                <div>
-                                                                    <span x-text="i"></span>
-                                                                    <x-heroicon-s-star class="w-12 h-12 mx-2 text-yellow-600"/>
-                                                                    </div>
-                                                                </template>
-                                                          <template x-for="i in 5-selected">
-                                                            <div>
-                                                                <h1 x-text="selected"></h1>
-                                                            <span x-text="i"></span>
-                                                            <x-heroicon-o-star x-on:mousemove="unselected=5-i; selected=5-unselected" class="w-12 h-12 mx-2 text-yellow-600"/>
-                                                            </div>
-
-                                                      </template> --}}
-
-                                                        </div>
-                                                        <textarea x-model='comment' rows="3" placeholder="اكتب تعليقك" class="w-full rounded-lg text-darker dark:text-darker">
-
-                                                        </textarea>
-
-                                                        <div class="flex">
-                                                        <button type="submit" class="p-4 mx-auto text-white bg-blue-500 rounded-full">
-
-                                                            تعليق
-                                                        </button>
-                                                        </div>
-
-                                                       </form>
-                                                       @else
-                                                       <h1 class="text-4xl font-bold text-darker">اضف تقييمك </h1>
-                                                       <h4>لاضافة تقييمك لابد من <a href="{{ route('register') }}" class="text-blue-900 underline">انشاء حساب </a> او <a class="text-blue-900 underline" href="{{ route('login') }}"> تسجيل الدخول</a></h4>
-
-
-                                                       @endauth
-
-
-                                                        @section('script')
-                                                        <script>
-
-                                                            const FORM_URL="{{ route('service.rate') }}";
-
-                                                            function rate(){
-
-                                                                return {
-                                                                    selected:0,
-                                                                    unselected:5,
-                                                                    ii:1,
-                                                                    show_r:false,
-                                                                    comment:'',
-
-
-                                                                    submitForm() {
-
-            fetch(FORM_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json",
-              'X-CSRF-TOKEN': '{{csrf_token()}}'
-
-            },
-            body: JSON.stringify({'product_id':"{{ $product->id }}","value":this.selected,"comment":this.comment}),
-
-
-          }).then(response=>{
-              if(!response.ok){
-            //   this.formMessage="اعدالمحاولة";
-            console.log(response)
-              return null;
-              }
-              return response.json()
-          }).then(data => {
-              if(data!=null){
-
-              if(data.status==true){
-
-                this.comment='';
-                // this.formMessage=data.message;
-                // this.showbutton=false;
-
-              }
-              else{
-
-                // this.formMessage=data.message;
-
-              }
-
-
-              }
-              console.log(data);
-
-            }).catch((e) => {
-                console.log(e);
-            });
-
-        }
-                                                                }
-
-
-
-                                                            }
-
-
-
-                                                        </script>
-
-                                                        @endsection
-
-                                                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                </div>
-
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -999,8 +905,9 @@
 
 
 
-        </section>
 
+        </section>
+    </div>
 
 
 
