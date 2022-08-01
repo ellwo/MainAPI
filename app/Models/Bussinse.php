@@ -50,6 +50,21 @@ class Bussinse extends Model implements Blocking,Followable
 
 
 
+
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class,'reportable');
+        # code...
+    }
+
+    public function markts()
+    {
+
+        return $this->hasManyThrough(Markt::class,Location::class);
+        # code...
+    }
+
     public function owne_product_orders()
     {
 

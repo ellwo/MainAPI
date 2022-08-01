@@ -21,7 +21,7 @@ class CheckBands
             $user=auth()->user();
             if($user->isBanned())
             {
-                $days=now()->diffInDays( $user->bans->pluck('expired_at')->first());
+                $days=now()->diffInDays( $user->bans->orderBy('created_at','desc')->pluck('expired_at')->first());
                 $message="عذرا حسابك مقفل لمدة ".$days." يوم";
 
                 auth()->logout();

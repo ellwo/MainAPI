@@ -79,8 +79,6 @@ class ProductSearch extends Component
     public function render()
     {
         $products=[];
-        $from = date('2018-01-01');
-        $to = date('2019-05-02');
 
         if($this->part!=''){
             $p=Part::find($this->part);
@@ -100,7 +98,6 @@ class ProductSearch extends Component
                 $query->where('id','=',$this->part);
         }
         )->orderBy($this->orderby,$this->ordertype)->paginate($this->pre_page);
-
 
         }
         else{
@@ -134,6 +131,8 @@ class ProductSearch extends Component
         else if($this->dept==="any"){
 
             $allparts=Part::whereHas('department',function($query){$query->where('type',1);})->get();
+
+
         $selectedParts=Part::whereIn('id',$this->parts!=null?$this->parts:Part::whereHas('department',function($query){$query->where('type',1);})->inRandomOrder()->take(rand(4,5))->pluck('id')->toArray())->get();
 
             $products=Product::with('parts','department','owner')
@@ -144,7 +143,7 @@ class ProductSearch extends Component
                     ->Orwhere('discrip','LIKE','%'.$this->search.'%')
                     ->Orwhere('note','LIKE','%'.$this->search.'%')->OrwhereBetween('year_created', ['2010', '2019']);
 
-            })->whereHas(
+            })->OrwhereHas(
                 'parts',function ($query)use($selectedParts,$allparts){
                     $query->whereIn('id',$selectedParts->pluck('id')->toArray())->orWhereIn('id',$allparts->pluck('id')->toArray());
             }
@@ -166,6 +165,8 @@ class ProductSearch extends Component
    public function set_part($id)
    {
     $this->part=$id;
+
+    $this->resetPage('page');
     # code...
    }
 

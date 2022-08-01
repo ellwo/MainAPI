@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bussinse;
 use App\Models\Department;
 use App\Models\Product;
+use App\Models\Report;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,8 @@ class ProductsManagerController extends Controller
 
     public function manage(Request $request)
     {
+
+
 
 
 

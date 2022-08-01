@@ -213,12 +213,17 @@ class BussinseController extends Controller
     {
 
 
+
         $bussinse=Bussinse::where('username','=',$username)->first();
 
 
+
         if($bussinse!=null)
-        return view('bussinsess.show',['bussinse'=>$bussinse]);
-        else
+        {
+            $bussinse->vzt()->increment();
+            return view('bussinsess.show',['bussinse'=>$bussinse]);
+
+        }else
         abort(404,'لايوجد حساب بهذا الاسم');
 
     }

@@ -9,26 +9,22 @@ class Report extends Model
 {
     use HasFactory;
     public $fillable=[
-        'reporting_id',
+        'note','type',
         'reportable_id',
-        'reportable_type',
-        'reporting_type',
-        'type',
-        'note'
+        'reportable_type'
     ];
 
 
 
-    public function reporting()
-    {
-        return $this->morphTo();
-    }
 
     public function reportable()
     {
         return $this->morphTo();
         # code...
     }
+
+
+
 
 
 }

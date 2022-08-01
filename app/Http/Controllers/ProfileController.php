@@ -112,6 +112,8 @@ class ProfileController extends Controller
     {
 
         $user=User::where("username","=",$username)->withCount("products as products_count")->withCount("services as services_count")->with("city:id,name")->first();
+
+
         if($user!=null)
         return view("profile.index",compact("user"));
         else

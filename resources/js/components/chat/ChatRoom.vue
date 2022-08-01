@@ -61,7 +61,17 @@
 
   <div x-data="perfectScroll" class="relative h-full overflow-y-scroll" @mousemove="update">
 
+
+
+
+
      <chat-profile-vue :type="type" :chattings="chattings" :userid="chattings" :chat_room_id="chat_room_id"/>
+
+
+
+
+
+
 </div>
     </aside>
 

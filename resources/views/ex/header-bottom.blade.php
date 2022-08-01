@@ -55,19 +55,19 @@
                                 <li class="item has-sub" x-data='{opendropdown1:false,dclass:"hidden"}' x-on:mousemove='opendropdown1=true; dclass=""' ><span class="opener"></span>
 
                                     <a  x-on:click='opendropdown1=!opendropdown1; dclass=dclass=="hidden"?"":"hidden";'
-                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="w-5 h-5 mx-2 text-m_primary dark:text-m_primary-dark"/>الاسواق</div></a>
+                                        title="Blog"><div class="flex space-x-2 dark:text-white"><x-bi-shop class="w-5 h-5 mx-2 text-m_primary dark:text-m_primary-dark"/><span class="text-light">الاسواق</span></div></a>
                                     <div :class="dclass" class="dropdown-menu" style="width:270px">
                                         <ul class="">
                                             @foreach ($markts as $m)
                                             <li class="item "><a
-                                                    href="/savemart/en/index.php?fc=module&amp;module=smartblog&amp;id_post=14&amp;controller=details"
+                                                    href="{{ route('search-bussinse',['markt'=>$m->id]) }}"
                                                     title="Blog detail">{{ $m->name }}</a></li>
                                                     @endforeach
                                         </ul>
                                     </div>
                                 </li>
                                 <li class="item group"  x-data='{opendropdown2:false,dclass:"hidden"}' x-on:mousemove='opendropdown2=true;dclass=""'><span class="opener"></span><a
-                                    x-on:click='opendropdown2=!opendropdown2; dclass=dclass=="hidden"?"":"hidden";' class="cursor-pointer" title="Categories"><div class="flex dark:text-white"><x-bi-grid-fill class="w-5 h-5 mx-2 dark:text-m_primary-dark text-m_primary"/>الاقسام</div></a>
+                                    x-on:click='opendropdown2=!opendropdown2; dclass=dclass=="hidden"?"":"hidden";' class="cursor-pointer" title="Categories"><div class="flex dark:text-white"><x-bi-grid-fill class="w-5 h-5 mx-2 dark:text-m_primary-dark text-m_primary"/><span class="text-light">الاقسام</span></div></a>
                                     <div  :class="dclass" class="dropdown-menu">
                                         <ul class="">
                                             <li class="container item group">

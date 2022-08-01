@@ -37,9 +37,19 @@
     </x-slot>
 </x-sidebar.link>
 
+
+
+
 @role('admin')
-<x-sidebar.content-admin />
+       <x-sidebar.content-admin />
 @endrole
+
+
+
+
+
+
+
 
 <x-sidebar.link title="ادارة منتجاتي" href="{{ route('mange.products',['type'=>'all']) }}" :isActive="request()->routeIs('mange.products')">
     <x-slot name="icon">

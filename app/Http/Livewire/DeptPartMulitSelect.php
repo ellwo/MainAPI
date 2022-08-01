@@ -20,7 +20,6 @@ class DeptPartMulitSelect extends Component
     function mount($dept=1,$selected=[],$type='all',$searching=false){
         $this->dept=$dept;
         $this->searching=$searching;
-
         $this->selected=$selected;
         $this->type=$type;
 

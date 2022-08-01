@@ -30,6 +30,20 @@ class Service extends Model
     ];
 
 
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class,'reportable');
+        # code...
+    }
+
+
+
+
+
+
+
+
     public function getUpdatedAtAttribute($value){
 
         $d=new Carbon($value,"Asia/Aden");

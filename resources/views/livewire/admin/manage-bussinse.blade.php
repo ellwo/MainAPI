@@ -12,8 +12,8 @@
             <hr>
             هل انت متاكد من الحذف ؟
             <div class="flex justify-between space-x-2">
-      <x-button variant='success' @click='open_delete=false' wire:click='delete_pro({{$delete_productid}})'>تأكيد</x-button>
-      <x-button variant='danger' x-on:click="open_delete=false;$wire.set('delete_productid','no')" > الغاء</x-button>
+      <x-button variant='success' @click='open_delete=false; $wire.delete_bu({{$delete_b}})' >تأكيد</x-button>
+      <x-button variant='danger' x-on:click="open_delete=false;$wire.set('delete_b','no')" > الغاء</x-button>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
 
         <div class="p-6 mt-2 overflow-hidden rounded-md rounded-t-none shadow-md dark:bg-dark" dir="rtl">
 
-            <h1 class="text-3xl">ادارة جميع المنتجات المعروضة في كل الحسابات</h1>
+            <h1 class="text-3xl">ادارة جميع الحسابات التسويقية</h1>
         </div>
     <div class="flex flex-col items-center justify-center pt-4 dark:bg-darker">
         <div class="flex flex-col w-full col-span-12 mx-auto">
@@ -56,18 +56,12 @@
                 </div>
                 <div>
                     <div class="flex transition-shadow shadow">
-                        <div class="relative flex flex-col items-center space-y-2 ">
-                            <x-label value="عرض المنتجات حسب "  />
-                        <select wire:model.lazy='username' wire:change='UsernameUpdated' class="bg-white text-dark dark:text-white dark:bg-dark rounded-2xl ">
-                            <option value="all">جميع الحسابات </option>
-
-                            @foreach ($bussinses as $buss)
-                            <option wire:click="choseBuss('{{ $buss->username }}')" value="{{ $buss->username }}">{{ $buss->name }}
-                            <span class="p-1 text-xs rounded-full text-info">{{ "@".$buss->username }} </span></option>
-                            @endforeach
-                            @foreach ($users as $user)
-                            <option wire:click="choseBuss('{{ $user->username }}')" value="{{ $user->username }}">{{ $user->name }}
-                            <span class="p-1 text-xs rounded-full text-info">{{ "@".$user->username }} </span></option>
+                        <div class=" flex flex-col items-center space-y-2 ">
+                            <x-label value=" عرض الحسابات حسب القسم"  />
+                        <select wire:model.lazy='dept'  class="bg-white text-dark dark:text-white dark:bg-dark rounded-2xl ">
+                            <option value="all">جميع الاقسام </option>
+                            @foreach ($depts as $d)
+                            <option wire:click="choseBuss('{{ $d->id }}')" value="{{ $d->id }}">{{ $d->name }}</option>
                             @endforeach
 
                         </select>
@@ -91,8 +85,9 @@
                 <table  class="table px-4 space-y-6 text-xs border-separate md:min-w-full sm:text-sm text-dark dark:text-light">
                     <thead class=" dark:text-light bg-light dark:bg-dark">
                         <tr>
-                            <th class="p-3">المنتج </th>
-                            <th class="p-3 text-left">الحساب</th>
+                            <th class="p-3">الحساب التسويقي </th>
+                            <th class="p-3 text-left">القسم </th>
+                            <th class="p-3 text-left">المالك</th>
                             <th class="p-3 text-left">عدد البلاغات</th>
                             <th class="p-3 text-left">تاريخ </th>
                             <th class="p-3 text-left">عمليات</th>
@@ -100,39 +95,42 @@
                     </thead>
                     <tbody class="">
 
-                        @foreach ($products as $product)
+                        @foreach ($bussinses as $b)
 
                         <tr class="bg-white dark:bg-dark">
                             <td class="p-3">
                                 <div class="flex align-items-center">
-                                    <img class="object-cover w-12 h-12 rounded-full" src="{{ $product->img }}" alt="EZ">
+                                    <img class="object-cover w-12 h-12 rounded-full" src="{{ $b->avatar }}" alt="EZ">
                                     <div class="ml-3">
-                                        <div class="">{{ $product->name }}</div>
+                                        <div class="">{{ $b->name }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="p-3">
-                                {{ $product->owner->name }}
 
+                            <td class="p-3">
+                                {{ $b->department?->name }}
+                            </td>
+                            <td class="p-3">
+                                {{ $b->user->name }}
+                                <hr>
+                                 <a class="text-blue-900 font-bold" href="{{ route('profile.show', ['username'=>$b->user->username]) }}">{{ "@".$b->user->username }}</a>
                             </td>
                             <td class="p-3">
                                 <span class="px-2">
-
-                                    {{ $product->reports->count() }}
-
+                                    {{ $b->reports->count() }}
                                 </span>
                             </td>
 
                             <td class="p-3">
 
-                                {{$product->created_at}}
+                                {{$b->created_at}}
                             </td>
                             <td class="p-3 ">
-                                <a href="{{ route('product.show',$product) }}" target="_blank" class="mr-2 text-gray-400 hover:text-dark dark:hover:text-gray-100">
+                                <a href="{{ route('b.show',$b->username) }}" target="_blank" class="mr-2 text-gray-400 hover:text-dark dark:hover:text-gray-100">
                                     <x-heroicon-s-eye class="w-5 h-5"/>
 
                                 </a>
-                                <a  @click="open_delete=true; $wire.set('delete_productid',{{ $product->id }})"
+                                <a  @click="open_delete=true; $wire.set('delete_b',{{ $b->id }})"
                                     href="#" class="ml-2 text-danger-light hover:text-danger">
                                     <x-heroicon-s-x class="w-5 h-5"/>
                                 </a>
@@ -141,7 +139,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $products->links() }}
+                {{ $bussinses->links() }}
 
     <style>
         .table {

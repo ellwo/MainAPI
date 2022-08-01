@@ -52,7 +52,7 @@ $leftproducts=visits(Product::class)->top(6);
 
 
 
-        return view('jj',['ads'=>$ads,'l_service'=>$leftService,'r_service'=>$right_Service,'l_products'=>$leftproducts,'r_products'=>$right_product]);
+        return view('home',['ads'=>$ads,'l_service'=>$leftService,'r_service'=>$right_Service,'l_products'=>$leftproducts,'r_products'=>$right_product]);
         # code...
     }
 }

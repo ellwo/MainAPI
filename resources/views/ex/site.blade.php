@@ -220,7 +220,15 @@
 
     <div id="wrapper-site">
         <div id="content-wrapper" class="full-width">
-              @yield('content')
+
+
+
+            @yield('content')
+
+
+
+
+
         </div>
     </div>
 
@@ -383,6 +391,7 @@
     </div>
 </div> --}}
 
+<x-auth-session-status class="mb-4" :status="session('status')" />
 
 <div id="stickymenu_bottom_mobile" class="flex justify-between px-16 text-center bg-m_primary-100 d-flex hidden-md-up">
     <div class="flex flex-col text-xl stickymenu-ite"><a href="{{ route('home') }}"><x-heroicon-o-home class="w-12 h-12 text-m_primary"/><span>الرئيسية</span></a></div>

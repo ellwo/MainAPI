@@ -28,12 +28,31 @@ protected $casts = [
 
 
 public function getContentAttribute($value)
-{   if($this->type_message=='text')
+{
+
+
+
+
+    if($this->type_message=='text')
     return $value;
+
+
+
+
+
+
+
+
     else if($this->type_message=='order'){
         $content=null;
 
         $order=ProductOrder::with('product')->where('id','=',$value)->first();
+
+
+
+
+
+
         if($order!=null && $order->product!=null)
         {
             $content=[
@@ -63,6 +82,9 @@ public function getContentAttribute($value)
             'routename'=>route('service.show',$order->service->id)
         ];
     }
+
+
+
     else{
         $this->type_message="text";
         $this->save();

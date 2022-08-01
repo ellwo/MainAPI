@@ -17,6 +17,7 @@ class BussinseSearch extends Component
     public $pre_page=8;
     public $orderby="updated_at";
     public $ordertype="desc";
+    public $markt=null;
 
     // protected $listeners=[
     //     // 'setDept'=>'set_dept',
@@ -34,8 +35,9 @@ class BussinseSearch extends Component
 
     protected $queryString=['search','page','parts','dept','part','orderby','ordertype'];
 
-    public function mount($search="",$dept=null,array $parts=[],$part="",$orderby="updated_at",$ordertype="desc")
+    public function mount($search="",$markt=null,$dept=null,array $parts=[],$part="",$orderby="updated_at",$ordertype="desc")
     {
+        $this->markt=$markt;
         $this->search=$search;
         $this->dept=$dept;
         $this->parts=$parts;
@@ -47,8 +49,17 @@ class BussinseSearch extends Component
     public function render()
     {
 
+        if($this->markt!=null){
+            $bussinses=Bussinse::where('name','LIKE','%'.$this->search.'%')->
+            whereHas('locations',function($query){
+                $query->where('markt_id','=',$this->markt);
+            })->paginate($this->pre_page);
+
+        }
+        else
         $bussinses=Bussinse::where('name','LIKE','%'.$this->search.'%')
         ->Orwhere('username','Like','%'.$this->search.'%')->Orwhere('note','LIKE','%'.$this->search.'%')->paginate($this->pre_page);
+
         return view('livewire.search.bussinse-search',compact('bussinses'));
     }
 }

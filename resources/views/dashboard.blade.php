@@ -26,6 +26,56 @@
 
 <x-dashe-layout>
 
+    <style>
+        /* The device with borders */
+        .smartphone {
+          position: relative;
+          width: 360px;
+          height: 640px;
+          margin: auto;
+          border: 16px black solid;
+          border-top-width: 60px;
+          border-bottom-width: 60px;
+          border-radius: 36px;
+        }
+
+        /* The horizontal line on the top of the device */
+        .smartphone:before {
+          content: '';
+          display: block;
+          width: 60px;
+          height: 5px;
+          position: absolute;
+          top: -30px;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #333;
+          border-radius: 10px;
+        }
+
+        /* The circle on the bottom of the device */
+        .smartphone:after {
+          content: '';
+          display: block;
+          width: 35px;
+          height: 35px;
+          position: absolute;
+          left: 50%;
+          bottom: -65px;
+          transform: translate(-50%, -50%);
+          background: #333;
+          border-radius: 50%;
+        }
+
+        /* The screen (or content) of the device */
+        .smartphone .content {
+          width: 360px;
+          height: 640px;
+          background: white;
+        }
+        </style>
+
+
 
     @role('administrator')
         <div>
@@ -41,7 +91,7 @@
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد المنتجات المعروضة
                             </h6>
-                            <span class="text-xl font-semibold">45,021</span>
+                            <span class="text-xl font-semibold">{{ $products_count }}</span>
                             <a target="_blank" href="{{ route('admin.manage.products', ['type'=>'all']) }}">
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة المنتجات
@@ -50,11 +100,7 @@
                         </div>
                         <div>
                             <span>
-                                <svg class="w-12 h-12 text-gray-300 dark:text-primary-dark" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                </svg>
+                                <x-bi-bag-fill class="w-12 h-12 text-gray-300 dark:text-primary-dark" />
                             </span>
                         </div>
                     </div>
@@ -65,7 +111,7 @@
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الخدمات المعروضة
                             </h6>
-                            <span class="text-xl font-semibold">30,000</span>
+                            <span class="text-xl font-semibold">{{ $services_count }}</span>
                             <a target="_blank" href="{{ route('admin.manage.services', ['type'=>'all']) }}">
 
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
@@ -93,10 +139,12 @@
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد المستخدمين
                             </h6>
-                            <span class="text-xl font-semibold">50,021</span>
+                            <span class="text-xl font-semibold">{{ $u_count }}</span>
+                            <a href="{{ route('admin.users.index') }}">
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة المستخدمين
                             </span>
+                            </a>
                         </div>
                         <div>
                             <span>
@@ -117,7 +165,7 @@
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الحسابات التسويقية
                             </h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold">{{ $b_count }}</span>
                             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
                                 ادارة الحسابات التسويقية
                             </span>
@@ -134,7 +182,7 @@
                             <h6
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الزيارات</h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold">{{ $v_count }}</span>
 
                         </div>
                         <div>
@@ -156,7 +204,7 @@
                             <h6
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الاقسام</h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold">{{ $d_count }}</span>
 
                         </div>
                         <div>
@@ -172,7 +220,7 @@
                             <h6
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الفئات</h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold">{{ $p_count }}</span>
 
                         </div>
                         <div>
@@ -188,7 +236,7 @@
                             <h6
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد المدن</h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold"> {{ $c_count }} </span>
 
                         </div>
                         <div>
@@ -204,7 +252,7 @@
                             <h6
                                 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase dark:text-primary-light">
                                 عدد الاسواق</h6>
-                            <span class="text-xl font-semibold">20,516</span>
+                            <span class="text-xl font-semibold">{{ $m_count }}</span>
 
                         </div>
                         <div>

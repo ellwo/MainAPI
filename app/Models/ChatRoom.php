@@ -11,7 +11,6 @@ class ChatRoom extends Model
 {
     use HasFactory,LaravelSubQueryTrait;
     public $fillable=[
-
         'from_id',
         'from_type',
         'to_type',
@@ -50,23 +49,27 @@ class ChatRoom extends Model
 
 
 
-    public function name()
-    {
+    // public function name()
+    // {
 
-        if ($this->to_id==auth()->user()->id)
-            $nae=User::find($this->from_id)->name;
-        else
-            $nae=User::find($this->to_id)->name;
+    //     if ($this->to_id==auth()->user()->id)
+    //         $nae=User::find($this->from_id)->name;
+    //     else
+    //         $nae=User::find($this->to_id)->name;
 
 
-        # code...
-    }
+    //     # code...
+    // }
 
 
 
     public function messages(){
         return $this->hasMany(Message::class);
     }
+
+
+
+
     public function lasttmessage()
     {
         # code...
@@ -75,9 +78,9 @@ class ChatRoom extends Model
 
 
 
-    public function unread_messages(){
-        return $this->hasMany(Message::class)->where("is_readed","=","0")->orderBy("id","desc");
-    }
+
+
+
 
     public function unreaded_messages($chattings_id){
         return $this->hasMany(Message::class)->where("is_readed","=","0")->where("sender","!=",$chattings_id)->orderBy("id","desc");

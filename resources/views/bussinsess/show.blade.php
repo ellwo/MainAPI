@@ -5,6 +5,12 @@
     </x-slot>
 
 <x-navbar/>
+
+
+
+
+
+
     <div dir="rtl"
     class="sticky top-0 z-10 transition-transform duration-500 sm:mb-0"
 :class="{
@@ -18,6 +24,9 @@
 
                     {{ $bussinse->name }}
                 </a>
+                <br>
+
+
                     <button type="button" class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
                         <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -176,6 +185,11 @@
                 </svg>
                 @endfor
             </span>
+
+            <a href="{{ route('report.create', ['reportable_id'=>$bussinse->id,'reportable_type'=>'App\Models\Bussinse']) }}" class="text-xs border rounded-md bg-danger-lighter p-1 flex">
+                بلاغ
+                <x-bi-info class="h-6 w-6 text-danger"/>
+            </a>
               <p class="mb-8 text-base leading-relaxed text-right text-gray-500">@php
                   echo $bussinse->note;
               @endphp
@@ -195,7 +209,7 @@
               </div>
             </div>
 
-            <div class="flex w-full mt-4 overflow-x-scroll ">
+            <div class="sm:flex text-center w-full mt-4 overflow-x-scroll ">
             @foreach ($bussinse->imgs??[] as $img)
             <div class="w-64 h-64 mx-4 my-4">
                 <div class="relative w-full max-w-lg">

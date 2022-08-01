@@ -206,9 +206,11 @@
 
 
                                                             <div class="comments_advices">
-                                                                <a class="open-comment-form" data-toggle="modal"
-                                                                    data-target="#new_comment_form" href="#"><i
-                                                                        class="fa fa-edit"></i>Write your review</a>
+
+            <a href="{{ route('report.create', ['reportable_id'=>$product->id,'reportable_type'=>'App\Models\Product']) }}" class="flex p-1 text-2xl border rounded-md">
+                بلاغ
+                <x-bi-info class="w-10 h-10 text-danger"/>
+            </a>
                                                             </div>
                                                         </div>
 

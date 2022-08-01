@@ -177,12 +177,24 @@
                             </td>
 
                             <td class="flex mt-16">
-                                <div class="flex space-x-2">
-                                    <x-button wire:click="accept_order({{ $order->id }})" variant="success">الموافقة<x-heroicon-s-check class="w-5 h-5"/></x-button>
-                                 </div>
-                                 <div class="flex mx-4 space-x-2">
-                                    <x-button wire:click="deny_order({{ $order->id }})" variant="danger">رفض<x-heroicon-s-x class="w-5 h-5"/></x-button>
-                                 </div>
+
+                                @if ($order->status==0)
+
+                                <div>
+                                    <div class="flex space-x-2">
+                                        <x-button wire:click="accept_order({{ $order->id }})" variant="success">الموافقة<x-heroicon-s-check class="w-5 h-5"/></x-button>
+                                     </div>
+                                     <div class="flex mx-4 space-x-2">
+                                        <x-button wire:click="deny_order({{ $order->id }})" variant="danger">رفض<x-heroicon-s-x class="w-5 h-5"/></x-button>
+                                     </div>
+                                    </div>
+                                @elseif($order->status==1)
+                                <span class="bg-green-400 rounded-md p-2 border text-white">تم قبول الطلب </span>
+
+                                @else
+                                <span class="bg-danger rounded-md p-2 border text-white">تم رفض الطلب </span>
+
+                                @endif
 
                             </td>
                             <td class="">

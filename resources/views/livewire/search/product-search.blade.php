@@ -156,6 +156,17 @@
         </div>
 
 
+
+        @if ($products->count()==0)
+
+        <div class="text-center bg-white p-16 rounded text-4xl">
+          ليس هنالك نتائج مطابقة للبحث جرب البحث ب استخدام جميع الاقسام التجارية
+          <button class="btn btn-success" wire:click='set_dept("any")'>البحث عن طريق جميع الاقسام</button>
+        </div>
+
+        @else
+
+        @endif
         <div class="lg:grid lg:grid-cols-4 sm:grid sm:grid-cols-3 ">
             @foreach ($products as $product)
             <div class="mx-4 my-2">

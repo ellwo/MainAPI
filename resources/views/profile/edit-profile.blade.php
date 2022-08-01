@@ -117,8 +117,8 @@
 
 
                         </x-slot>
-                        <x-input withicon id="phone" class="block w-full focus:ring-primary_color focus:border-primary_color"
-                       value="{{auth()->user()->phone}}" type="tel" name="phone"
+                        <x-input type="number" withicon min="6" max="9"  class="block w-full focus:ring-primary_color focus:border-primary_color"
+                       value="{{auth()->user()->phone}}"  name="phone"
                         placeholder="{{ __('') }}"  />
                     </x-input-with-icon-wrapper>
                 </div>
@@ -354,13 +354,6 @@ function ContactForm() {
 
 
 
-
-const phoneInputField = document.querySelector("#phone");
-   const phoneInput = window.intlTelInput(phoneInputField, {
-    initialCountry:"ye",
-     utilsScript:
-       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-   });
 
 
 $(document).ready(function () {

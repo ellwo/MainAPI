@@ -6,7 +6,7 @@
             @csrf
             <div class="mb-2">
               <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">اسم القسم</label>
-              <input name="name" type="text" id="city" class="text-right shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light transition-all" placeholder="المدينة" required>
+              <input name="name" type="text" id="city" class="text-right shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light transition-all" placeholder="اسم القسم" required>
               @error("name")
                   <span class="rounded-md text-danger" >{{ $message }}</span>
               @enderror
@@ -20,7 +20,7 @@
               </select>
             </div>
             <div class="mb-2">
-                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Image Src</label>
+                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">صورة القسم</label>
            <div id="image"></div>
             </div>
               <div class="mb-2">

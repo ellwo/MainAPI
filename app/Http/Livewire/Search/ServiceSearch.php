@@ -147,7 +147,7 @@ class ServiceSearch extends Component
                     ->Orwhere('discrip','LIKE','%'.$this->search.'%')
                     ->Orwhere('note','LIKE','%'.$this->search.'%');
 
-            })->whereHas(
+            })->OrwhereHas(
                 'parts',function ($query)use($selectedParts,$allparts){
                     $query->whereIn('id',$selectedParts->pluck('id')->toArray())->orWhereIn('id',$allparts->pluck('id')->toArray());
             }

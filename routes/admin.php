@@ -11,6 +11,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MarktsController;
 use App\Http\Controllers\PartController;
+use App\Http\Livewire\Admin\ManageBussinse;
 use App\Http\Livewire\Admin\ManageProduct;
 use App\Http\Livewire\Admin\ManageService;
 use Illuminate\Http\Request;
@@ -62,6 +63,8 @@ Route::get('/admin.manage.products',ManageProduct::class)->name('admin.manage.pr
 
 Route::get('/admin.manage.services',ManageService::class)->name('admin.manage.services');
 
+
+Route::get('/admin.manage.bussinses',ManageBussinse::class)->name('admin.manage.bussinses');
 
 
 

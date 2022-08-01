@@ -31,26 +31,24 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(190);
-        if (env('APP_ENV') == 'production')
-        \URL::forceScheme('https');
 
 
 
 
      //   Cache::flush();
 
-        $catgraies=Cache::remember('catgraies',60*60*360,function(){
-            return Department::with('parts')->orderBy('updated_at','desc')->get();
+        $catgraies= Department::with('parts')->orderBy('updated_at','desc')->get();
 
-        });
-        $cities=Cache::remember('cities',60*60*360,function(){
-            return City::all();
 
-        });
-          $parts=Cache::remember('parts',60*60*360,function(){
-            return Part::all();
 
-        });
+
+
+
+        $cities= City::all();
+
+
+          $parts= Part::all();
+
 
         view()->share('cities',$cities);
 
@@ -62,10 +60,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        $markts=Cache::remember('markts',60*60*360,function(){
-
-            return Markt::all();
-        });
+        $markts= Markt::all();
 
 
 

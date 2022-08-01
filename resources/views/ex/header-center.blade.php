@@ -103,13 +103,13 @@
                                 </li>
 
                                 <li class="item home-page active">
-                                    <a href="{{ route('home') }}"
+                                    <a href="{{ route('aboutus') }}"
                                         title="Home" >
                                         <div class="flex space-x-2 text-4xl dark:text-white"><x-bi-info class="w-12 h-12 mx-2 dark:text-info"/>من نحن</div></a>
 
                                 </li>
                                 <li class="item home-page active">
-                                    <a href="{{ route('home') }}"
+                                    <a href="{{ route('contact') }}"
                                         title="Home" >
                                         <div class="flex space-x-2 text-4xl dark:text-white"><x-heroicon-s-phone class="w-12 h-12 mx-2 text-m_primary"/>تواصل معنا </div></a>
 

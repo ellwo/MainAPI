@@ -115,6 +115,19 @@ class ProductOrders extends Component
 
     $order->save();
     $this->status=2;
+
+    $chatroom=$order->product->owner->startconvristion($order->user);
+
+    $contact="تم رفض طلبك للمنتج  ".$order->product->name;
+    $message=Message::create([
+        'sender'=>$order->product->owner->id,
+        'content'=>$contact,
+        'type_message'=>'text',
+        'chat_room_id'=>$chatroom->id,
+        'is_readed'=>0
+    ]);
+
+
         session()->flash('status','تم رفض الطلب بنجاح');
 
    }

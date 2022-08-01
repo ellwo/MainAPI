@@ -19,8 +19,18 @@ class ServiceOrderController extends Controller
         $product =Service::find($service);
 
 
-        if($product!=null)
-        return view('service-orders.create',compact('product'));
+        if($product!=null){
+            $user=auth()->user();
+            //return ;
+            if($user->isBlocking($product->owner) || $product->owner->isBlocking($user))
+            {
+              return redirect()->back()->with('status','عذرا لايمكنك طلب المنتج الحالي ')->with('title','تنويه');
+            }
+
+            return view('service-orders.create',compact('product'));
+
+
+    }
 
 
         //

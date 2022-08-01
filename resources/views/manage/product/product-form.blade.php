@@ -187,14 +187,18 @@
                 {
                     url:"{{route('uploade')}}",
                     id:"img",
-                    w:1000,h:1000,
+                    w:1000,
+                    mx_w:1000,
+                    mx_h:1000,
                      src:"{{ old('img') }}"
         });
           newimage=new ImagetoServer(
                 {
                     url:"{{route('uploade')}}",
                     id:"imgs",
-                    w:850,h:850,
+                    w:1000,
+                    mx_w:1000,
+                    mx_h:1000,
                      src:"@JSON(old('imgs'))",
                      multi:true
         });

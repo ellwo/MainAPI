@@ -77,7 +77,7 @@ class SearchController extends Controller
 
        $searching_parts=Part::where('name','LIKE','%'.$search.'%')->Orwhere('note','LIKE','%'.$search."%")->get();
        $searching_departments=Department::where('name','LIKE','%'.$search.'%')->Orwhere('note','LIKE','%'.$search."%")->get();
-        $bussinses=Bussinse::where('name','LIKE','%'.$search.'%')->Orwhere('note','LIKE','%'.$search."%")->take(4)->get();
+        $bussinses=Bussinse::where('name','LIKE','%'.$search.'%')->Orwhere('note','LIKE','%'.$search."%")->orderBy('updated_at','desc')->take(6)->get();
 
 
 
@@ -111,7 +111,8 @@ class SearchController extends Controller
         $search=isset($request['search'])?$request['search']:"";
         $orderby=isset($request['orderby'])?$request['orderby']:"updated_at";
         $ordertype=isset($request['ordertype'])?$request['ordertype']:"desc";
-        return view('search-pages.bussinse-search',['dept'=>$dept,'parts'=>$parts,'part'=>$part,'search'=>$search,'orderby'=>$orderby,'ordertype'=>$ordertype]);        # code...
+        $markt=isset($request['markt'])?$request['markt']:null;
+        return view('search-pages.bussinse-search',['markt'=>$markt,'dept'=>$dept,'parts'=>$parts,'part'=>$part,'search'=>$search,'orderby'=>$orderby,'ordertype'=>$ordertype]);        # code...
     }
 
 

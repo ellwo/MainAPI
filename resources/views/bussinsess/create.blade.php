@@ -106,7 +106,7 @@
             <br>
 
             <div class="w-full px-2 space-y-2 text-darker md:w-1/2">
-                <x-label :value="__('وصف مختصر للمنتج')" />
+                <x-label :value="__('البايو /نبذة عن الحساب ')" />
                 <textarea cols="30" rows="10"
                 name="note" id="note"
                  class="w-full px-2 py-1 mr-2 text-black text-opacity-50 rounded shadow appearance-none dark:text-darker dark:bg-darker ckeditor focus:outline-none focus:shadow-outline focus:border-primary" >
@@ -305,13 +305,13 @@
 
                     @endfor --}}
 
-
+{{--
                 <div x-show="loc_count<4" class="flex mx-auto text-center">
                 <button type="button" x-on:click="loc_count++" class="flex p-2 mx-auto text-green-900 border border-green-900 dark:bg-white rounded-xl">
                     اضافة فرع
                     <x-heroicon-o-plus class="w-5 h-5 text-green-900 border "/>
                 </button>
-                </div>
+                </div> --}}
 
 
 
@@ -396,7 +396,7 @@
                     url:"{{route('uploade')}}",
                     id:"avatar",
                     shep:"rect",
-                    w:850,h:850,
+                    w:1200,h:850,
                     mx_w:1400,mx_h:800,
                      src:"{{ old('avatar') }}"
         });
@@ -405,7 +405,8 @@
                     url:"{{route('uploade')}}",
                     id:"imgs",
                     shep:"rect",
-                    w:650,h:650,
+                    w:1000,h:1000,
+                    mx_w:1000,mx_h:1000,
                      src:'@json(old("imgs"))',
                      multi:true
 

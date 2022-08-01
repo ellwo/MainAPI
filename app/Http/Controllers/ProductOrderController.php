@@ -33,9 +33,25 @@ class ProductOrderController extends Controller
         $product =Product::find($product);
 
 
-        if($product!=null)
-        return view('product-orders.create',compact('product'));
 
+        if($product!=null){
+
+            $user=auth()->user();
+          //return ;
+          if($user->isBlocking($product->owner) || $product->owner->isBlocking($user))
+          {
+            return redirect()->back()->with('status','عذرا لايمكنك طلب المنتج الحالي ')->with('title','تنويه');
+          }
+
+          // ;
+
+
+
+            return view('product-orders.create',compact('product'));
+
+
+
+    }
 
         //
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\BussinseController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Manage\ProductsManagerController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\PartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RepotController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
@@ -46,6 +48,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+
+
+
+Route::get('/report/create',[RepotController::class,'create'])->name('report.create');
+
+Route::post('/report/store',[RepotController::class,'store'])->name('report.store');
 
 Route::post('/block',[App\Http\Controllers\Block\BlockingController::class,'block'])->name("block");
 Route::post("/create_chatroom",[App\Http\Controllers\ChatController::class,'create_chatroom'])->name("create_chatroom")->middleware("auth");
@@ -101,9 +110,7 @@ Route::get("/getcity",function(Request $request){
 Route::get('/country',[CountryController::class,'index']);
 Route::get('/',[MainController::class,'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashBoardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::get("/b/@{username}",[BussinseController::class,'show'])->name("b.show");

@@ -1,4 +1,4 @@
-@if ($user->id===auth()->user()->id)
+@if ($user->id===auth()->user()?->id)
     <x-dashe-layout>
 
             <div x-data="{url:new URL(window.location.href)}"  class="max-w-4xl mx-auto mt-4 mb-32 rounded-md dark:bg-primary-dark">
@@ -13,11 +13,15 @@
                         <div class="flex items-end">
 
                             @auth
+
+
+
                             @if($user->id!=auth()->user()->id)
                             <form method="POST" action="{{route('create_chatroom')}}">
                                 @csrf
                                 <input type="hidden" name="chatable_id" value="{{$user->username}}" />
-                                <input type="hidden" name="type" value="user" />
+                                <input type="hidden" name="type" value="User" />
+                                <input type="hidden" name="type" value="User" />
                             <x-button>
                                 <x-heroicon-o-chat class="w-4 h-4"/>
                                 <span class="text-xs"> دردشة </span>
@@ -406,6 +410,9 @@
     </x-dashe-layout>
 @else
 <x-guest-layout>
+
+    <x-navbar/>
+
     <div x-data="{url:new URL(window.location.href)}"  class="max-w-4xl mx-auto mt-4 mb-32 rounded-md dark:bg-primary-dark">
 
         <div class="px-3 py-2 mx-auto ">
@@ -422,7 +429,7 @@
                     <form method="POST" action="{{route('create_chatroom')}}">
                         @csrf
                         <input type="hidden" name="chatable_id" value="{{$user->username}}" />
-                        <input type="hidden" name="type" value="user" />
+                        <input type="hidden" name="type" value="User" />
                     <x-button>
                         <x-heroicon-o-chat class="w-4 h-4"/>
                         <span class="text-xs"> دردشة </span>

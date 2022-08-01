@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Orders\Service;
 
+use App\Models\Message;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use Livewire\Component;
@@ -91,6 +92,20 @@ class ServiceOrders extends Component
 
     $order->save();
     $this->status=1;
+
+    $chatroom=$order->service->owner->startconvristion($order->user);
+
+    $contact="لقد تم قبول طلبك للمنتج ".$order->product->name;
+    $message=Message::create([
+        'sender'=>$order->product->owner->id,
+        'content'=>$contact,
+        'type_message'=>'text',
+        'chat_room_id'=>$chatroom->id,
+        'is_readed'=>0
+    ]);
+
+
+
    }
    public function deny_order($id){
     $order= ServiceOrder::find($id);
@@ -98,6 +113,17 @@ class ServiceOrders extends Component
 
     $order->save();
     $this->status=2;
+    $chatroom=$order->service->owner->startconvristion($order->user);
+
+    $contact="تم رفض طلبك للمنتج  ".$order->product->name;
+    $message=Message::create([
+        'sender'=>$order->product->owner->id,
+        'content'=>$contact,
+        'type_message'=>'text',
+        'chat_room_id'=>$chatroom->id,
+        'is_readed'=>0
+    ]);
+
         session()->flash('status','تم رفض الطلب بنجاح');
 
    }

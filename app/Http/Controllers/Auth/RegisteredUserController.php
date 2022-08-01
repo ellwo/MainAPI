@@ -45,7 +45,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'username'=>$username
+            'username'=>$username,
+            'avatar'=>'http://127.0.0.1:8888/davatar.png'
         ]);
 
 

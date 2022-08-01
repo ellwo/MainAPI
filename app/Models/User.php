@@ -54,6 +54,15 @@ class User extends Authenticatable implements Blocking,Follower, BannableContrac
         'remember_token',
     ];
 
+
+
+
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class,'reportable');
+        # code...
+    }
     /**
      * The attributes that should be cast.
      *
@@ -150,21 +159,28 @@ class User extends Authenticatable implements Blocking,Follower, BannableContrac
 
 
 
-    public function blockers_user(){
-        return $this->blockers(Bussinse::class)->get();
-    }
+    // public function blockers_user(){
+    //     return $this->blockers(Bussinse::class)->get();
+    // }
+
 
 
     public function orders()
     {
         return $this->hasMany(ProductOrder::class);   # code...
     }
+
+
+
+
+
+
     public function owne_product_orders()
     {
 
 
 
-        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders())->where('product_orders.status','=',0);
+        return  $this->hasManyDeepFromRelations($this->products(), (new Product)->orders());
 
         # code...
     }
@@ -214,47 +230,47 @@ class User extends Authenticatable implements Blocking,Follower, BannableContrac
 
 
 
-    public function token($tokenName="graphql"){
+    // public function token($tokenName="graphql"){
 
-        $token=$this->createToken("api");
-       //$token=$this->tokens()->first();
-        return $token->plainTextToken;
-    }
+    //     $token=$this->createToken("api");
+    //    //$token=$this->tokens()->first();
+    //     return $token->plainTextToken;
+    // }
 
-    public function bussinses_followed(){
-        return $this->belongsToMany(Bussinse::class)
-        ->wherePivot("isblocked","=",0);
-    }
-
-
-    public function munfollow($buss_id)
-    {
-
-        $buss=$this->bussinses_followed()->where("id",$buss_id)->first();
-       if($buss)
-        return $buss->pivot->delete();
-        else
-        return false;
+    // public function bussinses_followed(){
+    //     return $this->belongsToMany(Bussinse::class)
+    //     ->wherePivot("isblocked","=",0);
+    // }
 
 
+    // public function munfollow($buss_id)
+    // {
 
-        # code...
-    }
-
-    public function mfollow($buss_id)
-    {
-
-        $buss=Bussinse::find($buss_id);
-        if(!$buss->isBlocking($this)){
+    //     $buss=$this->bussinses_followed()->where("id",$buss_id)->first();
+    //    if($buss)
+    //     return $buss->pivot->delete();
+    //     else
+    //     return false;
 
 
-            return true;
-        }
-    else
-        return false;
 
-        # code...
-    }
+    //     # code...
+    // }
+
+    // public function mfollow($buss_id)
+    // {
+
+    //     $buss=Bussinse::find($buss_id);
+    //     if(!$buss->isBlocking($this)){
+
+
+    //         return true;
+    //     }
+    // else
+    //     return false;
+
+    //     # code...
+    // }
 
 
     public function bussinses()
