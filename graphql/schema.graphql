@@ -12,7 +12,7 @@ type Query {
     products:Product! @paginate(type: PAGINATOR)
     productsSearch(name: String @where(operator: "like" )):[Product!]! @paginate
     productquery(city:Int typeG:Int perPage:Int page:Int! parts:[Int]):MainContact!
-    me: User @auth
+    me: User  @auth
     bussinse:[Bussinse]@all
     mainquery:MainQueryResult
 
@@ -47,6 +47,9 @@ type User {
     phone:String
     gender:Int!
     country: Country @belongsTo
+    roles:[Role]
+    avatar:String
+    city_id:Int
     bussinses:[Bussinse] @hasMany
     chatrooms:[ChatRoom]
     blockers:[Bussinse] @method(name: "blockers_user")
@@ -54,6 +57,11 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     rated:[Product] @method(name:"rated")
+}
+
+type Role{
+id:ID
+name:String
 }
 
 type ChatRoom  {
@@ -97,7 +105,7 @@ type Mutation {
         avatar:String
         tokenname:String
     ):RegisterInfo
-    tryusername(username:String!):RegisterInfo
+    tryusername(username:String!):ResponInfo
     "Log out from the current session, showing the user one last time."
 
      startChatRoomGQL(
@@ -116,6 +124,8 @@ type Mutation {
 
     sendEamilVN:User
 }
+
+
 
 type NewMyResult{
     message:String

@@ -21,6 +21,8 @@ class MainQuery
        // $gender=$args[""];
 
 
+       $products=Product::orderBy();
+
 
 
 

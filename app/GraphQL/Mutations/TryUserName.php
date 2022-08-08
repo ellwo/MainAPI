@@ -27,13 +27,10 @@ class TryUserName
             //return  null;
 
             $resdata=[
-                 "user"=>null,
                 "errors"=>json_encode( $validator->errors()),
-                "message"=>"error",
+                "message"=>$validator->errors()->first('username'),
                 "state"=>false,
-                "code"=>$username
-
-
+                "code"=>405
             ];
 
             return $resdata;
@@ -43,19 +40,22 @@ class TryUserName
 
 
         $resdata=[
-            "user"=>null,
            "errors"=>json_encode( $validator->errors()),
            "message"=>"enabled",
            "state"=>true,
-           "code"=>$username
+           "code"=>202
 
 
        ];
         return $resdata;
     }
         else
+
         return $data=[
-            ''
+            "errors"=>"",
+            "message"=>"",
+            "state"=>false,
+            "code"=>405
         ];
         // TODO implement the resolver
     }

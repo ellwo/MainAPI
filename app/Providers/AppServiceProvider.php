@@ -29,42 +29,47 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
+        if (env('APP_ENV') == 'production')
+        \URL::forceScheme('https');
+
+
         //
-        Schema::defaultStringLength(190);
+    //     Schema::defaultStringLength(190);
 
 
 
 
-     //   Cache::flush();
+    //  //   Cache::flush();
 
-        $catgraies= Department::with('parts')->orderBy('updated_at','desc')->get();
-
-
+    //     $catgraies= Department::with('parts')->orderBy('updated_at','desc')->get();
 
 
 
 
-        $cities= City::all();
 
 
-          $parts= Part::all();
+    //     $cities= City::all();
 
 
-        view()->share('cities',$cities);
-
-        view()->share('parts',$parts);
-
-        view()->share('catgraies',$catgraies);
-
-        view()->share('depts',$catgraies);
+    //       $parts= Part::all();
 
 
+    //     view()->share('cities',$cities);
 
-        $markts= Markt::all();
+    //     view()->share('parts',$parts);
+
+    //     view()->share('catgraies',$catgraies);
+
+    //     view()->share('depts',$catgraies);
 
 
 
-        view()->share('markts',$markts);
+    //     $markts= Markt::all();
+
+
+
+    //     view()->share('markts',$markts);
 
 
 

@@ -46,9 +46,9 @@ class Login
                 $data=[
                     "user"=>null,
                     "errors"=>json_encode($errors),
-                    "message"=>"Not Match",
+                    "message"=>"كلمة السر او اسم المستخدم غير صحيح",
                     "state"=>false,
-                    "code"=>"405",
+                    "code"=>"ip ".request()->ip()."",
                     "token"=>null];
                 RateLimiter::hit($this->throttleKey());
 
@@ -62,7 +62,7 @@ class Login
 
                 if(isset($args["logoutfromall"]) && $args["logoutfromall"]==true)
                     $user->tokens()->delete();
-                $token=$user->createToken($args["tokenname"])->plainTextToken;
+                $token=$user->createToken($args["tokenname"]??"newsession")->plainTextToken;
 
 
 

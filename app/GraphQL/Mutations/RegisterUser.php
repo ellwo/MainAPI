@@ -26,8 +26,9 @@ class RegisterUser
         if(isset($args["username"])){
 
 
-            $args["username"]=Str::of($args["username"])->trim()->lower();
+            //$args["username"]=Str::of($args["username"])->trim()->lower();
             $username=$args["username"];
+
 
         }
         else{
@@ -56,7 +57,7 @@ class RegisterUser
 
         $validator = \Illuminate\Support\Facades\Validator::make($args, [
             'name' => 'required',
-            'username' => ['min:4','regex:/^[\w-]*$/', 'max:191', 'unique:users','unique:bussinses'],
+            'username' =>['min:4','regex:/^[a-z\d_.]{2,20}$/i','required','string', 'max:191', 'unique:users','unique:bussinses'],
             'phone' => ['string','min:9', 'max:14', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
             'password' => 'required',
