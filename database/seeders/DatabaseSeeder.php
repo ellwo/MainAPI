@@ -25,17 +25,17 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        \App\Models\Country::factory(1)->create();
-        \App\Models\City::factory(5)->create();
-       \App\Models\User::factory(30)->create();
+    //     \App\Models\Country::factory(1)->create();
+    //     \App\Models\City::factory(5)->create();
+    //    \App\Models\User::factory(30)->create();
 
 
-       \App\Models\Department::factory(20)->create();
-        \App\Models\Part::factory(120)->create();
-        \App\Models\Bussinse::factory(30)->create();
-        \App\Models\Product::factory(50)->create();
-        \App\Models\Service::factory(50)->create();
-         \App\Models\Part::factory(80)->create();
+    //    \App\Models\Department::factory(20)->create();
+    //     \App\Models\Part::factory(15)->create();
+    //     \App\Models\Bussinse::factory(30)->create();
+    //     \App\Models\Product::factory(50)->create();
+    //     \App\Models\Service::factory(50)->create();
+    //      \App\Models\Part::factory(80)->create();
 
         $bussinses=Bussinse::all();
 
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
             foreach($bussnise->products as $pro){
 
                 $pro->parts()->attach($bussnise->parts()->inRandomOrder()->take(rand(1,3))->pluck('id'));
-                $pro->cities()->attach($bussnise->cities()->inRandomOrder()->take(rand(1,3))->pluck('id'));
+               // $pro->cities()->attach($bussnise->cities()->inRandomOrder()->take(rand(1,3))->pluck('id'));
 
             }
 
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             foreach($bussnise->services as $pro){
 
                 $pro->parts()->attach($bussnise->parts()->inRandomOrder()->take(rand(1,3))->pluck('id'));
-                $pro->cities()->attach($bussnise->cities()->inRandomOrder()->take(rand(1,3))->pluck('id'));
+              //  $pro->cities()->attach($bussnise->cities()->inRandomOrder()->take(rand(1,3))->pluck('id'));
             }
 
            $bussnise->followers(User::class)->attach(User::where("id","!=",$bussnise->user_id)->inRandomOrder()->take(rand(1,8))->pluck("id"));

@@ -46,6 +46,12 @@ class ChatController extends Controller
 
 
 
+
+
+
+
+
+        
         return view("chat.chat",["id"=>$chattings,"type"=>$type,"chat_room_id"=>$chat_room_id]);
 
 

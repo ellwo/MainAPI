@@ -115,11 +115,11 @@ class ServiceController extends Controller
 
         $realted_products=[];
 
-       $owner3= $service->owner->services()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $owner3= $service->owner->services()->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
        if($service->department!=null)
-       $dept_3=$service->department->services()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $dept_3=$service->department->services()->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
        else
-       $dept_3=Service::withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $dept_3=Service::withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
 
 
        foreach($owner3 as $p){

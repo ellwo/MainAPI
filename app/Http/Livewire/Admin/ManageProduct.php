@@ -39,7 +39,20 @@ class ManageProduct extends Component
     {
 
 
+
+        // $pros=Product::whereHas('department',function($q){
+        //     $q->where("id","=",5);
+        // })->where("name","like","%p%")->Orwhere("id","=",$this->search)->orderByRelation('ratings:value', 'desc', 'avg')->paginate(5);
+
+
+
+
+
+
+
         $user=User::whereHas('products')->get();
+
+
         $bussinses_ids=Bussinse::whereHas('products')->whereHas("department",function($query){
         $query->where('type',"=",1);
     })->get();
@@ -48,12 +61,12 @@ class ManageProduct extends Component
 
 
     if($this->type=="all")
-    $products=Product::where('name','LIKE','%'.$this->search.'%')->Orwhere('id','=',$this->search)->orderBy('created_at','desc')->paginate(5);
+    $products=Product::where('name','LIKE','%'.$this->search.'%')->orderBy('created_at','desc')->paginate(5);
 
     else if($this->type=='withusername'){
         $products=Product::whereHas('owner',function($query){
             $query->where('username','=',$this->username);
-        })->where('name','LIKE','%'.$this->search.'%')->Orwhere('id','=',$this->search)->orderBy('created_at','desc')->paginate(5);
+        })->where('name','LIKE','%'.$this->search.'%')->orderBy('created_at','desc')->paginate(5);
     }
 
         return view('livewire.admin.manage-product',['products'=>$products,'bussinses'=>$bussinses_ids,'users'=>$user])->layout('components.dashborade.index');

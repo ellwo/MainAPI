@@ -47,12 +47,12 @@ class ManageService extends Component
 
 
     if($this->type=="all")
-    $products=Service::where('name','LIKE','%'.$this->search.'%')->Orwhere('id','=',$this->search)->orderBy('created_at','desc')->paginate(5);
+    $products=Service::where('name','LIKE','%'.$this->search.'%')->orderBy('created_at','desc')->paginate(5);
 
     else if($this->type=='withusername'){
         $products=Service::whereHas('owner',function($query){
             $query->where('username','=',$this->username);
-        })->where('name','LIKE','%'.$this->search.'%')->Orwhere('id','=',$this->search)->orderBy('created_at','desc')->paginate(5);
+        })->where('name','LIKE','%'.$this->search.'%')->orderBy('created_at','desc')->paginate(5);
     }
 
         return view('livewire.admin.manage-service',['products'=>$products,'bussinses'=>$bussinses_ids,'users'=>$user])->layout('components.dashborade.index');

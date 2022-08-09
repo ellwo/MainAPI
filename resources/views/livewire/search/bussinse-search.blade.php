@@ -230,12 +230,6 @@
 
 
                                         </div>
-
-
-
-
-
-
                                         @auth
 
                                         @if ($buss->user->id ==auth()->user()->id)

@@ -111,11 +111,11 @@ class ProductController extends Controller
 
         $realted_products=[];
 
-       $owner3= $product->owner->products()->withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $owner3= $product->owner->products()->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
        if($product->department!=null)
-       $dept_3=$product->department->products()->withAvg('ratings:value')->withCount('ratings')->whereNotIn('id',$owner3->pluck('id')->toArray())->orderByRelation('ratings:value', 'desc', 'avg')->take(5)->get();
+       $dept_3=$product->department->products()->withCount('ratings')->whereNotIn('id',$owner3->pluck('id')->toArray())->orderByRelation('ratings:value', 'desc', 'avg')->take(5)->get();
        else
-       $dept_3=Product::withAvg('ratings:value')->withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
+       $dept_3=Product::withCount('ratings')->orderByRelation('ratings:value', 'desc', 'avg')->take(3)->get();
 
 
        foreach($owner3 as $p){
@@ -157,7 +157,6 @@ class ProductController extends Controller
         return $data=[
             'status'=>true,
             'last_rate'=>$rate
-
         ];
 
         # code...

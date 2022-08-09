@@ -19,6 +19,8 @@ class Product extends Model
         ,\Znck\Eloquent\Traits\BelongsToThrough,
         Rateable,
         Likeable,
+
+
         LaravelSubQueryTrait;
 
     protected $fillable=[
@@ -69,7 +71,9 @@ class Product extends Model
 
         $d=new Carbon($value,"Asia/Aden");
 
+        
         $days=now()->diffInDays($d);
+
 
         $day=$d->format('Y-M-d');
 
@@ -159,35 +163,43 @@ class Product extends Model
         # code...
     }
 
+
+
+
+
+
     public function vzt()
     {
         return visits($this);
     }
+
+
+
     public function vzt_count(){
         $this->vzt()->increment();
         return $this->vzt()->count();
     }
 
 
-    public function colorsasJson(){
+    // public function colorsasJson(){
 
 
 
-        return json_encode($this->colors);
+    //     return json_encode($this->colors);
 
-        $data=[];
+    //     $data=[];
 
-        foreach ($this->colors as $k=>$v){
+    //     foreach ($this->colors as $k=>$v){
 
-            $data[]=[
-                "__typename"=>"JsonType",
-                "k"=>$k,
-                "v"=>$v
-            ];
-        }
-       // $dta["data"]=$data;
-        return $data;
-    }
+    //         $data[]=[
+    //             "__typename"=>"JsonType",
+    //             "k"=>$k,
+    //             "v"=>$v
+    //         ];
+    //     }
+    //    // $dta["data"]=$data;
+    //     return $data;
+    // }
 
     public function owner()
     {
@@ -195,45 +207,46 @@ class Product extends Model
         return $this->morphTo();
         # code...
     }
-    public function notes(){
-
-        return json_encode($this->note);
-        $data=[];
-
-        foreach ($this->note as $k=>$v){
-
-            $data[]=[
-                "__typename"=>"JsonType",
-                "k"=>$k,
-                "v"=>$v
-            ];
-        }
-        // $dta["data"]=$data;
-        return $data;
-
-    }
-
-    public function country()
-    {
 
 
 
-        return $this->belongsToThrough(Country::class,[Bussinse::class]);
-        # code...
-    }
-    public function cities()
-    {
-        return $this->belongsToMany(City::class);
-    }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function bussinse() :BelongsTo
-    {
-        return $this->belongsTo(Bussinse::class);
-    }
+
+
+
+
+
+    // public function notes(){
+
+    //     return json_encode($this->note);
+    //     $data=[];
+
+    //     foreach ($this->note as $k=>$v){
+
+    //         $data[]=[
+    //             "__typename"=>"JsonType",
+    //             "k"=>$k,
+    //             "v"=>$v
+    //         ];
+    //     }
+    //     // $dta["data"]=$data;
+    //     return $data;
+
+    // }
+
+    // public function country()
+    // {
+
+
+
+    //     return $this->belongsToThrough(Country::class,[Bussinse::class]);
+    //     # code...
+    // }
+    // public function cities()
+    // {
+    //     return $this->belongsToMany(City::class);
+    // }
+
 
 
     public function parts()

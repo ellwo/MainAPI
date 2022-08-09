@@ -44,7 +44,7 @@ class SearchController extends Controller
 
 
        $products=Product::with('parts','department','owner')
-       ->withAvg('ratings:value')
+      
        ->withCount('ratings')
        ->where(function($query)use($search){
                $query->where('name','LIKE','%'.$search.'%')
@@ -60,7 +60,7 @@ class SearchController extends Controller
 
 
        $service=Service::with('parts','department','owner')
-       ->withAvg('ratings:value')
+      
        ->withCount('ratings')
        ->where(function($query)use($search){
                $query->where('name','LIKE','%'.$search.'%')
