@@ -83,7 +83,7 @@ class ChatRoom extends Model
 
 
     public function unreaded_messages($chattings_id){
-        return $this->hasMany(Message::class)->where("is_readed","=","0")->where("sender","!=",$chattings_id)->orderBy("id","desc");
+        return $this->hasMany(Message::class)->where("is_readed","=",false)->where("sender","!=",$chattings_id)->orderBy("id","desc");
     }
 
 
@@ -119,7 +119,7 @@ class ChatRoom extends Model
             else
             return [
                 'name'=>"مستخدم اي زوم",
-                'avatar'=>"127.0.0.1:8888/build/images/logoezoom.png",
+                'avatar'=>env('APP_URL')."/davatar.png",
                 'username'=>"null",
                 'id'=>-4
             ];
@@ -146,7 +146,7 @@ class ChatRoom extends Model
             else
             return [
                 'name'=>"مستخدم اي زوم",
-                'avatar'=>"127.0.0.1:8888/build/images/logoezoom.png",
+                'avatar'=>env('APP_URL')."/davatar.png",
                 'username'=>"null",
                 'id'=>-4
             ];

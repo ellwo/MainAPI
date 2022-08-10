@@ -1,11 +1,11 @@
 <nav aria-label="secondary" x-data="{ open: false }"
-    class="sticky top-0 z-20 flex items-center justify-between px-4 py-4 transition-transform duration-500 bg-white sm:px-6 dark:bg-darker"
+    class="sticky top-0 z-20 items-center justify-between px-4 py-4 transition-transform duration-500 bg-white sm:flex sm:px-6 dark:bg-darker"
     :class="{
         '-translate-y-full': scrollingDown,
         'translate-y-0': scrollingUp,
     }">
 
-<div class="z-50 hidden max-w-4xl text-center sm:grid sm:grid-cols-3 gap-4 item-start">
+<div class="z-50 hidden max-w-4xl gap-4 text-center sm:grid sm:grid-cols-3 item-start">
 
     <a href="{{ route('home') }}" class="flex flex-col my-auto space-x-4">
     <x-application-logo aria-hidden="true" class="w-20 h-20" />
@@ -18,7 +18,7 @@
 </div>
 
 
-<div class=" max-w-4xl mx-auto justify-between border-2 rounded-md border-light sm:flex item-start">
+<div class="flex justify-between max-w-4xl mx-auto border-2 rounded-md border-light sm:flex item-start">
 
     <div x-data="{ dropdownOpen: false }" class="relative">
 
@@ -30,7 +30,7 @@
             <x-slot name="icon">
                 <x-heroicon-o-search class="w-6 h-6"/>
             </x-slot>
-            <x-input  withicon name="search" type="text" @click=" dropdownOpen=true" class="border rounded-md border-darker" placeholder="ابحث" dir="auto"/>
+            <x-input aria-autocomplete="false" withicon name="search" type="text" @click=" dropdownOpen=true" class="border rounded-md border-darker" placeholder="ابحث" dir="auto"/>
         </x-input-with-icon-wrapper>
 
         <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"></div>
@@ -46,7 +46,6 @@
 
 
 
-</div>
     <div class="flex items-center gap-3">
 
         <x-button type="button" class="md:hidden" iconOnly variant="secondary" srText="Toggle dark mode"
@@ -55,6 +54,7 @@
             <x-heroicon-o-sun x-show="isDark" aria-hidden="true" class="w-6 h-6" />
         </x-button>
     </div>
+</div>
 
     <div class="flex items-center gap-3">
         <x-button type="button" class="hidden md:inline-flex" iconOnly variant="secondary" srText="Toggle dark mode"
@@ -135,7 +135,7 @@
 
 
                    @else
-                   <x-bi-person class="h-6 w-6"/>
+                   <x-bi-person class="w-6 h-6"/>
 
                         @endauth
                     <div class="ml-1">

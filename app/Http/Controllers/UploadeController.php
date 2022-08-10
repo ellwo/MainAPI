@@ -31,18 +31,25 @@ class UploadeController extends Controller
 
             $file=base64_decode($img);
 
-            $foldername='avatars';
+            $foldername='images';
             $foldernamegoogle='1BOTbU_WNmknImrYWYPP8evls1Dp40hud/';//'538578267';
             $path=$foldername.'/'.$name;
             $pathtogoogel=$foldernamegoogle.$name;
 
 //            return 'no data';
 
+file_put_contents(public_path().'/'.$path,base64_decode($img));
+
             try{
-                $pathh= Storage::disk('public')->put($path,base64_decode($img));
 
 
-                $urllll =Storage::disk('public')->url($path);
+
+
+                // $pathh= Storage::disk('public')->put($path,base64_decode($img));
+                $urllll=config('app.url').'/'.$path;
+
+
+                // $urllll =Storage::disk('public')->url($path);
 
 
                // $urllll='storage/'.$pathtogoogel;

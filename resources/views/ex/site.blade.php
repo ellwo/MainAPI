@@ -16,8 +16,11 @@
             display: none;
         }
     </style>
-    <title>Prestashop_Savemart</title>
-    <meta name="description" content="المتجر مدعوم من طرف بريستاشوب">
+        <link rel="icon" href="{{asset('log.svg')}}">
+
+
+        <title>{{ config('app.name') }}</title>
+        <meta name="description" content="المتجر مدعوم من طرف بريستاشوب">
     <meta name="keywords" content="">
 
 
@@ -89,7 +92,7 @@
 
 
 
-<div class="sticky top-0 z-50 bg-white text-white transition-transform duration-500 bg-black sm:hidden sm:mb-0"
+<div class="sticky top-0 z-50 text-white transition-transform duration-500 bg-black bg-white sm:hidden sm:mb-0"
 :class="{
     '-translate-y-full': scrollingDown,
     'translate-y-0 ': scrollingUp,

@@ -112,7 +112,7 @@ class ChatController extends Controller
             $chatroom=ChatRoom::find($request["chat_room_id"]);
 
             if($chatroom!=null){
-            DB::statement("update messages set is_readed=1 where chat_room_id=".$request["chat_room_id"]."  and sender!=".$request["chattings_id"]);
+            DB::statement("update messages set is_readed=true where chat_room_id=".$request["chat_room_id"]."  and sender!=".$request["chattings_id"]);
 
             if(isset($request["page"])){
             $_GET["page"]=$request["page"];

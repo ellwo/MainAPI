@@ -25413,7 +25413,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   components: {
-    'chat-profile-vue': _ChatProfile_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    "chat-profile-vue": _ChatProfile_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
     console.log("be for Route Update");
@@ -25443,11 +25443,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var prePage = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(1);
     var chatroomid_ref = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(props.chat_room_id);
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_4__.reactive)({
-      'content': '',
-      'chat_room_id': chatroomid_ref.value,
-      'sender': props.chattings,
-      'type_message': 'text',
-      'is_readed': 0
+      content: "",
+      chat_room_id: chatroomid_ref.value,
+      sender: props.chattings,
+      type_message: "text",
+      is_readed: 0
     });
     console.log("her is Set Up " + props.chat_room_id);
     console.log("chattings " + props.chattings);
@@ -25465,8 +25465,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log("userid " + props.userid);
     });
     var data = {
-      "chat_room_id": props.chat_room_id,
-      'chattings_id': props.chattings
+      chat_room_id: props.chat_room_id,
+      chattings_id: props.chattings
     };
 
     var blockV = /*#__PURE__*/function () {
@@ -25477,8 +25477,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 blockdata = {
-                  "chat_room_id": props.chat_room_id,
-                  "me": props.chattings
+                  chat_room_id: props.chat_room_id,
+                  me: props.chattings
                 };
                 louding.value = true;
                 _context.next = 4;
@@ -25509,9 +25509,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 blockdata = {
-                  "chat_room_id": props.chat_room_id,
-                  "me": props.chattings,
-                  "type": "unblock"
+                  chat_room_id: props.chat_room_id,
+                  me: props.chattings,
+                  type: "unblock"
                 };
                 louding.value = true;
                 _context2.next = 4;
@@ -25544,9 +25544,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 prePage.value += 1;
                 louding.value = true;
                 data2 = {
-                  "chat_room_id": chatroomid_ref.value,
-                  "chattings_id": props.chattings,
-                  "page": prePage.value
+                  chat_room_id: chatroomid_ref.value,
+                  chattings_id: props.chattings,
+                  page: prePage.value
                 };
                 _context3.next = 5;
                 return getChatroom(data2);
@@ -25560,13 +25560,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(m);
                   if (ke == m) for (mas in messages2.messages[m]) {
                     chtroom.value[ke].unshift({
-                      "id": messages2.messages[m][mas].id,
-                      "content": messages2.messages[m][mas].content,
-                      "sender": messages2.messages[m][mas].sender,
-                      "chat_room_id": messages2.messages[m][mas].chat_room_id,
-                      "is_readed": messages2.messages[m][mas].is_readed,
-                      "type_message": messages2.messages[m][mas].type_message,
-                      "created_at": messages2.messages[m][mas].created_at
+                      id: messages2.messages[m][mas].id,
+                      content: messages2.messages[m][mas].content,
+                      sender: messages2.messages[m][mas].sender,
+                      chat_room_id: messages2.messages[m][mas].chat_room_id,
+                      is_readed: messages2.messages[m][mas].is_readed,
+                      type_message: messages2.messages[m][mas].type_message,
+                      created_at: messages2.messages[m][mas].created_at
                     });
                     console.log();
                   } else {
@@ -25601,8 +25601,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 data2 = {
-                  "chat_room_id": id,
-                  'chattings_id': props.chattings
+                  chat_room_id: id,
+                  chattings_id: props.chattings
                 };
                 louding.value = true;
                 _context4.next = 4;
@@ -25642,22 +25642,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formatAMPM = function _formatAMPM(date) {
                   var hours = date.getHours();
                   var minutes = date.getMinutes();
-                  var ampm = hours >= 12 ? 'PM' : 'AM';
+                  var ampm = hours >= 12 ? "PM" : "AM";
                   hours = hours % 12;
                   hours = hours ? hours : 12; // the hour '0' should be '12'
 
-                  minutes = minutes < 10 ? '0' + minutes : minutes;
-                  var strTime = hours + ':' + minutes + ' ' + ampm;
+                  minutes = minutes < 10 ? "0" + minutes : minutes;
+                  var strTime = hours + ":" + minutes + " " + ampm;
                   return strTime;
                 };
 
                 console.log(chatroomid_ref.value);
                 formdata = (0,vue__WEBPACK_IMPORTED_MODULE_4__.reactive)({
-                  "chat_room_id": chatroomid_ref.value,
-                  "sender": props.chattings,
-                  "content": form.content,
-                  "type_message": "text",
-                  "is_readed": 0
+                  chat_room_id: chatroomid_ref.value,
+                  sender: props.chattings,
+                  content: form.content,
+                  type_message: "text",
+                  is_readed: 0
                 });
                 sendMessage(_objectSpread({}, formdata));
 
@@ -25680,19 +25680,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log("last index " + lastindex);
                 d = new Date();
                 chtroom.value[lastindex].push({
-                  "content": form.content,
-                  "sender": form.sender,
-                  "type_message": form.type_message,
-                  "chat_room_id": form.chat_room_id,
-                  "is_readed": form.is_readed,
-                  'created_at': formatAMPM(d)
+                  content: form.content,
+                  sender: form.sender,
+                  type_message: form.type_message,
+                  chat_room_id: form.chat_room_id,
+                  is_readed: form.is_readed,
+                  created_at: formatAMPM(d)
                 });
                 element = document.getElementById("lastone");
                 element.lastElementChild.scrollIntoView({
-                  behavior: 'smooth'
+                  behavior: "smooth"
                 });
                 console.log(formdata);
-                form.content = '';
+                form.content = "";
 
               case 14:
               case "end":
@@ -25714,7 +25714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(isitBlocked.value);
         chtroom.value = messages.value;
         var element = document.getElementById("messages_view");
-        element.addEventListener('ps-scroll-Top', function (e) {
+        element.addEventListener("ps-scroll-Top", function (e) {
           console.log("scroller top");
           console.log(e);
         });
@@ -25757,10 +25757,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     //window.rea
-    document.addEventListener('load', function () {
-      console.log('ended');
+    document.addEventListener("load", function () {
+      console.log("ended");
       var element = document.getElementById("messages_view");
-      element.addEventListener('ps-scroll-Top', function (e) {
+      element.addEventListener("ps-scroll-Top", function (e) {
         console.log("scroller top");
         console.log(e);
       });
@@ -25989,7 +25989,7 @@ var _hoisted_7 = {
 var _hoisted_8 = ["srText"];
 var _hoisted_9 = {
   key: 0,
-  "class": "h-8 w-8",
+  "class": "w-8 h-8",
   viewBox: "0 0 24 24",
   stroke: "currentColor",
   fill: "none",
@@ -26008,7 +26008,7 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_11 = [_hoisted_10];
 var _hoisted_12 = {
   key: 1,
-  "class": "h-8 w-8",
+  "class": "w-8 h-8",
   viewBox: "0 0 24 24",
   stroke: "currentColor",
   fill: "none",
@@ -26038,7 +26038,7 @@ var _hoisted_18 = {
 };
 
 var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "absolute dark:text-primary right-0 top-0",
+  "class": "absolute top-0 right-0 dark:text-primary",
   "x-on:click": "dropdownOpen = !dropdownOpen"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "dark:text-white"
@@ -26067,13 +26067,13 @@ var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_21 = {
   "x-show": "dropdownOpen",
-  "class": "absolute top-10 right-0 z-50 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl"
+  "class": "absolute right-0 z-50 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl top-10"
 };
 
 var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "block w-full px-4 py-2 text-sm border-b text-danger-darker hover:bg-gray-200"
-}, "حظر ", -1
+}, " حظر ", -1
 /* HOISTED */
 );
 
@@ -26082,7 +26082,7 @@ var _hoisted_23 = [_hoisted_22];
 var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "block w-full px-4 py-2 text-sm border-b text-danger-darker hover:bg-gray-200"
-}, "الغاء الحظر", -1
+}, " الغاء الحظر ", -1
 /* HOISTED */
 );
 
@@ -26279,7 +26279,7 @@ var _hoisted_64 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_65 = {
   key: 1,
-  "class": "inline-block p-2 px-6 text-white dark:text-gray-200 dark:bg-primary-darker bg-info rounded-full"
+  "class": "inline-block p-2 px-6 text-white rounded-full dark:text-gray-200 dark:bg-primary-darker bg-info"
 };
 var _hoisted_66 = {
   "class": "pl-4"
@@ -26510,7 +26510,7 @@ var _hoisted_121 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElemen
 
 var _hoisted_122 = {
   key: 2,
-  "class": "inline-block p-2 px-6 text-white dark:text-gray-200 dark:bg-m_primary-darker bg-blue-600 rounded-full"
+  "class": "inline-block p-2 px-6 text-white bg-blue-600 rounded-full dark:text-gray-200 dark:bg-m_primary-darker"
 };
 var _hoisted_123 = {
   "class": "pr-4"
@@ -26632,13 +26632,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.sidebarState.handleHover(false);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "text-darker border rounded",
+    "class": "border rounded text-darker",
     type: "button",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return _ctx.sidebarState.isOpen = !_ctx.sidebarState.isOpen;
     }),
     srText: _ctx.sidebarState.isOpen ? 'Close sidebar' : 'Open sidebar'
-  }, " open chat", 8
+  }, " open chat ", 8
   /* PROPS */
   , _hoisted_3)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "x-data": "perfectScroll",
@@ -26662,11 +26662,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), _ctx.chatroomid_ref != 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["", [' ', {
-      'lg:w-3/5': _ctx.sidebarState.isOpen,
-      'lg:w-4/5': !_ctx.sidebarState.isOpen
+      'lg:w-3/5 w-full': _ctx.sidebarState.isOpen,
+      'lg:w-4/5 w-full': !_ctx.sidebarState.isOpen
     }]])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  here is the chatrooms"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "text-darker dark:bg-dark dark:text-primary border rounded",
+    "class": "border rounded text-darker dark:bg-dark dark:text-primary",
     type: "button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return _ctx.sidebarState.isOpen = !_ctx.sidebarState.isOpen;
@@ -26710,7 +26710,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.loadmore && _ctx.loadmore.apply(_ctx, arguments);
     }),
     "class": "mx-auto text-center"
-  }, "المزيد ", 512
+  }, " المزيد ", 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, !_ctx.louding]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, _hoisted_32, 512
   /* NEED_PATCH */

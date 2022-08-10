@@ -5,8 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>K-WD Dashboard</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name') }}</title>
+ <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="icon" href="{{asset('log.svg')}}">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap"
         rel="stylesheet" />
@@ -58,7 +61,7 @@
 
 <div class="hidden">
     <div id="loadicon">
-    <svg class="h-16 w-16 mx-auto"  viewBox="0 0 860.1 876.5">
+    <svg class="w-16 h-16 mx-auto"  viewBox="0 0 860.1 876.5">
 
           <path
             class="animate-spin from-blue-900"
@@ -181,8 +184,7 @@
         <!-- Panel content -->
         <div class="flex flex-col h-screen">
             <!-- Panel header -->
-            <div
-                class="flex flex-col items-center justify-center flex-shrink-0 px-4 py-8 space-y-4 border-b dark:border-primary-dark">
+            <div class="flex flex-col items-center justify-center flex-shrink-0 px-4 py-8 space-y-4 border-b dark:border-primary-dark">
                 <span aria-hidden="true" class="text-gray-500 dark:text-primary">
                     <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -361,37 +363,6 @@
                             </div>
                         </div>
                     </a>
-                    <template x-for="i in 20" x-key="i">
-                        <a href="#" class="block">
-                            <div class="flex px-4 space-x-4">
-                                <div class="relative flex-shrink-0">
-                                    <span
-                                        class="inline-block p-2 overflow-visible rounded-full bg-primary-50 text-primary-light dark:bg-primary-darker">
-                                        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                        </svg>
-                                    </span>
-                                    <div
-                                        class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
-                                    </div>
-                                </div>
-                                <div class="flex-1 overflow-hidden">
-                                    <h5 class="text-sm font-semibold text-gray-600 dark:text-light">
-                                        New project "KWD Dashboard" created
-                                    </h5>
-                                    <p
-                                        class="text-sm font-normal text-gray-400 truncate dark:text-primary-lighter">
-                                        Looks like there might be a new theme soon
-                                    </p>
-                                    <span class="text-sm font-normal text-gray-400 dark:text-primary-light"> 9h
-                                        ago </span>
-                                </div>
-                            </div>
-                        </a>
-                    </template>
                 </div>
 
                 <!-- User tab -->
@@ -401,7 +372,7 @@
                             <div class="relative flex-shrink-0">
                                 <span class="relative z-10 inline-block overflow-visible rounded-ful">
                                     <img class="object-cover rounded-full w-9 h-9"
-                                        src="build/images/avatar.jpg" alt="Ahmed kamel" />
+                                        src="{{ asset('davatar.png') }}" alt="Ahmed kamel" />
                                 </span>
                                 <div
                                     class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
@@ -424,7 +395,7 @@
                             <div class="relative flex-shrink-0">
                                 <span class="relative z-10 inline-block overflow-visible rounded-ful">
                                     <img class="object-cover rounded-full w-9 h-9"
-                                        src="build/images/avatar-1.jpg" alt="Ahmed kamel" />
+                                        src="{{ asset('davatar.png') }}" alt="Ahmed kamel" />
                                 </span>
                                 <div
                                     class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
@@ -441,54 +412,6 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="block">
-                        <div class="flex px-4 space-x-4">
-                            <div class="relative flex-shrink-0">
-                                <span class="relative z-10 inline-block overflow-visible rounded-ful">
-                                    <img class="object-cover rounded-full w-9 h-9"
-                                        src="build/images/avatar.jpg" alt="Ahmed kamel" />
-                                </span>
-                                <div
-                                    class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
-                                </div>
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <h5 class="text-sm font-semibold text-gray-600 dark:text-light">Ahmed Kamel
-                                </h5>
-                                <p
-                                    class="text-sm font-normal text-gray-400 truncate dark:text-primary-lighter">
-                                    Release new version "K-WD Dashboard"
-                                </p>
-                                <span class="text-sm font-normal text-gray-400 dark:text-primary-light"> 20d
-                                    ago </span>
-                            </div>
-                        </div>
-                    </a>
-                    <template x-for="i in 10" x-key="i">
-                        <a href="#" class="block">
-                            <div class="flex px-4 space-x-4">
-                                <div class="relative flex-shrink-0">
-                                    <span class="relative z-10 inline-block overflow-visible rounded-ful">
-                                        <img class="object-cover rounded-full w-9 h-9"
-                                            src="build/images/avatar.jpg" alt="Ahmed kamel" />
-                                    </span>
-                                    <div
-                                        class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
-                                    </div>
-                                </div>
-                                <div class="flex-1 overflow-hidden">
-                                    <h5 class="text-sm font-semibold text-gray-600 dark:text-light">Ahmed Kamel
-                                    </h5>
-                                    <p
-                                        class="text-sm font-normal text-gray-400 truncate dark:text-primary-lighter">
-                                        Release new version "K-WD Dashboard"
-                                    </p>
-                                    <span class="text-sm font-normal text-gray-400 dark:text-primary-light">
-                                        20d ago </span>
-                                </div>
-                            </div>
-                        </a>
-                    </template>
                 </div>
             </div>
         </div>
