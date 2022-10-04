@@ -32,11 +32,11 @@
           transition-duration: 150ms;
         "
         :class="[
-          'lg:absolute fixed inset-y-0 sm:inset-x-20 lg:inset-0  lg:top-0 top-28 right-0 left-0 w-full z-20 py-4 flex flex-col space-y-6 bg-white shadow-lg dark:bg-darker',
+          'lg:absolute fixed inset-y-0 sm:inset-x-20 lg:inset-0  lg:top-0 top-10 right-0 left-0 w-full z-20 py-4 flex flex-col space-y-6 bg-white shadow-lg dark:bg-darker',
           {
-            'translate-x-0 w-64 lg:w-full':
+            'translate-x-0 w-full lg:w-full':
               sidebarState.isOpen || sidebarState.isHovered,
-            '-translate-x-full w-64 lg:w-full':
+            '-translate-x-full w-full lg:w-full':
               !sidebarState.isOpen && !sidebarState.isHovered,
           },
         ]"
@@ -59,14 +59,143 @@
           class="relative h-full overflow-y-scroll"
           @mousemove="update"
         >
-          <chat-profile-vue
+          <!-- <chat-profile-vue
             :type="type"
             :chattings="chattings"
             :userid="chattings"
             :chat_room_id="chat_room_id"
-          />
+          /> -->
+
+
+
+
+ <div class="px-1 mt-1 ">
+        <!--  here is the chat rooms list items -->
+
+
+
+        <template v-for="item in chats" :key="item.id">
+
+
+
+
+<a  v-on:click="getChatroomByid(item.id); sidebarState.isOpen=false">
+<div class="flex p-2 m-2 transition-transform duration-300 transform bg-white rounded shadow-md cursor-pointer dark:bg-primary-dark dark:text-light entry hover:scale-105">
+    <div class="flex-2">
+        <div class="relative w-12 h-12">
+            <img class="w-12 h-12 mx-auto rounded-full bg-primary" :src="item.chatable.avatar" alt="U" />
+            <template v-if="chat_room_id==item.id">
+           <span class="absolute bottom-0 right-0 w-4 h-4 border-2 border-white rounded-full bg-dark"></span>
+
+            </template>
+            <span class="absolute bottom-0 right-0 w-4 h-4 bg-gray-400 border-2 border-white rounded-full"></span>
+        </div>
+    </div>
+    <div class="flex-1 px-2">
+        <div class="w-32 truncate"><span class="text-gray-800 dark:text-light">{{item.chatable.name}}</span></div>
+        <div class="w-32 truncate">
+
+            <template v-if="item.lasttmessage!=null&&item.lasttmessage.type_message=='text'">
+            <small class="text-gray-600 dark:text-gray-400">
+
+            {{item.lasttmessage!=null?item.lasttmessage.content:''}}  </small>
+            </template>
+            <template v-if="item.lasttmessage!=null&&item.lasttmessage.type_message=='order'">
+            <small class="text-gray-600 dark:text-gray-400">
+                طلب جديد {{ item.lasttmessage.content.order.id}}
+                </small>
+            </template>
+
+
+            </div>
+    </div>
+    <div class="text-right flex-2">
+        <div><small class="text-gray-500"></small></div>
+        <div>
+            <template v-if="item.unread_messages_count!=0">
+            <small class="inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full">
+                {{item.unread_messages_count}}
+                </small>
+                </template>
+
+
+            <!-- @if($unreadedcount !=0)
+
+            <small class="inline-block w-6 h-6 text-xs leading-6 text-center text-white bg-red-500 rounded-full">
+                {{$unreadedcount}}
+            </small>
+            @endif -->
+        </div>
+    </div>
+</div>
+
+</a>
+
+
+</template>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
       </aside>
+    </div>
+
+    <div v-if="chatroomid_ref=='all'">
+    <button
+                class="border rounded text-darker dark:bg-dark dark:text-primary"
+                type="button"
+                @click="sidebarState.isOpen = !sidebarState.isOpen"
+                :srText="sidebarState.isOpen ? 'Close sidebar' : 'Open sidebar'"
+              >
+                <svg
+                  v-if="!sidebarState.isOpen"
+                  class="w-8 h-8"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 6H20M12 12H20M4 18H20M4 6L8 9L4 12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <svg
+                  v-if="sidebarState.isOpen"
+                  class="w-8 h-8"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 6H20M12 12H20M4 18H20M8 6L4 9L8 12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
     </div>
 
     <div
@@ -83,7 +212,7 @@
     >
       <!--  here is the chatrooms-->
       <div class="h-full">
-        <div class="border rounded-xl">
+        <div style="height: 30%;" class="border rounded-xl">
           <div class="flex justify-between space-y-2">
             <div class="relative m-2">
               <button
@@ -212,7 +341,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col h-3/5 sm:p-1 messages">
+        <div style="height: 60%;" class="flex flex-col sm:p-1 messages">
           <!-- here date by date group by--->
 
           <div
@@ -563,7 +692,7 @@
           v-if="
             isitBlocked == false && isitBlocking == false && louding == false
           "
-          class="text-xs h-1/4 sm:text-sm"
+          style="height: 10%;" class="text-xs sm:text-sm"
           @submit.prevent="sendMessageForm"
           dir="rtl"
         >
@@ -714,6 +843,8 @@ export default defineComponent({
     console.log("chat room from befroe");
     console.log(this.chatroom);
 
+   // this.chatroomid_ref.value=to.params.chat_room_id;
+
     this.getChatroomByid(to.params.chat_room_id);
 
     next();
@@ -730,12 +861,15 @@ export default defineComponent({
       chatable,
       errors,
       sendMessage,
+      getChatrooms,
+      chatrooms
     } = useCompanies();
     //         var chats=ref([])
     let openchatrooms = ref(false);
     let chtroom = ref([]);
     let louding = ref(true);
     let prePage = ref(1);
+    let chats=ref([])
     let chatroomid_ref = ref(props.chat_room_id);
     const form = reactive({
       content: "",
@@ -927,8 +1061,31 @@ export default defineComponent({
       form.content = "";
     };
 
+      const dataforchatRooms={
+            "type":props.type,
+            "chatting_id":props.chattings
+        };
     onMounted(() => {
-      console.log("id from mount" + props.chat_room_id);
+
+        if(props.chat_room_id=='all'){
+            sidebarState.isOpen=true;
+                  console.log("id from mount" + props.chat_room_id);
+
+        }
+
+
+        getChatrooms(dataforchatRooms).then(()=>{
+        chats.value=chatrooms.value
+
+            })
+
+
+
+
+
+
+
+
 
       if (props.chat_room_id != "all")
         getChatroom(data).then(() => {
@@ -979,6 +1136,9 @@ export default defineComponent({
       loadmore,
       messages,
       sidebarState,
+      chatrooms,
+      getChatrooms,
+      chats
     };
   },
   created() {

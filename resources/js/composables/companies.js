@@ -152,7 +152,7 @@ export const sidebarState = reactive({
     },
     handleWindowResize() {
         if (window.innerWidth <= 1024) {
-            sidebarState.isOpen = false
+            sidebarState.isOpen = true
         } else {
             sidebarState.isOpen = true
         }

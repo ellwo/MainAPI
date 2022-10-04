@@ -12,7 +12,7 @@
 
 
 <router-link :to="{name:'inbox.showchatroom',
-params:{chat_room_id:item.id ,type:type,chattings:chattings} }">
+params:{type:type,chattings:chattings,chat_room_id:item.id } }">
 <div class="flex p-2 m-2 transition-transform duration-300 transform bg-white rounded shadow-md cursor-pointer dark:bg-primary-dark dark:text-light entry hover:scale-105">
     <div class="flex-2">
         <div class="relative w-12 h-12">
