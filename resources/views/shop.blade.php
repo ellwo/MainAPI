@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-shop-layout>
 
 
 <div class="text-centrer">
@@ -9,4 +9,4 @@
 
 
 
-</x-guest-layout>
+</x-shop-layout>
