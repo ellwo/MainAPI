@@ -186,4 +186,16 @@ class Service extends Model
     }
 
 
+    public static function boot() {
+        parent::boot();
+
+        Service::deleting(function($service) { // before delete() method call this
+
+            $service->orders->delete();
+            $service->ratings->delete();
+            $service->parts()->detach();
+        });
+    }
+
+
 }

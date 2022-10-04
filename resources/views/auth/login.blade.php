@@ -120,6 +120,7 @@
                 <span class="text-danger text-xs ">{{$message}}</span>
                 @enderror
             </div>
+
             <div class="space-y-2" x-data='{isshow:false}' >
                 <x-label for="password" class="mx-auto text-center" :value="__('كلمة المرور')" />
                 <x-input-with-icon-wrapper >

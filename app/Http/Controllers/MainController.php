@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Bussinse;
+use App\Models\Department;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -16,6 +17,11 @@ class MainController extends Controller
 
     public function index(Request $request)
     {
+
+
+        $d=Department::find(5);
+
+        
 
 
 

@@ -51,6 +51,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::view('/shop', 'shop')->name('shop');
+
 
 Route::get('/report/create',[RepotController::class,'create'])->name('report.create');
 
@@ -117,6 +119,7 @@ Route::get("/b/@{username}",[BussinseController::class,'show'])->name("b.show");
 
 Route::post("/uploade",[UploadeController::class,'store'])->name("uploade");
 Route::post("/delete.uploade",[UploadeController::class,'delete'])->name("delete.uploade");
+Route::get("/deleteg.uploade",[UploadeController::class,'delete'])->name("delete.uploadeg");
 
 
 

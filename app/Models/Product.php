@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Alexmg86\LaravelSubQuery\Traits\LaravelSubQueryTrait;
+use App\Http\Controllers\UploadeController;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,7 +72,7 @@ class Product extends Model
 
         $d=new Carbon($value,"Asia/Aden");
 
-        
+
         $days=now()->diffInDays($d);
 
 
@@ -260,5 +261,26 @@ class Product extends Model
     public function department(){
 
         return $this->belongsTo(Department::class);
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        Product::deleting(function($product) { // before delete() method call this
+
+            $product->orders->delete();
+            $product->ratings->delete();
+            $product->parts()->detach();
+           // $uploade=new UploadeController();
+         //   $uploade->delete_file($product->img);
+         //   $bussinse->chats()->delete();
+           // $bussinse->owne_product_orders()->delete();
+          // $bussinse->owne_service_orders()->delete();
+           // $bussinse->products()->delete();
+           // $bussinse->services()->delete();
+
+
+             // do the rest of the cleanup...
+        });
     }
 }

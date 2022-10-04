@@ -1,8 +1,8 @@
 <x-dashe-layout>
 
-    <div x-data="{step:1}"   class="md:max-w-4xl items-center p-4 mx-auto">
+    <div x-data="{step:1}"   class="items-center p-4 mx-auto md:max-w-4xl">
 
-        <form action="{{ route('product.update',$product) }}" method="POST" class="rounded-lg bg-white dark:bg-darker" >
+        <form action="{{ route('product.update',$product) }}" method="POST" class="bg-white rounded-lg dark:bg-darker" >
 
             @method('PUT')
             <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -18,7 +18,7 @@
 
                 </div>
 
-                <div  class=" space-y-4 text-center" x-show='step==1'>
+                <div  class="space-y-4 text-center " x-show='step==1'>
 
 
 
@@ -56,8 +56,8 @@
             </div>
 
 
-                <div  class=" " wire:ignore x-show="step==1">
-                    <div class="grid gap-6 mb-6 lg:grid-cols-3 p-4">
+                <div  class="" wire:ignore x-show="step==1">
+                    <div class="grid gap-6 p-4 mb-6 lg:grid-cols-3">
                         <div>
                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">اسم المنتج</label>
                             <input type="text" value="{{ $product->name }}"  name="name" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -66,12 +66,12 @@
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">السعر</label>
                             <input type="number" value="{{ $product->price }}" name="price"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
                         </div>
-                        <div class="flex space-x-2 justify-between">
+                        <div class="flex justify-between space-x-2">
 
                             <div>
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">سنة الصنع </label>
 
-                            <select  name="year_created" class="rounded-xl bg-white appearance-none dark:bg-darker text-darker dark:text-light" id="">
+                            <select  name="year_created" class="bg-white appearance-none rounded-xl dark:bg-darker text-darker dark:text-light" id="">
                                 @for($i =(int)(date('Y')); $i >1980; $i--)
                                 <option  @if (strval($product->year_created)==$i)
                                     selected
@@ -120,7 +120,7 @@
 
                     </div>
                     <div class="flex ">
-                        <div class="rounded-md flex flex-col w-1/4 border p-8 text-center  ">
+                        <div class="flex flex-col w-1/4 p-8 text-center border rounded-md ">
                             <div  wire:ignore>
                                 <x-label :value="__('صورة العرض الاساسية')" />
 
@@ -130,7 +130,7 @@
 
 
                         </div>
-                        <div wire:ignore class="px-2 w-3/4 text-center">
+                        <div wire:ignore class="w-3/4 px-2 text-center">
                         <x-label :value="__('صور اضافية للمنتج')" />
 
                         <div id="imgs">
@@ -154,8 +154,8 @@
                                 <x-label :value="__('تفاصيل المنتج ')" />
                                 @foreach ($product->note as $k=>$v)
                                 <div class="flex space-x-2">
-                                    <div class="w-1/4" ><input type="text" value="{{ $k }}" name="n_key[]" id="" class="w-full rounded-md text-info dark:text-light font-bold dark:bg-darker p-2" ></div>
-                                    <div class="w-3/4"><input type="text" value="{{ $v }}" name="n_value[]" id="" class="w-full  rounded-md dark:text-light dark:bg-darker p-2"></div>
+                                    <div class="w-1/4" ><input type="text" value="{{ $k }}" name="n_key[]" id="" class="w-full p-2 font-bold rounded-md text-info dark:text-light dark:bg-darker" ></div>
+                                    <div class="w-3/4"><input type="text" value="{{ $v }}" name="n_value[]" id="" class="w-full p-2 rounded-md dark:text-light dark:bg-darker"></div>
                                     </div>
 
                                 @endforeach
@@ -163,8 +163,8 @@
 
                                 <template x-for="i in note_count" >
                                     <div class="flex space-x-2">
-                                    <div class="w-1/4" ><input type="text" name="n_key[]" id="" class="w-full rounded-md dark:text-light text-info font-bold dark:bg-darker p-2" ></div>
-                                    <div class="w-3/4"><input type="text" name="n_value[]" id="" class="w-full  rounded-md dark:text-light dark:bg-darker p-2"></div>
+                                    <div class="w-1/4" ><input type="text" name="n_key[]" id="" class="w-full p-2 font-bold rounded-md dark:text-light text-info dark:bg-darker" ></div>
+                                    <div class="w-3/4"><input type="text" name="n_value[]" id="" class="w-full p-2 rounded-md dark:text-light dark:bg-darker"></div>
                                     </div>
 
 
@@ -210,7 +210,8 @@
                     {
                         url:"{{route('uploade')}}",
                         id:"imgs",
-                        w:850,h:850,
+                        w:1000,h:1000,
+                        mx_h:1000,mx_w:1000,
                          src:'@json( $product->imgs)',
                          multi:true,
 
@@ -221,7 +222,7 @@
                 </div>
 
     {{--
-                <div  class="flex w-1/2 mx-auto justify-between mt-4 ">
+                <div  class="flex justify-between w-1/2 mx-auto mt-4 ">
 
                     <x-button x-show="step<2" type="button" class="block" variant="success" @click="step=step+1; $wire.set('step',{{ $step+1 }})" >التالي </x-button>
 

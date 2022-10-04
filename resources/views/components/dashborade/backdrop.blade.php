@@ -1,8 +1,9 @@
-@props(['name'=>'default'])
+@props(['name'=>'default','content'=>''])
 <div x-data="{isPanelOpen{{$name}} : false}">
 
-<button class="m-8 mx-auto bg-primary" @click="isPanelOpen{{$name}}=true">Open The  </button>
-
+    <div  @click="isPanelOpen{{$name}}=true">
+{{ $button }}
+    </div>
 <div x-transition:enter="transition duration-300 ease-in-out" x-transition:enter-start="opacity-0"
 x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300 ease-in-out"
 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-show="isPanelOpen{{$name}}"
@@ -16,7 +17,7 @@ x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-ful
 tabindex="-1"
 x-show="isPanelOpen{{$name}}"
 @keydown.escape="isPanelOpen{{$name}} = false"
-class="fixed inset-y-0 right-0  z-20 w-full max-w-xs bg-white shadow-xl dark:bg-darker dark:text-light sm:max-w-md focus:outline-none"
+class="fixed inset-y-0 right-0 z-20 w-full max-w-xs bg-white shadow-xl dark:bg-darker dark:text-light sm:max-w-md focus:outline-none"
 aria-labelledby="settinsPanelLabel">
 <div class="absolute left-0 p-2 transform -translate-x-full">
     <!-- Close button -->
@@ -41,9 +42,21 @@ aria-labelledby="settinsPanelLabel">
                     d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
         </span>
-        <h2 id="settinsPanelLabel" class="text-xl font-medium text-gray-500 dark:text-light">Settings
+        <h2 id="settinsPanelLabel" class="text-xl font-medium text-gray-500 dark:text-light">
+            Settings
         </h2>
     </div>
+
+    <!-- Content -->
+    <x-perfect-scrollbar>
+    <div class="flex-1 pt-4 ">
+        <div class="space-y-4">
+
+    {{ $content }}
+        </div>
+    </div>
+</x-perfect-scrollbar>
+
     <!-- Content -->
     <div class="flex-1 overflow-hidden hover:overflow-y-auto">
         <!-- Theme -->
@@ -72,62 +85,7 @@ aria-labelledby="settinsPanelLabel">
             <div class="flex-1 pt-4 overflow-y-hidden hover:overflow-y-auto">
                 <!-- Action tab -->
                 <div class="space-y-4" x-show.transition.in="activeTabe == 'action'">
-                    <a href="#" class="block">
-                        <div class="flex px-4 space-x-4">
-                            <div class="relative flex-shrink-0">
-                                <span
-                                    class="z-10 inline-block p-2 overflow-visible rounded-full bg-primary-50 text-primary-light dark:bg-primary-darker">
-                                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                    </svg>
-                                </span>
-                                <div
-                                    class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
-                                </div>
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <h5 class="text-sm font-semibold text-gray-600 dark:text-light">
-                                    New project "KWD Dashboard" created
-                                </h5>
-                                <p
-                                    class="text-sm font-normal text-gray-400 truncate dark:text-primary-lighter">
-                                    Looks like there might be a new theme soon
-                                </p>
-                                <span class="text-sm font-normal text-gray-400 dark:text-primary-light"> 9h ago
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="block">
-                        <div class="flex px-4 space-x-4">
-                            <div class="relative flex-shrink-0">
-                                <span
-                                    class="inline-block p-2 overflow-visible rounded-full bg-primary-50 text-primary-light dark:bg-primary-darker">
-                                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                    </svg>
-                                </span>
-                                <div
-                                    class="absolute h-24 p-px -mt-3 -ml-px bg-primary-50 left-1/2 dark:bg-primary-darker">
-                                </div>
-                            </div>
-                            <div class="flex-1 overflow-hidden">
-                                <h5 class="text-sm font-semibold text-gray-600 dark:text-light">
-                                    KWD Dashboard v0.0.2 was released
-                                </h5>
-                                <p
-                                    class="text-sm font-normal text-gray-400 truncate dark:text-primary-lighter">
-                                    Successful new version was released
-                                </p>
-                                <span class="text-sm font-normal text-gray-400 dark:text-primary-light"> 2d ago
-                                </span>
-                            </div>
-                        </div>
-                    </a>
+
                     <template x-for="i in 20" x-key="i">
                         <a href="#" class="block">
                             <div class="flex px-4 space-x-4">

@@ -26,6 +26,15 @@ class Department extends Model
         return $this->hasMany(Product::class);
         # code...
     }
+
+    public function itemscount()
+    {
+        if($this->type==1)
+        return $this->products()->count();
+        else
+        return $this->services()->count();
+        # code...
+    }
     public function services()
     {
         # code...

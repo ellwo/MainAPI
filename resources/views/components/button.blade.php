@@ -29,6 +29,10 @@
         case 'goset':
         $variantClasses='bg-transparent  border-b border-dark dark:border-light';
         break;
+        case 'gosit':
+        $variantClasses='bg-transparent  hover:text-primary dark:hover:text-primary dark:text-light';
+        break;
+
         default:
             $variantClasses = 'bg-purple-500 text-white hover:bg-purple-600 focus:ring-purple-500';
     }

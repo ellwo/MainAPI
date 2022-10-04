@@ -89,11 +89,10 @@ file_put_contents(public_path().'/'.$path,base64_decode($img));
 
     public function delete_file($data_url)
     {
-
         $urldelete=$data_url;
+       // $urldelete=
         $urldelete= \Str::replaceFirst(config("app.url")."/storage", '', $urldelete);
         return $dele=Storage::disk("public")->delete($urldelete);
-
 
         # code...
     }
