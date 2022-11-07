@@ -79,6 +79,7 @@
 
 
 
+
 <a  v-on:click="getChatroomByid(item.id); sidebarState.isOpen=false">
 <div class="flex p-2 m-2 transition-transform duration-300 transform bg-white rounded shadow-md cursor-pointer dark:bg-primary-dark dark:text-light entry hover:scale-105">
     <div class="flex-2">
@@ -345,10 +346,8 @@
           <!-- here date by date group by--->
 
           <div
-            x-data="perfectScroll"
             id="messages_view"
             class="relative h-full"
-            @mousemove="update"
           >
             <div class="text-center">
               <button
@@ -807,6 +806,7 @@ import App from "../../components/App.vue";
 import ChatProfileVue from "./ChatProfile.vue";
 import { sidebarState } from "../../composables/companies.js";
 import { defineComponent, onMounted, onUpdated, reactive, ref } from "vue";
+import PerfectScrollbar from "perfect-scrollbar";
 
 export default defineComponent({
   props: {
@@ -851,6 +851,10 @@ export default defineComponent({
   },
 
   setup(props) {
+
+
+       var ps =null;
+       var container
     const {
       chatroom,
       getChatroom,
@@ -871,6 +875,7 @@ export default defineComponent({
     let prePage = ref(1);
     let chats=ref([])
     let chatroomid_ref = ref(props.chat_room_id);
+
     const form = reactive({
       content: "",
       chat_room_id: chatroomid_ref.value,
@@ -884,7 +889,10 @@ export default defineComponent({
     console.log("chattings " + props.chattings);
 
     console.log("userid " + props.userid);
-    Echo.private("chatroom." + props.chat_room_id).listen(
+
+
+
+    Echo.private("chatroom." + chatroomid_ref.value).listen(
       "MessageSent",
       (e) => {
         //if(e.sender!=props.chattings)
@@ -988,14 +996,31 @@ export default defineComponent({
       await getChatroom(data2).then(() => {
         chtroom.value = messages.value;
         louding.value = false;
+
+chatroomid_ref.value = id;
+
+      console.log("her then " + chatroomid_ref.value);
+
+
       });
-      chatroomid_ref.value = id;
-      console.log("befor chref " + chatroomid_ref.value);
+       console.log('ref is not all ')
+                    container = document.getElementById('messages_view');
+            ps = new PerfectScrollbar(container)
+
+ container.scrollTop=container.scrollHeight
+
+            container.addEventListener('ps-y-reach-start', (e) => {
+              //  loadmore();
+
+            });
+
+
       // console.log(messages)
     };
 
     onUpdated(() => {
       console.log("on updated  chat_room_id=" + props.chat_room_id);
+      console.log("on updated  chatroom_ref=" +chatroomid_ref.value);
     });
 
     const sendMessageForm = async () => {
@@ -1071,7 +1096,20 @@ export default defineComponent({
             sidebarState.isOpen=true;
                   console.log("id from mount" + props.chat_room_id);
 
+
+
+                }
+                else{
+                                        container = document.getElementById('messages_view');
+            ps = new PerfectScrollbar(container)
+
+                }
+
+        if(chatroomid_ref.value!='all'){
         }
+
+
+
 
 
         getChatrooms(dataforchatRooms).then(()=>{

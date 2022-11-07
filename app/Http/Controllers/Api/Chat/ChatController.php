@@ -135,6 +135,7 @@ class ChatController extends Controller
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
                 return Carbon::parse($date->created_at)->format('d/m/Y'); // grouping by months
                         });
+
                     }
 
 

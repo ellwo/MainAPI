@@ -9,7 +9,7 @@ type Query {
     user(id: ID @eq): User @find
     city:[City] @all
     departments:Department! @all
-    products:Product! @paginate(type: PAGINATOR)
+    products:[Product]! @paginate(type: PAGINATOR)
     productsSearch(name: String @where(operator: "like" )):[Product!]! @paginate
     productquery(city:Int typeG:Int perPage:Int page:Int! parts:[Int]):MainContact!
     me: User  @auth
@@ -195,9 +195,9 @@ type Product {
     department:Department! @belongsTo
     ratingsAvg:Float @method
     ratings_value_avg:Float
-    colors:String ! @method(name: "colorsasJson")
     note:String ! @method(name: "notes")
     img:String!
+    discrip:String
     imgs:[String]
     cities:[City] @belongsToMany
     parts:[Part] @belongsToMany

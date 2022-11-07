@@ -217,23 +217,23 @@ class Product extends Model
 
 
 
-    // public function notes(){
+    public function notes(){
 
-    //     return json_encode($this->note);
-    //     $data=[];
+        return json_encode($this->note);
+        $data=[];
 
-    //     foreach ($this->note as $k=>$v){
+        foreach ($this->note as $k=>$v){
 
-    //         $data[]=[
-    //             "__typename"=>"JsonType",
-    //             "k"=>$k,
-    //             "v"=>$v
-    //         ];
-    //     }
-    //     // $dta["data"]=$data;
-    //     return $data;
+            $data[]=[
+                "__typename"=>"JsonType",
+                "k"=>$k,
+                "v"=>$v
+            ];
+        }
+        // $dta["data"]=$data;
+        return $data;
 
-    // }
+    }
 
     // public function country()
     // {

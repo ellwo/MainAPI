@@ -1,6 +1,6 @@
 <x-dashe-layout>
                 <div class="border-2 rounded-lg px-8 py-4 mx-16 my-16 border-blue-900 shadow-sm">
-                    <form class="text-right" action="{{route('save_city')}}" method="POST"  enctype="multipart/form-data">
+                    <form class="text-right " action="{{route('save_city')}}" method="POST"  enctype="multipart/form-data">
                         @csrf
                         <div class="mb-6">
                           <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">اسم المدية</label>
